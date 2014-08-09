@@ -1,0 +1,845 @@
+PHP OOD (Object Oriented Design)
+
+03-27-2014
+
+设置编码		                header("Content-Type:text/html;charset=UTF-8");
+字符串去掉空格		            trim()
+字符串大写		                strtoupper()
+字符串小写	                	strtolower()
+行首大写	                	ucfirst()
+单词首大写	                	ucwords()
+字符串长度	                	strlen()
+字符串添加	                	str_pad(string,length,addStr(,STR_PAD_BOTH(LEFT)(RIGHT)))
+字符串倒写		                strrev()
+md5 加密	                	MD5()
+拆分字符串	                	explode(explode_sign,string)	// 输出 array
+合并数组		                implode(implode_sign,array)     // 输出 string
+详细输出变量		            var_dump()			            // 没有返回 false
+利用正则替换	            	preg_replace($preg,$replacement,$outputStr,$sequence(-1 -> all),$count);
+截取字符串		                substr(str,start[,length])
+查找字符串第一次出现        	strchr(str,search)		// 返回匹配点以后
+不区分大小写查找            	stristr(str,search)
+查找字符串最后出现          	strrchr(str,search)
+查找字符串位置	            	strpos(str,search)		// 从 0 开始
+不区分大小写查找            	stripos(str,search)
+从后面查找	                	strrpos(str,search)
+拆分字符串	                	strtok(str,sign)		// 返回字符，可循环输出，遇到0应选择 !== false
+字符串变变量            		parse_str(str)			// 也可解析字符串
+拆分字符串	                	chunk_split(str,eachNum(,sign))	// 返回字符串,空格隔开
+代码重用	                	include()/require()		// 前者没有继续执行，后者程序中止
+代码重用	                	include_once()/require_once()
+衔接变量	                	{$var}
+释放对象/变量/函数          	unset($var/$object/function())
+
+03-28-2014
+
+判断文件读取结束            	feof(var)
+打开文件	                	fopen(filename/url,option)		// 'r'只读,'r+'读写,'w'重写,'w+'读重写,'a'加入,'a+'读写加入
+每次获得一字符          		fgetc(str)
+每次读取一行	            	fgets(str)
+过滤 PHP 和 html            	fgetss(str,length,kepttag)
+关闭文件		                fclose(filename)
+允许 url fopen          		allow_url_fopen On/Off
+延迟程序执行	            	sleep(second)
+获得内容	                	file_get_contents(fileName/url)
+写入内容	                	file_put_contents(inputFile,inputStr)
+重定向(html)            		<meta http-equiv="refresh" content="0;url=http://">
+四舍五入取五	            	ceil()
+
+03-29-2014
+
+检查变量是否为空值          	empty(var)		            	// 空返回 True,否则返回 False
+修改 _POST	                	php.ini post_max_size
+修改 filesize	            	php.ini upload_max_filesize file_upload=on/off
+$_REQUEST		                                            	// 比 _GET _POST 慢
+php url						                                	// sample.php?uname=user&id=05
+传址方式	                	$bbs = &$houdun		        	// $bbs 作为一个指针,&
+定义常量                		define("VAR","value")	        // 保存不变,不可改,string,int,float,boolean
+函数外的变量对函数无作用
+
+常量:
+PI	                    		M_PI
+PHP 版本                		PHP_VERSION
+操作系统                		PHP_OS
+返回当前行	                	__LINE__
+返回当前文件路径            	__FILE__
+返回函数名	                	__FUNTION__
+返回类		                	__CLASS__
+返回方法                		__METHOD__
+
+检测变量类型	            	var_dump(var)                   // return the data type and value of valuables
+检测变量是否存在            	isset(var) / defined(var)   	// 存在返回 ture,否则返回 false,空白也是 false
+换页		                	\f				                // 效果相当于 $ clear
+回车		                	\r				                // 由编译器决定显示效果
+水平制表符	                	\t				                // Tab 键的作用
+垂直制表符	                	\v			                	// 在下一行输出,行首为上行行尾
+正常显示变量            		{$var}
+定界符		                	$var = <<<head string head;		// 可以定义 string,不需要转义,结尾不许任何空白
+字符串'0'为false            	if('0') echo 'flase';
+对象，属性，方法	                            				// 类中有属性，方法，类外有实例化对象
+
+03-30-2014
+
+获取变量类型	            	gettype(var,constant)	    	// 返回 integer,doboule,float,string,array,boolean
+判断是否整型	            	is_int(var)
+是否浮点型	                	is_float(var)
+是否数组	                	is_array(var)
+是否对象	                	is_object(var)
+是否空值	                	is_null(var)
+是否资源	                	is_resource(var)
+是否字符串	                	is_string(var)
+强制转换 string	            	$str = (stirng)$var;		// 转换从头开始,遇到不符合终止
+转换 int	                	$int = (int)$var;
+转换 float	                	$float = (float)$var;
+转换 array	                	$arr = (array)$var;
+直接设置类型            		settype($var,'type')		// type = int,float,string,array,double
+
+具体转换函数:						                        // 只针对标量,int,float,string,不能 array 等
+转换 int	                	$b = intval($a);
+转换 float	                	$b = floatval($a);
+转换 string	                	$b = strval($a);
+不等于		                	<>/!=
+不全等于	                	!==
+加上类型比较	            	===
+只比较值	                	==				    // 2=='2' true
+逻辑异或	                	xor			    	// 两值不同为 true,否则 false
+十进制转二进制	            	$b=decbin($num);
+任意进制转换	            	$b=base_convert($b,frombase,tobase);
+位运算符		                &			    	//
+追加		                    .=			    	// 3 .= 2 32
+读取文件	                    $content = fread(fileopen(filename,"r"),filesize(filename));
+三元表达式	                    a>b?a:b
+按位与/或	                	& / |				// 两边都进行运算,不存在短路
+逻辑与/或                   	&& / || 			// 第一个为假,第二个不执行,存在短路
+逻辑或	                    	or die				// 整个脚本不执行(慎重)
+循环结束                    	break
+跳出本轮循环(不结束)        	continue			// continue 2 直接跳到前级循环,默认1跳出本级循环
+
+<?php
+$i=0;
+$j=0;
+while ($i++<5) {
+	if (++$j==2) { 
+		continue;
+	}
+	echo '$i='.$i.'<br>';
+}
+?>
+
+03-31-2014
+
+检查函数是否存在                    	function_exists(function_name)
+
+04-01-2014
+
+全局变量                        		global $var			// 所有对函数调用中共享
+函数中接收一个数组                  	func_get_args()
+统计所有参数总数                    	func_num_args()
+打印特定参数                    		func_get_arg(oid)
+打印日期                    			date("Y-m-d")
+阶乘大概有 if 没 for
+可以在函数体内定义函数
+统计数组参数                    		count($arr)
+正则表达式匹配                  		preg_match(preg,$str,$output_as_array)
+加/s						                            	// . 匹配包括换行符,本来只匹配除换行符的任意字符
+Reg 匹配多个条件	                    |
+原子组				                    ()()()
+匹配原子组函数		                    preg_match_all()
+控制上面输出列		                    preg_set_order			// 作为 option 存在
+原子组代表前面		                    \1			        	// "" 需要 \\1
+
+05-14-2014
+
+密码加密                                md5(md5(password)+salt)
+
+05-16-2014
+
+=================== function 参数 ==================
+
+// 在不指定实际参数的情况下, $name 的值就取为 "Tina"。如果有多个参数时, 有默认值的参数必须在无默认值参数的右侧, 下面这个代码是错的: 
+
+function myfunction($name1= "Tina", $name2) {
+  echo "$name1 and $name2 are friends";
+  return true;
+}
+
+Correct Function: 
+
+function myfunction($name2, $name2 = "Tina") {
+  // statement
+}
+
+====================================================
+
+05-17-2014
+
+===================== 可变函数 ======================
+
+function f($name) {
+  echo "My name is ".$name;
+}
+
+$functionName = "f";
+$functionName($name);       // 等同于 f($name)
+
+=====================================================
+
+==================== 引用 ===========================
+
+/* 引用是什么
+ * 在 PHP 中引用意味着用不同的名字访问同一个变量内容。这并不像 C 的指针，替代的是，引用是符号表别名。注意在 PHP 中，变量名和变量内容是不一样的，因此同样的内容可以有不同的名字。最接近的比喻是 Unix 的文件名和文件本身——变量名是目录条目，而变量内容则是文件本身。引用可以被看作是 Unix 文件系统中的 hardlink。
+ */
+
+// PHP 的引用允许用两个变量来指向同一个内容。意思是, 当这样做时:
+
+<?php
+$a = & $b;
+?>
+
+// 这意味着 $a 和 $b 指向了同一个变量, 你也可以理解为指针, 但上面又说这不是指针。
+
+
+=====================================================
+
+声明新类                                    $c = new stdClass
+查看类是否拥有属性                          property_exists($c, 'd')        // $c->d
+解决重复引用问题                            require_onece("class.php")  include_once("class.php")
+
+====================== require 和 include 区别 ====================
+
+// require 不管用不用得到文件都会引用, include 只有在运行到该地方才会引用文件。require 文件不存在代码将返回错误并停止运行, include 文件不存在将会返回一个警告但代码继续进行。因此, require 看上去比 include 要严格一些。
+
+===================================================================
+
+05-18-2014
+
+// superglobals  全局变量
+
+定义全局变量 (使得在函数外部任何访问)       $GLOBALS['z']  echo $z
+
+// $_SERVER is a PHP super global variable which holds information about headers, paths, and script locations.  http://www.w3schools.com/PHP/php_superglobals.asp
+
+移除反斜杠                                  stripslashes($str)
+在预定义字符前加上反斜杠 (防止处理数据出错) addslashes($str)
+返回 ASCII 变量对应的字符                   chr(0x34 / 046);
+
+// ASCII "43"=>"+" "61"=>"="
+echo 忽略 html 标签                         htmlspecialchars($str)
+
+================== 数据传输处理 ==============
+
+function test_input($data) {
+   $data = trim($data);
+   $data = stripslashes($data);
+   $data = htmlspecialchars($data);
+   return $data;
+}
+
+==============================================
+
+// The $_SERVER["PHP_SELF"] is a super global varialbe that returns the filename of the currently executing script.
+
+=================== $_SERVER["PHP_SELF"] ================
+
+// action 向当前页面
+
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+
+=========================================================
+
+========== PHP错误信息(errors)的屏蔽和显示-设置PHP.ini =======
+
+在PHP程序运行过程中如果有错误发生，在浏览器上是否显示错误信息，以及显示错误信息的级别是我们在程序开发、调试、运营过程中需要控制的。
+下面就通过设置php.ini，控制PHP错误信息(errors)的屏蔽和显示作如下说明：
+1、错误信息是否显示
+     显示错误 display_errors = On
+     屏蔽错误 display_errors = Off (缺省值)
+2、显示错误信息的级别
+     error_reporting = E_ALL (全部)
+     error_reporting = E_ALL & ~E_NOTICE (Notice 以上的错误会显示)
+     在这里我们一般设置为E_ALL，在PHP程序中利用error_reporting()函数来设置当前程序的错误信息级别。
+3、设置是否保存错误日志
+     在程序运营过程中我们一般设置为不显示错误，这样可以通过保存错误日志来记录运行状态
+    log_errors = On (记录错误日志)
+    log_errors = Off (不记录)
+    如果保存错误日志的话，需要同时设置错误日志保存文件
+    error_log = e:/php/logs/php_error.log
+
+===============================================================
+
+====================== PHP isU ====================
+
+i: 表示in-casesensitive，即大小写不敏感
+s: PCRE_DOTALL，表示点号可以匹配换行符。
+U: 表示PCRE_UNGREEDY，表示非贪婪，相当于perl/python语言的.*?，在匹配过程中，对于.*正则，一有匹配立即执行，而不是等.*消费了所有字符再一一回退。
+
+===================================================
+
+匹配邮箱                                        /[\w\_]+\.?[\w\_]*\@[\w\_]+\.?[\w\_]+\.?[\w\_]*/s
+匹配 URL                                        /\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i
+多维数组                                        $cars = array
+                                                  (
+                                                  array("Volvo",22,18),
+                                                  array("BMW",15,13),
+                                                  array("Saab",5,2),
+                                                  array("Land Rover",17,15)
+                                                  );
+获得本机时间                                    echo "Today is ".date("Y/m/d")."<br>";
+                                                echo "Today is ".date("Y.m.d")."<br>";
+                                                echo "Today is ".date("Y-m-d")."<br>";
+                                                echo "Today is ".date("l");     // weekname
+                                                echo "Today is ".date("M");     // monthname
+                                                echo "The time is ".date("h:i:sa");
+
+/** h - 12-hour format of an hour with leading zeros (01 to 12)
+  * i - Minutes with leading zeros (00 to 59)
+  * s - Seconds with leading zeros (00 to 59)
+  * a - Lowercase Ante meridiem and Post meridiem (am or pm)
+  */
+
+设置时区                                        date_default_timezone_set("Amarica/New_York");
+设置时间                                        $d = mktime(hour,minute,second,month,day,year)
+时间格式                                        date(format,timestamp)
+把英文文本时间数据类型转换为 UNIX 时间戳        strtotime(time[, timestamp(default now)]);   // the number of seconds since Janauary 1 1970 00:00:00 GMT
+
+========================= strtotime ========================
+
+$startdate=strtotime("Saturday");
+$enddate=strtotime("+6 weeks",$startdate);
+
+while ($startdate <  $enddate) {
+   echo date("M d", $startdate),"<br>";
+   $startdate = strtotime("+1 week", $startdate);
+}
+
+============================================================
+
+打开文件并将之写入缓冲区                        readfile("webdictionary.txt");
+解决 mcrypt 缺失                                $ sudo apt-get install php5-mcrypt
+fopen 用法                                      $file = fopen("test.txt","r");
+                                                $file = fopen("/home/test/test.txt","r");
+                                                $file = fopen("/home/test/test.gif","wb");
+                                                $file = fopen("http://www.example.com/","r");
+                                                $file = fopen("ftp://user:password@example.com/test.txt","w");
+
+================ fopen(filename, model) ===================
+
+"r"	只读方式打开，将文件指针指向文件头。
+"r+"	读写方式打开，将文件指针指向文件头。
+"w"	写入方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。
+"w+"	读写方式打开，将文件指针指向文件头并将文件大小截为零。如果文件不存在则尝试创建之。
+"a"	写入方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+"a+"	读写方式打开，将文件指针指向文件末尾。如果文件不存在则尝试创建之。
+"x"	
+创建并以写入方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建之。
+这和给底层的 open(2) 系统调用指定 O_EXCL|O_CREAT 标记是等价的。
+此选项被 PHP 4.3.2 以及以后的版本所支持，仅能用于本地文件。
+"x+"	
+创建并以读写方式打开，将文件指针指向文件头。如果文件已存在，则 fopen() 调用失败并返回 FALSE，并生成一条 E_WARNING 级别的错误信息。如果文件不存在则尝试创建之。
+这和给底层的 open(2) 系统调用指定 O_EXCL|O_CREAT 标记是等价的。
+此选项被 PHP 4.3.2 以及以后的版本所支持，仅能用于本地文件。
+
+===========================================================
+
+打开文件写入接上 fopen                          fwrite($opnefile, $writeinstring[, $length]);
+返回路径中的文件名部分                          basename(path,suffix)
+
+===================== basename(path, suffix) ======================
+
+$path = "/testweb/home.php";
+
+//显示带有文件扩展名的文件名
+echo basename($path);
+
+//显示不带有文件扩展名的文件名
+echo basename($path,".php");
+
+===================================================================
+
+===================== file_get_contents =====================
+
+file_get_contents(path,include_path,context,start,max_length)
+
+path	            必需。规定要读取的文件。
+include_path	    可选。如果也想在 include_path 中搜寻文件的话，可以将该参数设为 "1"。
+context	            可选。规定文件句柄的环境。
+                    context 是一套可以修改流的行为的选项。若使用 null，则忽略。
+start	            可选。规定在文件中开始读取的位置。该参数是 PHP 5.1 新加的。
+max_length	        可选。规定读取的字节数。该参数是 PHP 5.1 新加的。
+
+=============================================================
+
+读取文件                                fread(file, length)     // fread("test.txt", "10");  读取十个字节
+
+// 要想用到 fread 读取最好用 "r" 模式因为指向文件头, 或者可以用 file_get_contents
+
+读取返回一行                            fgets(file,length)
+返回单个字符                            fgetc(file)     // 用法和 fgets() 类似
+查看是否已经读完文件                    feof(file)
+
+=================== fgets & feof ====================
+
+$file = fopen("test.txt", "r");
+
+//Output a line of the file until the end is reached
+while(! feof($file))
+  {
+  echo fgets($file). "<br />";
+  }
+
+fclose($file);
+
+=====================================================
+
+读取文件返回以 "\n" 分开的数组          print_r(file(filename));
+判断文件/目录是否存在                   file_exists()
+返回文件路径                            dirname()
+根据相对路径返回绝对路径                realpath()
+返回包含路径名,文件名,扩展名等信息数组  pathinfo()          // 返回一个数组
+获取文件类型 (dir,file etc.)            filetype()
+判断是否路径                            is_dir()
+判断是否文件                            is_file()
+判断能否通过 POST 上传文件              is_uploaded_file()
+获取最近的访问时间                      fileatime()
+获取最近 inode 的修改时间(创建时间)     filectime()
+获取最近的修改时间                      filemtime()
+修改文件最近访问时间和修改时间          touch()
+判断是否可执行                          is_executable()
+判断是否可读                            is_readable()
+判断是否可写                            is_writeable()
+返回权限的数值表示                      fileperms()
+清理缓存                                clearstatcache()
+截去文件根据特定长度                    ftruncate($handle, $size)
+
+05-19-2014
+
+把格式化的字符写入一个变量中                    sprintf(format, arg1, arg2, arg++)
+
+=============== sprintf() ==================
+
+参数 format 是转换的格式，以百分比符号 ("%") 开始到转换字符结束。下面的可能的 format 值：
+
+%% - 返回百分比符号
+%b - 二进制数
+%c - 依照 ASCII 值的字符
+%d - 带符号十进制数
+%e - 可续计数法（比如 1.5e+3）
+%u - 无符号十进制数
+%f - 浮点数(local settings aware)
+%F - 浮点数(not local settings aware)
+%o - 八进制数
+%s - 字符串
+%x - 十六进制数（小写字母）
+%X - 十六进制数（大写字母）
+
+arg1, arg2, ++ 等参数将插入到主字符串中的百分号 (%) 符号处。该函数是逐步执行的。在第一个 % 符号中，插入 arg1，在第二个 % 符号处，插入 arg2，依此类推。
+
+echo substr(sprintf("%o",fileperms('index.txt')),-4);       // 将十进制权限转为八进制的在从倒数第四位取, UNIX 直观权限
+
+============================================
+
+删除文件                                    unlink(filename[,context]);
+打开一个目录                                opendir(path[, context]);
+读取一个目录的内容                          readdir(dir_handle);
+关闭一个目录                                closedir(dir_handle);
+
+
+================= ls_files() ===================
+
+// 获取当前文件目录下所有文件名称
+
+function ls_files() {
+  $path=__FILE__;
+  echo $path."\n<br>";
+  $path=substr($path,0,strrpos($path, "/")+1); / strrchr($path, "/")
+  $arr = array();
+
+  if(is_dir($path)) {
+    if ($dh = opendir($path)) {
+      while (($file = readdir($dh))!==false) {
+        if(is_dir($file)) {
+          $file = $file."/";
+        }
+        array_push($arr, $file);
+      }
+    }
+  }
+  sort($arr);
+  $arr = array_slice($arr, 2);
+  foreach ($arr as $key => $value) {
+    echo $value."<br>";
+  }
+}
+
+===============================================
+
+重命名目录                                  rename("olddirname", "newdirname");
+删除目录                                    rmdir("dirname");
+按字母重新排列数组并重新分配键值            sort($arr);
+按字母倒序排列数组并重新分配键值            rsort($arr);
+保持索引关系按字母排序                      asort($arr);
+保持索引关系按字母倒序                      arsort($arr);
+对数组按照键名逆向排序                      krsort($arr);
+对数组按照键名排序                          ksort($arr);
+返回数组所有值                              arr_values($arr);
+获得数组长度                                count($arr);
+将原数组中的元素顺序翻转并返回              array_reverse($arr[, preserve]);        // preserve 为 true 或 false 规定是否保存键名
+在数组搜索给定的值成功则返回键名            array_search(value, array[, strict]);   // strict 为 true 或 false
+在数组根据条件取出一段并返回                array_slice(array, offset[, length, preserve]);
+查找字符串最后出现位置返回自此所有字符      strrchr(string, char)                   // char 是可以 ASCII 字符的
+查找字符串第一次出现位置返回自此所有字符    strchr(string, char);
+返回字符串在另字符串第一次出现位置          strpos(string,find[,start]);
+异常处理                                    http://www.w3school.com.cn/php/php_exception.asp
+当前面的函数允许出错终止并输出提示          or die();
+返回数组第一个元素                          current($arr);
+返回数组最后一个元素                        end($arr);
+获取当前目录名                              dirname(__FILE__);
+四舍五入保留两位小数                        round(10.236,2);
+四舍五入保留小数                            sprintf("%.2f",$number);
+检查是否按下 submit                         isset($_REQUEST['submit']);
+设置 Cookie                                 setcookie(name, value, expire, path, domain);
+查看是否已存有某 Cookie                     isset($_COOKIE["user"]);
+删除 Cookie                                 setcookie("user", "", time()-3600);     // 和 document.cookie 同理
+
+========================= cookie ===========================
+
+setcookie("user", "Alex Porter", time()+1*60*1000);
+echo $_COOKIE["user"];
+setcookie("user", "", time()-1000);
+
+============================================================
+
+开始 PHP Session 必须位于 <html 之前        <?php session_start(); ?><html></html>
+存取 Session 变量                           $_SESSION["view"];
+查看是否已设置 view                         isset($_SESSION["view"]);
+终结 Session                                unset($_SESSION["view"]);  |  session_destroy();    // 将会重置 session, 失去所有已存储的 session 值
+php mail() 发送邮件                         mail(to ,subject, message[, headers, parameters]);
+
+================= 反馈表单 mail ==================
+
+if (isset($_REQUEST['email']))
+//if "email" is filled out, send email
+  {
+  //send email
+  $email = $_REQUEST['email'] ; 
+  $subject = $_REQUEST['subject'] ;
+  $message = $_REQUEST['message'] ;
+  mail( "someone@example.com", "Subject: $subject",
+  $message, "From: $email" );
+  echo "Thank you for using our mail form";
+  }
+else
+//if "email" is not filled out, display the form
+  {
+  echo "<form method='post' action='mailform.php'>
+  Email: <input name='email' type='text' /><br />
+  Subject: <input name='subject' type='text' /><br />
+  Message:<br />
+  <textarea name='message' rows='15' cols='40'>
+  </textarea><br />
+  <input type='submit' />
+  </form>";
+  }
+
+==================================================
+
+通过指定过滤器对变量进行过滤                    filter_var(variable,[ filter, options]);        // filter 默认为 FILTER_SANITIZE_STRING
+邮件地址消毒                                    $field=filter_var($field, FILTER_SANITIZE_EMAIL);
+邮件地址验证                                    filter_var($field, FILTER_VALIDATE_EMAIL);
+
+// Filter  http://www.w3school.com.cn/php/php_ref_filter.asp
+
+创建一个导向数据库的连接                        mysql_connect(servername/host, username, password);
+旧的执行一条 MySQL 语句                         mysql_query(query,connection);
+
+
+================ mysql_server 连接失败 ===================
+
+$con = mysql_connect("localhost","peter","abc123");
+if (!$con) {
+  die('Could not connect: ' . mysql_error());
+}
+
+==========================================================
+
+升级版打开对数据库的连接                        mysqli_connect(host,username,password[,dbname]);
+对应升级版 mysqli 出错                          mysqli_errno();
+对应升级版 mysqli 关闭数据库                    mysqli_close($handle);      // 脚本一结束就会关闭连接。如需提前关闭连接可使用 mysqli_close()
+
+================== mysqli_connect & mysqli_errno & mysqli_close ==============
+
+$con=mysqli_connect("localhost","wrong_user","my_password","my_db");
+
+// Check connection
+
+if (mysqli_connect_errno() / !$con) {
+  die("Connection error: ".mysqli_connect_errno());
+}
+
+msyqli_close($con);
+
+==============================================================================
+
+执行一条 MySQL 语句                             mysqli_query(connection, query[, resultmode]);      // resultmode: Optional. A constant. Either: MYSQLI_USE_RESULT (Use this if we have to retrieve large amount of data); MYSQLI_STORE_RESULT (This is default)
+
+==================== 综合语句 创建数据库 =================
+
+$con=mysqli_connect("localhost","my_user","my_password","my_db");
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+
+// Perform queries 
+mysqli_query($con,"SELECT * FROM Persons");
+mysqli_query($con,"INSERT INTO Persons (FirstName,LastName,Age) 
+VALUES ('Glenn','Quagmire',33)");
+
+mysqli_close($con);
+
+===============================================
+
+新的改变原来连接已选的数据库                        mysqli_select_db(connection, dbname);
+
+===================== mysqli_select_db ================
+
+$con=mysqli_connect("localhost","my_user","my_password","my_db");
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+
+// ...some PHP code for database "my_db"...
+
+// Change database to "test"
+mysqli_select_db($con,"test");
+
+// ...some PHP code for database "test"...
+
+mysqli_close($con);
+
+=======================================================
+
+移除 SQL 语句中的特殊字符为了安全防止注入           mysqli_real_escape_string(connection,escapestring);
+
+// 特殊字符为 NULL(ASCII 0), \n, \r, \, ', ", 和 Control-Z   mysqli::real_escape_string
+
+================== mysqli_real_escape_string ==============
+
+$con=mysqli_connect("example.com","peter","abc123","my_db");
+// Check connection
+if (mysqli_connect_errno()) {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+}
+
+// escape variables for security
+$firstname = mysqli_real_escape_string($con, $_POST['firstname']);
+$lastname = mysqli_real_escape_string($con, $_POST['lastname']);
+$age = mysqli_real_escape_string($con, $_POST['age']);
+
+$sql="INSERT INTO Persons (FirstName, LastName, Age)
+VALUES ('$firstname', '$lastname', '$age')";
+
+if (!mysqli_query($con,$sql)) {
+  die('Error: ' . mysqli_error($con));
+}
+echo "1 record added";
+
+mysqli_close($con);
+
+===========================================================
+
+格式化变量		                                    printf(format,arg1,arg2,arg++);
+
+=============== printf =================
+
+Possible format values:
+
+%% - Returns a percent sign
+%b - Binary number
+%c - The character according to the ASCII value
+%d - Signed decimal number (negative, zero or positive)
+%e - Scientific notation using a lowercase (e.g. 1.2e+2)
+%E - Scientific notation using a uppercase (e.g. 1.2E+2)
+%u - Unsigned decimal number (equal to or greather than zero)
+%f - Floating-point number (local settings aware)
+%F - Floating-point number (not local settings aware)
+%g - shorter of %e and %f
+%G - shorter of %E and %f
+%o - Octal number
+%s - String
+%x - Hexadecimal number (lowercase letters)
+%X - Hexadecimal number (uppercase letters)
+Additional format values. These are placed between the % and the letter (example %.2f):
+
++ (Forces both + and - in front of numbers. By default, only negative numbers are marked)
+' (Specifies what to use as padding. Default is space. Must be used together with the width specifier. Example: %'x20s (this uses "x" as padding)
+- (Left-justifies the variable value)
+[0-9] (Specifies the minimum width held of to the variable value)
+.[0-9] (Specifies the number of decimal digits or maximum string length)
+
+=========================================
+
+返回数组的数字索引                                  mysqli_fetch_row(result);
+返回数组的数字索引                                  mysqli_fetch_array(result, MYSQLI_NUM);
+返回数组的数字索引和关联索引                        mysqli_fetch_row(result, MYSQLI_ASSOC);
+返回数组的关联索引                                  mysqli_fetch_assoc(result);
+返回数组的数字索引                                  mysqli_fetch_array(result, MYSQLI_NUM);
+返回数组的数字索引和关联索引                        mysqli_fetch_array(result,resulttype);
+MySQL 语句出错                                      mysqli_error($con);
+
+===================== mysqli_fetch_array ====================
+
+$con = mysqli_connect("localhost", "root", "abcd0759", "youngdze");
+
+if(mysqli_connect_errno()) {
+  printf("Failed to connect to MySQL: %s", mysqli_connect_error());
+} else {
+  $sql = "select * from pra";
+  $result = mysqli_query($con, $sql);
+  if(!$result) {
+    echo "Failed to execute select statement: ".mysqli_error($con);
+  } else {
+    while ($row=mysqli_fetch_array($result)) {
+      echo "Name: ".$row["FirstName"]." ".$row["LastName"]." City: ".$row["City"]."<br>";
+    }
+  }
+}
+
+mysqli_close($con);
+
+=============================================================
+
+创建 XML 解析器并返回 XML 函数可用资源句柄          xml_parser_create(encoding(UTF-8));
+创建带有命名空间支持的 XML 解析器                   xml_parser_create_ns(encoding, separator);
+释放 XML 解析器                                     xml_parser_free($xmlparser);
+获取 XML 解析器错误描述                             xml_error_string(xml_get_error_code($xmlparser));
+获取 XML 解析器错误代码                             xml_get_error_code($xmlparser);
+字符变小写                                          strtolower(string);
+添加入数组                                          array_push(array, value1, value2, ...);
+
+05-21-2014
+
+替换字符串                                          str_replace(find, replace, string, count);      // count 可用 $i, 之后输出得知替换了多少次
+新建一个 DOMDocument() 处理 DOM                     $xml = new DOMDocumet();
+加载 xml 文件                                       $xml->load(url);
+获取 Tag 节点                                       $xml->getElementsByTagName(tagName);
+选择指定 index 的 node 在 node list                 nodelist->item(index);
+获取 nodeType, nodeName, nodeValue                  node->nodeValue/nodeType/nodeName;
+获得属性的值                                        $title->item(index)->getAttributeNode("idName")->nodeValue
+
+========================= 循环遍历处理 xml =========================
+
+foreach($postDom as $post){    
+    // 获取Title标签Node    
+    $title = $post->getElementsByTagName("title");    
+   
+    /**   
+      * 要获取Title标签的Id属性要分两部走   
+      * 1. 获取title中所有属性的列表也就是$title->item(0)->attributes
+      * 2. 获取title中id的属性，因为其在第一位所以用item(0)   
+      *   
+      * 小提示：   
+      * 若取属性的值可以用item(*)->nodeValue   
+      * 若取属性的标签可以用item(*)->nodeName   
+      * 若取属性的类型可以用item(*)->nodeType   
+      */   
+    echo "Id: " . $title->item(0)->attributes->item(0)->nodeValue . "<br />";    
+    echo "Title: " . $title->item(0)->nodeValue . "<br />";    
+    echo "Details: " . $post->getElementsByTagName("details")->item(0)->nodeValue . "<br /><br />";    
+
+================================================================
+
+// 生成一个 XML 文件
+
+声明 xml 版本和编码                                 $doc = new DOMDocument("1.0", "utf-8");
+格式化 XML 输出                                     $doc -> formatOutput = true;
+创建一个标签                                        $root = $doc -> createElement("root");
+创建一个子类标签                                    $index = $doc -> createElement("index");
+创建一个属性                                        $id = $doc -> createAttribute("id");
+设置属性内容                                        $newsid = $doc -> createTextNode("1");
+设置标签内容                                        $newsco = $doc -> createTextNode("content");
+继承属性内容                                        $id -> appendChild($newsid);
+继承属性                                            $index -> appedend($id);
+继承标签内容                                        $index -> appendChild($newsco);
+继承子类                                            $root -> appendChild($index);
+全部加入 DOM                                        $doc -> appendChild($root);
+生成保存为 XML                                      $doc -> save("/path/to/xmlName.xml");
+删除节点                                            $doc -> removeChild();
+
+05-22-2014
+
+查看是否数组                                        is_array($arrName);
+可变变量(两个 $ )                                   $a = "hello"; $$a = $hello;
+静态变量                        		            static $var = 0;			// 静态变量仅在函数域中存在(函数内部), 函数执行完之后, 变量值不会丢失, 可用于递归调用
+全局变量                                            global $obj;
+
+// 在函数体内定义的 global 变量, 函数体外可以使用, 在函数体外定义的 global 变量不能在函数体内使用, 在全局范围内访问变量可以用特殊的 PHP 自定义 $GLOBALS 数组: 如: $GLOBALS["b"] = $GLOBALS["a"] + $GLOBALS["b"];
+
+传地址赋值(简单引用)                                $bar = &$foo;               // 改动新变量将影响到原始变量, 这种赋值操作更加快速
+由 Web 服务器设定或直接域当前脚本的执行环境相关     $_SERVER
+直接输出                                            php://output
+
+========================= XMLWriter 类 ===========================
+
+// 本类被用来创建 XML 文档, 在创建标签是都应该关闭
+
+创建 XMLWriter 类                                   $xml = new XMLWriter();
+定义输出形式                                        $xml->openURI(uri);     // 'php://output'
+设置缩进字符串                                      $xml->setIndentString('  ');
+允许缩进                                            $xml->setIndent(true/false);
+创建文档标签(头)                                    $xml->startDocument('1.0', 'utf-8');
+结束文档标签 (放最后面)                             $xml->endDocument();
+创建 DTD 标签(声明)                                 $xml->startDTD(qualifiedName[,publicId, systemId]);
+
+// $xml->startDTD('html', '-//W3C//DTD XHTML 1.0 Strict//EN','http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+
+结束当前的 DTD 定义                                 $xml->endDTD();
+创建一个元素节点开始标签                            $xml->startElement('html');     // 允许在该元素内再创建元素节点, 但记得关闭标签
+关闭元素节点                                        $xml->endElement();
+创建一个属性节点 (前面必须有元素节点开始)           $xml->writeAttribute('xml:lang', 'en');
+创建一个文本节点 (前面必须有元素节点开始)           $xml->text('This is text');
+刷新当前的缓存 (flush current buffer)               $xml->flush();
+
+-------------------------------------------------------------------------------
+
+//实例化对象并设置对齐选项
+$xml = new XMLWriter();
+$xml->openURI('php://output');
+$xml->setIndentString('  ');
+$xml->setIndent(true);
+//开始创建文档并设置DTD
+$xml->startDocument('1.0', 'UTF-8');
+$xml->startDtd('html', '-//W3C//DTD XHTML 1.0 Strict//EN', 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd');
+$xml->endDtd();
+//创建HTML文档
+$xml->startElement('html');
+$xml->writeAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
+$xml->writeAttribute('xml:lang', 'en');
+$xml->writeAttribute('lang', 'en');
+$xml->startElement('head');
+$xml->writeElement('title', 'An example XHTML document.');
+$xml->endElement();
+$xml->startElement('body');
+$xml->writeElement('p', 'Hello, World!');
+$xml->startElement('p');
+$xml->text('This paragraph contains an inline ');
+$xml->startElement('a');
+$xml->writeAttribute('href', 'http://www.example.org');
+$xml->text('link.');
+$xml->endElement(); //a
+$xml->endElement(); //p
+$xml->endElement(); //body
+$xml->endElement(); //html
+$xml->endDocument();
+$xml->flush();
+
+==================================================================
+
+
+05-23-2014
+
+fwrite 的别名                                               fputs($handle, $string[, $length]);
+

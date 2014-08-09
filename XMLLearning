@@ -1,0 +1,200 @@
+XML Learning
+
+04-13-2014
+
+声明                        <?xml version="1.0" encoding="UTF-8"?>         // UTF-8 = Latin-1/西欧字符集
+属性                        category
+lang 放入 html 文档         <html xml:lang="en"></html>
+                            <p xml:lang="zh-CN"></p>
+语言                        lang
+
+// 属性值全自定义，如 <person gender="female></person>
+
+包含完全相同的信息
+
+NO.1
+<note date="08/08/2008">
+    <to>George</to>
+    <from>John</from>
+    <heading>Reminder</heading>
+    <body>Don't forget the meeting!</body>
+</note>
+
+NO.2
+<note>
+    <date>08/08/2008</date>
+    <to>George</to>
+    <from>John</from>
+    <heading>Reminder</heading>
+    <body>Don't forget the meeting!</body>
+</note>
+
+NO.3(recommended)
+<note>
+    <date>
+        <day>08</day>
+        <month>08</month>
+        <year>2008</year>
+    </date>
+    <to>George</to>
+    <from>John</from>
+    <heading>Reminder</heading>
+    <body>Don't forget the meeting!</body>
+</note>
+
+// Recommend: use essentials to describe datas.
+
+ID 作为标识 XML 元素    <note id="501"></note><note id="502"></note>
+
+实体引用 <              &lt;                        // less than
+实体引用 >              &gt;                        // greater than
+实体引用 '              &apos;                      // apostrophe
+实体引用 "              &quot;                      // quote
+注释                    <!-- This is a comment -->
+
+// XML 文档中空格不会被删节
+
+Window app 换行         CR,LF
+Unix app 换行           LF
+Macintosh 换行          CR
+
+// 元素可包含其他元素、文本或两者混合物，可以拥有属性
+
+定义 XML 文档结构       DTD
+W3C 支持的 DTD 代替者   XML Schema
+根据 DTD 验证 XML (Internet Explorer Only)
+
+<?xml version="1.0" ?> 
+<!DOCTYPE note [
+  <!ELEMENT note (to,from,heading,body)>
+  <!ELEMENT to      (#PCDATA)>
+  <!ELEMENT from    (#PCDATA)>
+  <!ELEMENT heading (#PCDATA)>
+  <!ELEMENT body    (#PCDATA)>
+]>
+<note>
+<to>George</to> 
+<from>John</Ffrom> 
+<heading>Reminder</heading> 
+<body>Don't forget the meeting!</body> 
+</note>
+
+把 XML 链接到 CSS 文件  <?xml-stylesheet type="text/css"  href="cd_catalog.css"?>
+
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/css" href="cd_catalog.css"?>
+<CATALOG>
+  <CD>
+    <TITLE>Empire Burlesque</TITLE>
+    <ARTIST>Bob Dylan</ARTIST>
+    <COUNTRY>USA</COUNTRY>
+    <COMPANY>Columbia</COMPANY>
+    <PRICE>10.90</PRICE>
+    <YEAR>1985</YEAR>
+  </CD>
+  <CD>
+    <TITLE>Hide your heart</TITLE>
+    <ARTIST>Bonnie Tyler</ARTIST>
+    <COUNTRY>UK</COUNTRY>
+    <COMPANY>CBS Records</COMPANY>
+    <PRICE>9.90</PRICE>
+    <YEAR>1988</YEAR>
+  </CD>
+</CATALOG>
+
+XML 样式表语言                  XSLT
+对象在后台与服务器交换数据      XMLHttpRequest
+创建 XMLHttpRequest 对象        xmlhttp=new XMLHttpRequest();
+IE5/IE6 (接上面)                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+自定义实体名(必须放在<!DOCTYPE[]>内)
+
+<!DOCTYPE parentNode[
+<!ENTITY entity value>
+]>
+
+引用已定义实体名                &entityName;
+处理指令                        <?xml ?>/<?xml-stylesheet ?>
+CDATA 会被解释器忽略            <![CDATA[something goes here]]>             // Charater data
+声明编码                        <?xml version="1.0" encoding="UTF-8"?>
+DTD                             Document Type Definition
+
+// DTD 文档与 XML 文档实例关系 -- 类与对象
+// DTD 作为 XML 文件格式描述，可以交换数据，可以校验 XML 是否有效
+
+内部 DTD 文档声明及引           <!DOCTYPE 根元素 [定义内容]>
+外部 DTD 文档声明及引用         <!DOCTYPE 根元素 SYSTEM "DTD 文件路径">
+内外部 DTD 文档结合             <!DOCTYPE 根元素 SYSTEM "DTD 文件路径" [定义内容]>
+可解析字符数据                  #PCDATA (Parsed Character Data)
+
+DTD 实例
+
+<!DOCTYPE TVSCHEDULE [
+
+<!ELEMENT TVSCHEDULE (CHANNEL+)>
+<!ELEMENT CHANNEL (BANNER,DAY+)>
+<!ELEMENT BANNER (#PCDATA)>
+<!ELEMENT DAY (DATE,(HOLIDAY|PROGRAMSLOT+)+)>
+<!ELEMENT HOLIDAY (#PCDATA)>
+<!ELEMENT DATE (#PCDATA)>
+<!ELEMENT PROGRAMSLOT (TIME,TITLE,DESCRIPTION?)>
+<!ELEMENT TIME (#PCDATA)>
+<!ELEMENT TITLE (#PCDATA)> 
+<!ELEMENT DESCRIPTION (#PCDATA)>
+
+<!ATTLIST TVSCHEDULE NAME CDATA #REQUIRED>
+<!ATTLIST CHANNEL CHAN CDATA #REQUIRED>
+<!ATTLIST PROGRAMSLOT VTR CDATA #IMPLIED>
+<!ATTLIST TITLE RATING CDATA #IMPLIED>
+<!ATTLIST TITLE LANGUAGE CDATA #IMPLIED>
+
+]>
+
+ELEMENT 语法                <!ELEMENT NAME CONTENT(EMPTY/ANY/#PCDATA/自包含子元素且之外没文本(就是首个的根元素)/包含子元素和文本数据的混合体>
+
+// EMPTY:不能包含子元素或文本但可以包含属性
+// ANY:可以包含在 DTD 定义的任何元素内容
+// 组合型:<!ELEMENT Family(member+,furniture*)>
+
+给元素分组                  <!ELEMENT Member ((Mike|John|Jackie),(Atast|James),Blin)>
+在列出的选择一个            |
+对象最少出现一次            +
+对象允许出现0或多次         *
+出现或不出现                ?
+必须按指定顺序出现          (Watermalon,Apple,Banana)
+ATTLIST 语法                <!ATTLIST 元素名词 属性名称 类型 属性特点 ...>
+类型                        CDATA,ID,IDREF/IDREFS,NMTOKEN/NMTOKENS/Enumerated,ENTITY/ENTITIES,NOTATION,NOTATIONS
+属性特点                    #REQUIRED,#IMPLIED,#FIXED value,#Default value
+ATTLIST可有可无属性         #IMPLIED
+CDATA 节和 ATTLIST CDATA                                                // 完全不同
+ATTLIST CDATA NMTOKEN       <!ATTLIST title name NMTOKEN #REQUEIRED>    // CDATA 子集，只能\w,\.,\-,\_,\:, 不能有空格
+ATTLIST ID                  <!ATTLIST 编号 ID #REQUIRED>                // ID 必须唯一
+不允许子元素或文本          EMPTY
+指向其他声明的 ID 类型值    IDREFS                                      // ID 的并集
+ATTLIST 枚举                <!ATTLIST person gender (male|female|others) #IMPLIED>
+属性必须为指定值            #FIXED "value"
+
+// <!ATTLIST sender company CDATA #FIXED "Microsoft">
+
+为属性提供默认值            Default value
+
+// <!ATTLIST hello payment type CDATA "check">
+
+DTD 外部实体                <!ENTITY 实体名 SYSTEM "URI/URL">           // 引用 URL 内容
+引用外部实体
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE PERSON SYSTEM "ex03.dtd">
+<PERSON>
+<NAME USERID="Bill Gates" />
+<WEALTH WEALTH_MONEY="&currency;200" />
+</PERSON>
+
+04-15-2014
+
+ATTLIST 特性列表            <!ATTLIST elementName attributeName dataType default>
+
+05-21-2014
+
+// 声明版本, 声明编码, 标签属性, 标签内容, 标签
+
+

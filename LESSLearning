@@ -1,0 +1,225 @@
+LESS Learning
+
+// refer to http://www.lesscss.net/article/document.html
+
+06-10-2014
+
+定义一个变量                            @color: #4d926f;
+调用变量                                #header { color: @color; }
+
+======================= 混合处理 ========================
+
+// 就像定义函数，同时可以调用参数，定义一个 class 再在另一个 class 中去调用
+
+@color: #4D926F;
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+#header {
+  color: @color;
+  .rounded-corners;
+}
+h2 {
+  color: @color;
+  .rounded-corners(10px);
+}
+
+=========================================================
+
+======================= 嵌套 ========================
+
+#header {
+  h1 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  p {
+    font-size: 12px;
+    a {
+      text-decoration: none;
+      // 伪类
+      &:hover {
+        border-width: 1px;
+      }
+      // 串联选择器
+      &.float {
+        float: left;
+      }
+      .top {
+        margin: 5px;
+      }
+    }
+  }
+}
+
+=====================================================
+
+===================== 函数和运算 ====================
+
+@the-border: 1px;
+@base-color: #111;
+@red:        #842210;
+
+#header {
+  color: (@base-color * 3);
+  border-left: @the-border;
+  border-right: (@the-border * 2);
+}
+#footer {
+  color: (@base-color + #003300);
+  border-color: desaturate/darken/lighten(@red, 10%);
+}
+
+=====================================================
+
+// 如果对同一个变量定义两次的话，在当前作用于中最后一次定义的将被使用。这与 CSS 的机制类似，最后一次定义的值会成为这个属性的值。
+
+// 变量是 "按需加载" (lazy loaded) 的，因此不必强制在使用之前声明
+
+============== guard ====================
+
+.mixin (@a) when (lightness(@a) >= 50%) {
+    background-color: black;
+}
+.mixin (@a) when (lightness(@a) < 50%) {
+    background-color: white;
+}
+.mixin (@a) {
+    color: @a;
+}
+
+.class1 { .mixin(#ddd) }
+.class2 { .mixin(#555) }
+
+=========================================
+
+========================= guard or/and/not ======================
+
+.mixin (@a) when (@a > 10), (@a < -10) { ... }
+.mixin (@a) when (isnumber(@a)) and (@a > 0) { ... }
+.mixin (@b) when not (@b > 0) { ... }
+
+=========================================================
+
+================== 匹配 guard 的基本类型函数 ==============
+
+iscolor
+isnumber
+isstring
+iskeyword
+isurl
+
+// 检查用了那个单位
+
+ispixel
+ispercentage
+isem
+
+===========================================================
+
+========================== media query ===================
+
+.one {
+    @media (width: 400px) {
+        font-size: 1.2em;
+        @media print and color {
+            color: blue;
+        }
+    }
+}
+
+--------------------------------------------
+
+@media (width: 400px) {
+    .one {
+        font-size: 1.2em;
+    }
+}
+@media (width: 400px) and print and color {
+    .one {
+        color: blue;
+        }
+}
+
+==========================================================
+
+// & 事实上作为一个父元素指针存在
+
+================== & =======================
+
+.child, .sibling {
+    .parent & {
+        color: black;
+    }
+    & + & {
+        color: red;
+    }
+}
+
+--------------------------
+
+.parent .child,
+.parent .sibling {
+    color: black;
+}
+.child + .child,
+.child + .sibling,
+.sibling + .child,
+.sibling + .sibling {
+    color: red;
+}
+
+============================================
+
+==================== 导入 (Import) ==================
+
+@import "lib.css";      // 编译时将被提到最前
+@import "lib.less";     // 同本文件一起编译
+@import "library.less" screen and (max-width: 400px);
+
+-------------------------------------------------------
+
+@media screen and (max-width: 400px) {
+    h1 { color: green; }
+}
+
+=====================================================
+
+================== arguements 变量 =================
+
+.box-shadow (@x: 0, @y: 0, @blur: 1px, @color: #000) {
+    box-shadow: @arguments;
+    -moz-box-shadow: @arguments;
+    -webkit-box-shadow: @arguments;
+}
+.box-shadow(2px, 5px);
+
+====================================================
+
+===================== 继承机制 =======================
+
+.class1 {
+  border: 1px solid #ddd;
+}
+.class2 {
+  .class1;
+  font-size: 120%;
+}
+--------------------------
+.class1 {
+  border: 1px solid #ddd;
+}
+.class2 {
+  border: 1px solid #ddd;
+  font-size: 120%;
+}
+
+
+======================================================
+
+

@@ -1,0 +1,110 @@
+03-24-2014
+
+查看配置帮助					$ git config --help
+改变默认编辑器					$ git config --global core.editor emacs
+改变分页策略					$ git config --global core.pager 'more/less/nothing'
+设置名字					    $ git config --global user.naem 'username'
+设置邮箱					    $ git config --glocal user.email 'email'
+设置文件					    /etc/gitconfig
+Git 着色				    	$ git config --global color.ui true
+
+03-25-2014
+
+查看日志			    		$ git log
+跟踪暂存已修改文件				$ git add file/.
+提交						    $ git commit -m "commit"
+查看当前状态					$ git status
+忽略某些文件					$ vim .gitignore
+
+.gitignore
+
+# 此为注释 – 将被 Git 忽略
+# 忽略所有 .a 结尾的文件
+*.a
+# 但 lib.a 除外
+!lib.a
+# 仅仅忽略项目根目录下的 TODO 文件，不包括 subdir/TODO
+/TODO
+# 忽略 build/ 目录下的所有文件
+build/
+# 会忽略 doc/notes.txt 但不包括 doc/server/arch.txt
+doc/*.txt
+# ignore all .txt files in the doc/ directory
+doc/**/*.txt
+
+查看已修改未暂存文件修改处		$ git diff
+查看已修改已暂存文件修改处		$ git diff --cached/staged
+查看暂存区文件					$ git ls-files
+查看工作区和分支的区别			$ git diff branch
+跳过暂存区					    $ git commit -a -m "statement"
+提交到服务器					$ git push origin branch
+移除暂存区的文件				$ git rm removed-file (do $ git status first)
+向远程仓库提交					$ git remote add origin git@github.com:path/to/your/git && $ git push -u origin master
+向远程仓库提交					$ git remote add origin https://github.com/youngdze/gitproject.git && $ git push -u origin master
+查看当前分支					$ git branch
+创建分支					    $ git branch new-feature
+切换到新分支					$ git checkout new-feature
+创建并切换到新分支				$ git checkout -b new-feature
+删除分支					    $ git branch -d new-feature
+合并新分支和 master				$ git checkout master && git merge new-feature && git branch && git push
+提交作为指定分支				$ git push origin test:master
+提交作为指定分支				$ git push origin test:test
+删除远程分支					$ git push origin :test
+强制覆盖 git 仓库内容			$ git push -f
+查看精简的状态输出				$ git status -s
+查看精简提交日志				$ git log --[pretty=]oneline
+查看简单图形界面日志			$ git log --graph --pretty=oneline --stat
+更新本地仓库到最新				$ git pull origin <branch>
+更新本地仓库到最新				$ git fetch && merge
+好用的 GUI git					# apt-get install gitk
+更好用查看日志					$ tig
+显示树形				    	--graph
+添加标签			    		$ git tag hash[10]
+
+04-13-2014
+
+移除文件树和索引内容            $ git rm filename
+Github 提交                     $ git push -u origin master
+
+04-14-2014
+
+查看远程仓库                    $ git remote -v
+添加远程仓库                    $ git remote add [name] [url]
+删除远程仓库                    $ git remote rm [name]
+修改远程仓库                    $ git remote set-url --push [name] [newUrl]
+拉取远程仓库                    $ git pull [remoteName] [localBranchName]
+推送远程仓库                    $ git push [remoteName] [localBranchName]
+提交分支                        $ git push origin localBranch:master/otherNewBranch
+查看远程分支                    $ git branch -r
+查看版本                        $ git tag
+创建版本                        $ git tag [name]
+删除版本                        $ git tag -d [name]
+查看远程版本                    $ git tag -r
+创建远程版本                    $ git push origin [name]
+删除远程版本                    $ git push origin :refs/tags/[name]
+合并远程仓库的tag到本地         $ git pull origin --tags
+上传本地 tag 到远程仓库         $ git push origin --tags
+创建带注释的 tag                $ git tag -a [name] -m 'yourMessage'
+
+// origin:版本库，指当前这个版本库
+// 忽略文件写在 .gitignore，每元素占一行
+
+本地仓库回退                    $ git reset
+彻底回退到某个版本              $ git reset --hard
+回退所有内容到上一个版本        $ git reset HEAD^
+回退某个文件到上个版本          $ git reset HEAD^ a.py
+回退到第三个版本                $ git reset --soft HEAD~3
+本地状态回退到远程一样          $ git reset --hard origin/master
+回退到某个版本                  $ git reset 057d
+回退到上一次提交状态            $ git revert HEAD
+
+04-15-2014
+
+// .gitignore 只对未提交未缓存文件有效
+
+.gitignore 过滤文件夹           /fold/
+.gitignore 过滤文件             *.swp
+.gitignore 不被过滤文件夹       !/fold/
+.gitignore 不被过滤文件         !*.swp
+查看 git -rm                    $ git fsck --lost-found --unreachable
+恢复 git -rm                    $ git cat-file -p hash

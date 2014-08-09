@@ -1,0 +1,77 @@
+Zen Coding Learning (Emmet)
+
+// http://docs.emmet.io/
+
+06-09-2014
+
+写出 xhtml 整体                     html:xt
+写出 html5 整体                     html:5/!
+排版n个单词                         header>lorem4
+四个 p 排版                         p*4>lorem
+根据父元素生成 ul>li div>div        .item
+
+========== Implicit tag names ==========
+
+li for ul and ol
+tr for table, tbody, thead and tfoot
+td for tr
+option for select and optgroup
+
+=========================================
+
+html5 声明                          !!!
+注释                                c
+if ie6                              cc:ie6
+if ie                               cc:ie
+if noie                             cc:noie
+链接 css                            link:css
+链接 print                          link:print
+链接 favicon                        link:favicon
+链接 touch                          link:touch
+链接 rss                            link:rss
+指定编码                            meta:utf
+设置 viewport                       meta:vp
+链接脚本                            script:src
+form get                            form:get
+form post                           form:post
+input                               input/inp
+input text                          input:text/t
+input email                         input:email
+input hidden                        input:hidden
+input search                        input:search
+input url                           input:url
+input password                      input:p/password
+input date                          input:date
+input tel                           input:tel
+input month                         input:month
+input color                         input:color
+input reset                         input:reset
+input button                        input:b/button
+select disabled                     select:d/disabled
+html xml 协议                       html:xml
+一步到位                            #page>(#header>ul#nav>li*4>a)+(#content>h1{Hello world}+p)+#footer
+Math Pair Outward                   Ctrl+D
+Match Pair Inward                   Shift+Ctrl+D
+在标签两头轮换                      Ctrl+T / Ctrl+Alt+A (Sublime Text)
+调用弹出命令                        Ctrl+Shift+A / Ctrl+Alt+G (Sublime Text)
+全选                                Ctrl+Shift+D / Ctrl+Alt+A (Sublime Text)
+
+// 弹出命令可处理文字加上标签: ul>li*
+
+添加属性                            meta[name=viewport][width=device-width]
+到达未编辑区域                      Ctrl+Alt+(->) & Ctrl+Alt+(<-)
+快速选择各个相同元素                Ctrl+Alt+. & Ctrl+Alt+,     // 适用于 CSS
+添加注释                            Ctrl + /
+把下面一行调上来 (compress)         Ctrl+J
+按顺序列出 class                    nav>ul.nav>li.nav-item$*4>a
+有针对的删除需要报国文字的前标记    nav>ul.nav>li.nav-item$*>a|t
+
+============================
+1.首页   
+2.公司简介   
+3.公司动态   
+4.关于我们   
+5.联系我们  
+============================
+
+

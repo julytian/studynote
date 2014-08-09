@@ -1,0 +1,164 @@
+<hr>属性：
+　　　border; width; height; background-color; 
+
+发送邮件：
+<a href="mailto:someone@mail.com?subject=Hello20%again">发送邮件</a>
+
+Google Fonts: https://www.google.com/fonts#QuickUsePlace:quickUse/Family:Poiret+One
+
+PHP $_POST 和 PHP $_GET 后面获取来自 method="post" 或 method="get" 的
+<input name="name" />,即是 $_POST["name"]
+
+$_REQUEST 可同时接收 get 和 post`
+
+函数 date(format,timestamp)
+d - 天
+m - 月
+Y - 年
+D - 星期
+H - 小时(UTC 时间)	//可以在 php.ini date.timezone 改为 Asia/Shanghai
+i - 分钟
+s - 秒
+
+函数 mktime(hour,minute,second,month,day,year,is_dst) 设置时间
+
+a – "am" 或是 "pm" 
+A – "AM" 或是 "PM" 
+d – 几日，二位数字，若不足二位则前面补零; 如: "01" 至 "31" 
+D – 星期几，三个英文字母; 如: "Fri" 
+F – 月份，英文全名; 如: "January" 
+h – 12 小时制的小时; 如: "01" 至 "12" 
+H – 24 小时制的小时; 如: "00" 至 "23" 
+g – 12 小时制的小时，不足二位不补零; 如: "1" 至 12" 
+G – 24 小时制的小时，不足二位不补零; 如: "0" 至 "23" 
+i – 分钟; 如: "00" 至 "59" 
+j – 几日，二位数字，若不足二位不补零; 如: "1" 至 "31" 
+l – 星期几，英文全名; 如: "Friday" 
+m – 月份，二位数字，若不足二位则在前面补零; 如: "01" 至 "12" 
+n – 月份，二位数字，若不足二位则不补零; 如: "1" 至 "12" 
+M – 月份，三个英文字母; 如: "Jan" 
+s – 秒; 如: "00" 至 "59" 
+S – 字尾加英文序数，二个英文字母; 如: "th"，"nd" 
+t – 指定月份的天数; 如: "28" 至 "31" 
+U – 总秒数 
+w – 数字型的星期几，如: "0" (星期日) 至 "6" (星期六) 
+Y – 年，四位数字; 如: "1999" 
+y – 年，二位数字; 如: "99" 
+z – 一年中的第几天; 如: "0" 至 "365" 
+
+fopen() 函数用于在 PHP 中打开文件
+$file = fopen("sample.txt","r")
+r	只读。在文件的开头开始。
+r+	读/写。在文件的开头开始。
+w	只写。打开并清空文件的内容；如果文件不存在，则创建新文件。
+w+	读/写。打开并清空文件的内容；如果文件不存在，则创建新文件。
+a	追加。打开并向文件文件的末端进行写操作，如果文件不存在，则创建新文件。
+a+	读/追加。通过向文件末端写内容，来保持文件内容。
+x	只写。创建新文件。如果文件已存在，则返回 FALSE。
+x+	
+读/写。创建新文件。如果文件已存在，则返回 FALSE 和一个错误。
+注释：如果 fopen() 无法打开指定文件，则返回 0 (false)。
+
+strpos 查找字符串首次出现的位置
+strpos($sampleString,$sample,int offset)
+strpos("Hello world!","o",1)
+
+substr 返回字符串的字串
+string substr ( string $string , int $start [, int $length ] )
+
+unset() 销毁指定的变量
+unset($foo);
+
+函数的选择性接收
+可以给函数的参数首先赋值，之后引用该函数可以不改(无参数)也可以改。
+
+全局变量
+在函数中定义 global $var,必须,否则全局变量不作用。
+
+& 引用返回值
+和全局变量正好相反，引用返回值，不要原来初始化的值。
+
+调用函数
+$objDemo->sayHello('Jackie');
+
+检查引用
+requrie_one('class.Demo.php'); / require_one 'class.Demo.php'
+
+添加属性
+public $name;
+$objDemo->name='Jakie';
+$objDemo->sayHello();
+
+########################################################################################################################################################################################
+
+mysql_fetch_row()		// mysql_fetch_row(data)		//从结果集中取得一行作为数字数组
+
+mysql_query()			// mysql_query(query,connection)	//执行一条 MySQL 查询，返回 资源标识符或 FALSE
+
+mysql_fetch_array()		// mysql_fetch_array(data,array_type(MYSQL_ASSOC/MYSQL_NUM/MYSQL_BOTH))			// 返回一个由 COLUMN 组成的数组
+
+mysql_connnect()		// mysql_connect(server,user,pwd,newlink,clientflag);
+
+mysql_error()			// mysql_close(link identifier)
+
+mysql_pconnect()		// mysql_pconnect(server,user,pwd,clientflag)
+
+mysql_list_dbs()		// mysql_list_dbs(connetion)
+
+mysql_db_name()			// mysql_db_name(list,row,field)
+
+mysql_errno()			// mysql_errno(connection)
+
+mysql_ping()			// mysql_ping()
+
+mysql_info()			// mysql_info(connection)
+
+mysql_select_db()		// mysql_select_db(database,connection)
+
+array()				// array(key => value)
+
+fopen()				// fopen(filename,mode)
+
+$_FILE				// $_FILE["file"]["name"]/["type"]/["size"]/["tmp_name"]/["error"]
+
+setcookie()			// setcookie(name,value,expire,path,domain);
+
+$_COOKIE			// $_COOKIE[name]
+
+isset()				// if(isset(PHPFunction)
+
+mail()				// mail(to,subject,message,headers,parameters)
+
+SQL injection
+
+var_dump()			// void var_dump(mixed $expression [, mixed $...])		// 打印变量的相关信息
+
+isset()				// bool isset (mixed $var [, mixed $...])
+
+unset()				// void unset (mixed $var [, mixed $...])			// 销毁指定变量
+
+exit()				// void exit ([string $status ])  /  void exit (int $status)	// 输出一个信息并且退出当前脚本
+
+fopen()				// resource fopen (string $filename,string $mode[,bool $use_include_path=false [, resource $context ]])		// 打开文件或者 URL
+
+time()				// int time(void)		//返回当前的 Unix 时间戳
+
+htmlspecialchars()		// htmlspecialchars(string,quitesyle,character-set)		// 把一些预定义的字符转换为 HTML 实体
+
+str_replace()			// mixed str_replace (mixed $search,mixed $replace,mixed $subject [, int &$count])
+
+fwrite()			// int fwrite (resource $handle,string $string [,int $length])
+
+list()				// array list(mixed $varname [,mixed $...])
+
+unlink()			// bool unlink(string $filename [,resource $context])
+
+file_get_contents('doc.txt','r'); === $rf=fopen('doc.txt','r');fread($rf,filesize(''doc.txt));
+
+int ereg (string $pattern,string $string [,array &$regs])
+
+#########php的 "." 为 "->"
+
+######### (true) $pc->key (false) $pc->$key
+
+

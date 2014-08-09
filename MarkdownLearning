@@ -1,0 +1,45 @@
+Markdown Learning
+
+04-15-2014
+
+标题                                #text
+副标题(以此类推)                    ##text
+虚线                                ----
+分段                                \r * 2
+粗体                                **text**
+斜体                                *text* / _text_
+高亮/行内代码                       `text`
+代码块                              &nbsp; * 4 codes
+无序列表                            */+/-
+有序列表                            1.text \r 2.text \r 3.text
+书写公式                            $E=mc^2$
+代码高亮                            ```python codes ````
+注脚                                [text][1/^keyword]
+图片                                ![alt](picture-path)
+链接                                [text](url)
+一级标题
+
+text
+==============
+
+二级标题
+text
+------
+三级标题                            ###title
+文字引用                            >text
+显示全文目录结构                    [TOC]
+删除线                              ~~text~~
+表示整行公式                        $$\sum_{i=1}^n a_i=0$$          // http://bit.ly/1nmzQ4Q
+表格支持
+
+| 项目        | 价格   |  数量  |
+| -   | -:  | :-:  |
+| 计算机     | $1600 |   5     |
+| 手机        |   $12   |   12   |
+| 管线        |    $1    |  234  |
+
+// 项目左对齐，价格右对齐，数量居中
+
+定义型列表(dl,dt,dd)                :    (dd)
+
+// 注脚在文末

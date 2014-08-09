@@ -1,0 +1,288 @@
+SASS Learning
+
+// refer to http://www.ruanyifeng.com/blog/2012/06/sass.html
+
+06-10-2014
+
+定义变量                                $blue: #1875e7;
+调用变量                                div { color: $blue; }
+
+// 要加单位的话加在后面，变量计算时不允许带单位，不过不计算时可以带单位，这和 LESS 一样
+
+把变量镶嵌在字符串中                    $side: left;
+                                        .rounded {
+// #{$var}                                border-#{$side}-radius: 5px;
+                                        }
+
+在代码中使用算式                        body {
+                                          margin: (14px/2);
+                                          top: 50px + 100px;
+                                          right: $var * 10%px;
+                                          
+                                        }
+
+==================== 嵌套处理 ========================
+
+div {
+  h1 {
+    color: red;
+  }
+}
+
+// 属性嵌套，前面必须加上 ":"
+
+p {
+  border: {
+    color: red;
+  }
+}
+
+// 用 $ 引用父元素
+
+a {
+  %:hover { color: ##ffb3ff; }
+}
+
+======================================================
+
+注释                                        /* */ //        // 单行注释编译时会忽略
+
+=================== 代码重用 ===================
+
+// 继承，和 LESS 继承有点不同，SASS 使用 ',' 隔开，LESS 直接写入
+
+.class1 {
+  border: 1px solid #ddd;
+}
+.class2 {
+  @extend .class1;
+  font-size: 120%;
+}
+
+.class1, .class2 {
+  border: 1px solid #ddd;
+}
+
+.class2 {
+  font-size: 120%;
+}
+
+-----------------------------------
+
+// Mixin 宏
+
+@mixin left($value: 10px) {
+  float: left;
+  margin-left: $value;
+}
+
+@mixin left {
+  float: left;
+  margin-left: 10px;
+}
+
+div {
+  @include left;
+}
+
+div {
+  @include left(20px);
+}
+
+// 用 mixin 生成浏览器前缀
+
+@mixin rounded($vert, $horz, $radius: 10px) {
+  -webkit-border-#{$vert}-#{$horz}-radius: $radius;
+  -moz-border-#{$vert}-#{$horz}-radius: $radius;
+  -ms-border-#{$vert}-#{$horz}-radius: $radius;
+  -o-border-#{$vert}-#{$horz}-radius: $radius;
+  border-#{$vert}-#{$horz}-radius: $radius;
+}
+
+#navbar li { @include rounded(top, left, 8px); }
+#footer { @include rounded(bottom, right);}
+
+// 插入文件
+
+@import "path/filename.scss/foo.css";
+
+================================================
+
+=========== if 语句 =================
+
+$color: #7f56a1;
+
+@mixin bgcolor {
+  @if lightness($color) > 30% {
+    background-color: #000000;
+  } @else {
+    background-color: #ffffff;
+  }
+}
+
+
+=====================================
+
+============== while 语句 ===================
+
+$i: 6;
+
+@while $i > 0 {
+  .item-#{$i} { width: 2em * $i; }
+  $i: $i - 2;
+}
+
+div {
+  @include bgcolor;
+}
+
+============================================
+
+========================== for 语句 ========================
+
+@for $i from 1 to 10 {
+  .border-#{$i} {
+    border: #{$i}px solid blue;
+  }
+}
+
+============================================================
+
+====================== 内置颜色函数生成系列颜色 ======================
+
+lighten(#cc3, 10%) // #d6d65c   变亮
+darken(#cc3, 10%) // #a3a329    变暗
+grayscale(#cc3) // #808080      灰阶
+complement(#cc3) // #33c        补充
+saturate(#3cc, 30%)             饱和
+
+======================================================================
+
+======================= 自定义函数 ============================
+
+@function funName($arguement) { @return express; }
+
+@function double($n) {
+  @return $n * 2;
+}
+
+#sidebar {
+  width: double(5px);
+}
+
+===============================================================
+
+约等向上                            ceil(($font-size-base * 1.25)) !default;
+约等向下                            floor(($font-size-base * 0.85)) !default;
+
+06-11-2014
+
+编译 .scss 在屏幕上显示             sass test.scss
+编译并保存                          sass test.scss test.css
+指定编译风格                        sass --style compressed/nested/expaded/compact test.scss test.css
+监听某个文件                        sass --watch input.scss:output.css
+监听某个目录                        sass --watch aap/sass:public/stylesheets
+
+06-12-2014
+
+子元素选择                          > .title {color:red;}
+
+=============================
+
+.infobox {
+  width: 200px;
+         .message {
+           border: 1px solid red;
+           > .title {color: red;}
+         }
+}
+
+=============================
+
+指向父元素的指针                    & (.childAttribute)
+
+// SASS 缺点: 同名局部变量会覆盖全局变量的值
+
+插值                                .image {
+                                      background: url("images/#{$car}.png");
+                                    }
+
+========================== 迭代 =========================
+
+@each $member in thom, jonny, colin, phil {
+    .#{$member}_picture {
+        background-image: url("/image/#{$member}.jpg"); 
+    } 
+}
+-------------------------------------------------------------
+.thom_picture {background-image: url("/image/thom.jpg");}
+.jonny_picture {background-image: url("/image/jonny.jpg");}
+.colin_picture {background-image: url("/image/colin.jpg");}
+.phil_picture {background-image: url("/image/phil.jpg");}
+
+=========================================================
+
+======================== 导入 ======================
+
+在样式表过于复杂的时候，你可以将其按功能模块分割成不同的文件进行开发，SASS会将这些小文件统一编译成一个完整的CSS文件，与简单的包含多个文件不同，SASS的导入，是可以将变量，Mixin，等等一起导入的
+
+//_colors.scss(被导入的SASS文件，通常用_开头，它们在编译过程中不会生成CSS文件)
+
+$main_color: #336699;
+
+//application.scss 导入文件
+//SASS会自动加上_去寻找文件
+
+@import "colors";
+#page {color: $main_color;}
+
+=====================================================
+
+======================== 完美背景透明 ======================
+
+@mixin better_transparentize($color, $alpha)
+  $c: rgba($color, $alpha)
+  $ie_c: ie_hex_str($c)     // ie hack
+  background: rgba($color, 1)
+  background: $c
+  background: transparent\9
+  zoom: 1
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie_c}, endColorstr=#{$ie_c})
+  -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie_c}, endColorstr=#{$ie_c})"
+
+.box
+  @include better_transparentize(white, .8)
+
+============================================================
+
+06-13-2014
+
+引进 clearfix                           @include clearfix
+引进 css3 模块 gradient                 @include background-image(radial-gradient(45px 45px, cyan 10px, dodgerblue 30px));
+                                        @include background-image(linear-gradient(left top, white, #dddddd));
+                                        @include background-image(linear-gradient(white, #aaaaaa));
+                                        @include background-image(linear-gradient(white, #cccccc, #aaaaaa));
+                                        @include background-image(linear-gradient(white, #cccccc 30%, #bbbbbb 70%, #aaaaaa));
+                                        @include background-image(linear-gradient(left, white, #dddddd));
+使支持 svg                              $experimental-support-for-svg: true;
+
+06-14-2014
+
+============================== sass =============================
+
+// sass 语法无分号，无大括号，以缩进分别，允许 import 无冒号，完全类 python 语法
+
+@mixin -> =
+@include -> +
+@extend -> @extend
+color: 5px + 8px -> color = 5px + 9px
+
+// ! 非
+
+
+
+=================================================================
+
+转换 sass 为 scss                       $ sass-convert style.sass style.scss
+转换 scss 为 sass                       $ sass-convert style.scss style.sass
+

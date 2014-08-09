@@ -1,0 +1,157 @@
+Bootstrap Learning
+
+// http://v3.bootcss.com/
+
+05-23-2014
+
+确保适当的绘制和触屏缩放添加 viewport                   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+在移动设备浏览器添加 user-scalable=no 禁止缩放          <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+栅格系统的行 (必须包在 .container 中)                   div: .row
+栅格系统 (由小到大)                                     div: class="col-md-1/2/3/4/5/6/7/8"
+针对小屏幕的栅格系统                                    div: class="col-xs/sm-6/12"
+响应式图片                                              img: class="img-responsive"
+内容居中对齐                                            div: class="container"
+标记副标题                                              <h1>Main Title<samll>Subtitle</samll></h1>
+提供标题 class                                          label: class="h1"
+默认全局 font-size                                      font-size:14px;
+默认 lIne-height                                        line-height: 1.428;
+
+// <p> 被设置了等于 1/2 行高的底部外边距 margin (10px)
+
+段落突出显示                                            p: class="lead"
+小号文本 (父元素 85%)                                   <samll> / .samll
+强调                                                    <strong>
+斜体强调                                                <em>
+不强调作用粗体                                          <b>
+斜体用于发言/技术短语                                   <i>
+重新对齐文字                                            .text-left/center/right
+通过颜色进行强调                                        .text-muted/primary/success/info/warning/danger
+缩写悬停看全词                                          <abbr title="">
+缩写设置小写 font-size (接上)                           .initialism
+地址 (去斜体)                                           <address>
+引用 (改为 Markdown 风格引用)                           <blockquote><p></p></blockquote>
+在引用中声明来源 (左)                                   <small>
+在引用中声明来源 (右)                                   blockquote: class="pull-right"
+声明来源的名称 (接上)                                   <cite title="">
+无样式列表                                              ul: class="list-unstyled"
+内联列表添加少量内补                                    ul: class="list-inline"
+描述                                                    <dl><dt><dd>
+使描述短语和描述一行 窄屏幕变回                         dl: class="dl-horizontal"
+包裹内联样式代码片段                                    <code>&lt;section&gt;</code>
+多行代码                                                <pre>
+表格                                                    table: class="table"
+表格头 (第一行)                                         <thead>
+表格内容 (除第一行)                                     <tbody>
+给 <tbody> 添加斑马线                                   table: class="striped"
+表格加边框                                              table: class="table-bordered"
+表格响应鼠标悬停                                        table: class="table-hover"
+表格更紧凑 (padding 1/2)                                table: class="table-condensed"
+为 行/单元格 加颜色                                     tr/th/td: class="active/success/warning/danger"
+.table 包在 .table-responsive 创建响应式表格            div(.table-responsive) table(.table)
+表明表单                                                form: role="form"
+表单元素设为 width: 100%                                input/textarea/select: .form-control
+包裹一个表单元素                                        div: .form-group
+
+====================== 表单 =====================
+
+<form role="form">
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
+
+=================================================
+
+表单内联样式 (需要设置宽度因为原本为 100%)                  form: .form-inline
+水平排列的表单                                              form: .form-horizontal
+隐藏 label (表单中一定要和表单元素一起用)                   label: .sr-only
+
+=============== 表单 ==================
+
+<form class="form-horizontal" role="form">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
+    <div class="col-sm-10">
+      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sign in</button>
+    </div>
+  </div>
+</form>
+
+=======================================
+
+多选框                                                          input: .checkbox
+定义顶部导航栏                                                  nav: .navbar
+近白色导航栏                                                    nav: .navbar-default
+表明是导航栏(人道主义)                                          role="navigation"
+固定顶部导航栏                                                  nav: .navbar-fixed-top
+作为导航栏头部和窄页面的下拉 div                                div: .navbar-header
+窄页面下拉栏                                                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">          // .navbar-collapse 将在下面进行使用
+窄页面下拉栏按钮几个杆                                          <span class="icon-bar">
+导航栏牌子                                                      <a class="navbar-brand">
+导航栏窄页面折叠部分                                            <div class="nav-collapse collapse">
+窄页面下拉栏列表                                                <ul class="nav navbar-nav"><li>
+
+============ 一般下拉栏 ===============
+
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+  <ul class="dropdown-menu">
+    <li><a href="#">Bootstrap Tutorials</a></li>
+    <li><a href="#">PHP Tutorials</a></li>
+    <li><a href="#">Java Tutorials</a></li>
+    <li><a href="#">CSS Tutorials</a></li>
+  </ul>
+</li>
+
+=======================================
+
+05-24-2014
+
+使文字有嵌入的效果                                              <div class="well well-lg/sm">
+图片在 div 居中                                                 <img style="margin: auto;">
+
+05-25-2014
+
+关闭按钮                                                        &times;
+
+05-26-2014
+
+图片样式                                                        img: .img-rounded/img-circle/img-thumbnail
+响应式图片                                                      img: .img-responsive
+

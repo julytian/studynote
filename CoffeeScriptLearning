@@ -1,0 +1,962 @@
+CoffeeScript Learning
+
+// http://coffee-script.org/
+
+06-15-2014
+
+安装 CoffeeScript                               $ sudo npm install -g/global coffee-script
+安装特定版本 CoffeeScript                       $ sudo npm install -g coffee-script@1.1.1
+查看 CoffeeScript 版本                          $ coffee -v
+启动 CoffeeScript REPL                          $ coffee (-i)
+编译 .coffee 到 .js                             $ coffee -c/--compile *.coffee
+执行 .coffee 文件                               $ coffee *.coffee
+监视文件变化                                    $ coffee -w/--watch --compile *.coffee
+编译多个文件到指定文件                          $ coffee -j/--join [FILE]
+查看帮助                                        $ coffee -h
+查看编译器隐藏的 JavaScript                     $ coffee -p(print) *.coffee
+编译到指定文件夹                                $ coffee -co /path/to/output *.coffee/source 
+
+# source 为一个目录，指编译 source 目录所有 *.coffee 到 output
+
+监视文件变化并编译                              $ coffee -cwo js coffee
+编译时去除包裹函数                              $ coffee -cb(bare) *.coffee
+
+
+
+// CoffeeScript 不需要用 var 定义变量，直接调用
+
+======================= Function 函数=========================
+
+// source codes
+square = (x) -> x * x               // 圆括号包裹参数，-> 指向 return
+cube   = (x) -> square(x) * x
+
+// compiled codes
+var cube, square;
+
+square = function(x) {
+  return x * x;
+};
+
+cube = function(x) {
+  return square(x) * x;
+};
+
+------------------------------------------
+
+// source codes
+fill = (container, liquid = "coffee") ->            // liquid = "coffee" 设置默认参数
+  "Filling the #{container} with #{liquid}..."      // #{container} 调用参数
+
+// compiled codes
+var fill;
+
+fill = function(container, liquid) {
+  if (liquid == null) {
+    liquid = "coffee";
+  }
+  return "Filling the " + container + " with " + liquid + "...";
+};
+
+===============================================================
+
+=========================== 对象和数组 (Object and Array) ===================
+
+// source codes
+song = ["do", "re", "mi", "fa", "so"]
+
+singers = {Jagger: "Rock", Elvis: "Roll"}
+
+bitlist = [
+  1, 0, 1                       // 回车可以省略逗号
+  0, 0, 1
+  1, 1, 0
+]
+
+kids =                          // 作为一行不需要大括号
+  brother:                      // 作为一行不需要大括号
+    name: "Max"                 // 回车可以省略逗号
+    age:  11
+  sister:
+    name: "Ida"
+    age:  9
+
+// compiled codes
+var bitlist, kids, singers, song;
+
+song = ["do", "re", "mi", "fa", "so"];
+
+singers = {
+  Jagger: "Rock",
+  Elvis: "Roll"
+};
+
+bitlist = [1, 0, 1, 0, 0, 1, 1, 1, 0];
+
+kids = {
+  brother: {
+    name: "Max",
+    age: 11
+  },
+  sister: {
+    name: "Ida",
+    age: 9
+  }
+};
+
+// JavaScript 里, 你不能使用不添加引号的保留字段作为属性名称, 比如 class. CoffeeScript 里作为键出现的保留字会被识别并补上引号, 所以你不用有额外的操心(比如说, 使用 jQuery 的时候).
+
+// source codes
+$('.account').attr class: 'active'
+
+log object.class
+
+// compiled codes
+$('.account').attr({
+  "class": 'active'
+});
+
+log(object["class"]);
+
+=============================================================================
+
+================= 词法作用域和变量安全 ====================
+
+// source codes
+outer = 1
+changeNumber = ->
+  inner = -1
+  outer = 10
+inner = changeNumbers()
+
+// compiled codes
+var changeNumbers, inner, outer;
+
+outer = 1;
+
+changeNumbers = function() {
+  var inner;
+  inner = -1;
+  return outer = 10;
+};
+
+inner = changeNumbers();
+
+===========================================================
+
+================== if, else, unless 和条件赋值 ================
+
+// if/else 表达式可以不用圆括号和花括号就写出来. 就像函数和其他块级表达式那样, 多行的条件可以通过缩进来表明. 另外还有一个顺手的后缀形式, 在行尾使用 if or unless.
+// CoffeeScript 会尝试编译 if 语句到 JavaScript 表达式, 或者一个封装的闭包. CoffeeScript 里不存在直白的三元表达式. — 你只要在一行内使用普通的 if 语句.
+
+// source codes
+mood = greatlyImproved if singing
+
+if happy and knowsIt
+  clapsHands()
+  chaChaCha()
+else
+  showIt()
+
+date = if friday then sue else jill
+
+// compiled codes
+var date, mood;
+
+if (singing) {
+  mood = greatlyImproved;
+}
+
+if (happy && knowsIt) {
+  clapsHands();
+  chaChaCha();
+} else {
+  showIt();
+}
+
+date = friday ? sue : jill;
+
+===============================================================
+
+==================== 变参 (splats) ===========================
+
+// 使用 JavaScript 的 arguments 对象是一种处理接收不定数量个参数的函数常用办法. CoffeeScript 在函数定义和调用里提供了变参(splats) ... 的语法, 让不定个数的参数使用起来更愉悦一些.
+
+// source codes
+gold = silver = rest = "unknown"
+
+awardMedals = (first, second, others...) ->
+  gold   = first
+  silver = second
+  rest   = others
+
+contenders = [
+  "Michael Phelps"
+  "Liu Xiang"
+  "Yao Ming"
+  "Allyson Felix"
+  "Shawn Johnson"
+  "Roman Sebrle"
+  "Guo Jingjing"
+  "Tyson Gay"
+  "Asafa Powell"
+  "Usain Bolt"
+]
+
+awardMedals contenders...
+
+alert "Gold: " + gold
+alert "Silver: " + silver
+alert "The Field: " + rest
+
+// compiled codes
+var awardMedals, contenders, gold, rest, silver,
+  __slice = [].slice;
+
+gold = silver = rest = "unknown";
+
+awardMedals = function() {
+  var first, others, second;
+  first = arguments[0], second = arguments[1], others = 3 <= arguments.length ? __slice.call(arguments, 2) : [];
+  gold = first;
+  silver = second;
+  return rest = others;
+};
+
+contenders = ["Michael Phelps", "Liu Xiang", "Yao Ming", "Allyson Felix", "Shawn Johnson", "Roman Sebrle", "Guo Jingjing", "Tyson Gay", "Asafa Powell", "Usain Bolt"];
+
+awardMedals.apply(null, contenders);
+
+alert("Gold: " + gold);
+
+alert("Silver: " + silver);
+
+alert("The Field: " + rest);
+
+==============================================================
+
+定义函数                                    foo = -> x*x
+调用函数                                    foo()
+定义带参数函数                              foo = (x) -> x*x
+定义带多个参数函数                          foo = (x,y,z) -> x*y*z
+
+============================ for 循环 =========================
+
+# for(i=1; i<10; i++)
+x for x in [1...10]
+# => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+
+# 每次循环递增 2
+# for(i=1; i<=10; i=i+2)
+x for x in [1...10] by 2
+# => [1, 3, 5, 7, 9]
+
+# 执行一个求每项平方的简单运算
+x *x for x in [1...10]
+# => [1, 4, 9, 16, 25, 36, 49, 64, 81, 100]
+
+# 简单示例
+print = -> console.log 'Hello world'
+print() for x in [1...10]
+
+(print = -> console.log 'Hello world')() for x in [1...10]
+
+arr = [1..10]
+console.log(x) for x in arr
+
+===============================================================
+
+到五的数组                              list = [1...6]          // 没错这里要是6
+
+================ for 返回数组 =================
+
+cube = (num) -> Math.pow num,3
+cubedList = (cube num for num in [1...6])   // 括起来返回数组
+console.log cubedList           // 182764125
+
+===============================================
+
+匿名函数                                    console.log -> 'Hello world' / console.log (-> 'Hello world')
+执行一个函数                                do funName
+调用参数                                    greeting = (subject) -> "Hello, #{subject}!"  // 使用字符串插值时应该用双引号
+                                            console.log greeting "arguemnts"
+
+====================== 类 ruby 语法 =====================
+
+A#{expression}Z == A + (expression) + Z
+
+=========================================================
+
+// IE 不支持 CoffeeScript 生成的变量式风格的函数声明，因此在调用函数之前必然要先声明它们
+
+======================= + =======================
+# CoffeeScript 的 + 操作符不会忽略空格
+
+squadron = 'Red
+xWing = squadron + 5        # 'Red5'
+xWing = squadron +5        # TypeError squadron(+5)
+
+==================================================
+
+// 注意隐性括号
+
+关键字 is                                           odd = (num) -> num % 2 is 3     # 编译为最严格的 ===
+
+========================= if else throw try catch ========================
+
+odd = (num) ->
+	if typeof num is 'number'
+		if num is Math.round num
+			if num > 0
+				num %2 is 1
+			else
+				throw "#{num} is not positive"
+		else
+			throw "#{num} is not an interger"
+	else
+		throw "#{num} is not a number"
+
+try
+	odd(5.1)
+catch e
+	console.log e
+
+// 更简洁的代码
+
+odd = (num) ->
+	unless typeof num is 'number'
+		throw "#{num} is not a number"
+	unless num is Math.round num
+		throw "#{num} is not an integer"
+	unless num > 0
+		throw "#{num} is not a positive"
+
+try
+	odd(-5)
+catch e
+	console.log e
+
+if 5 isnt 'number' then console.log() else console.log()
+unless 5 isnt 'number' then console.log() else console.log()
+if name? then yell()
+
+==========================================================================
+
+不是空值                                                gender?     # typeof gender !== "undefined" && gender !== null
+是空值                                                  gender ?= "Male"        # if(gender==NULL) gender = "Male"
+
+06-16-2014
+
+调用 this                                               @name       # this.name
+&&                                                      and
+||                                                      or
+in                                                      of
+Math.pow(a, b)                                          a ** b
+a // b                                                  Math.floor(a / b)
+(a % b + b) % b                                         a %% b
+===                                                     is
+!==                                                     isnt
+this                                                    @, this
+!                                                       not
+false                                                   false, no, off
+true                                                    true, yes, on
+of                                                      in
+is true                                                 ?
+
+=========================== this 实例 apply =====================
+
+cat = {}
+cat.setName = (name, age) -> 
+	@name = name
+	@age = age
+cat.setName("James")
+console.log cat.name
+horse = {}
+cat.setName.apply horse,["kobe"]
+console.log horse.name
+
+===========================================================
+
+=============== 构造函数 ================
+
+cat = {}
+cat.setName = (name, age) -> 
+	@name = name
+	@age = age
+cat.setName("James")
+console.log cat.name
+horse = {}
+cat.setName.apply horse,["kobe"]
+console.log horse.name
+
+Dog = cat.setName
+
+dog1 = new Dog("wang")
+dog2 = new Dog("dong")
+for x in [1,2]
+	console.log eval("dog#{x}").name
+
+========================================
+
+// 非常简洁，当 @ 位于函数的一个参数名称之前，这个函数会自动把参数赋值给上下文对象 this 的同名属性
+
+================ 调用 arguements ==================
+
+refine = (wheat, chaff...) ->
+	console.log "The best: #{wheat}"
+	console.log "The best: #{chaff.join(', ')}"
+	
+refine 'great', 'not bad', 'so-so', 'meh'
+
+// 如果没有或只有一个参数，那 chaff 就是一个空数组
+
+===================================================
+
+使得没有返回值                                  clearArray = (arr) ->
+                                                  arr.splice 0 arr.length
+                                                  return/undefined
+
+// 在哈希键名中不支持字符串插值
+
+06-17-2014
+
+========================= jQuery AJAX =====================
+
+$ ->
+  $.get 'example.php', (data) ->
+    if data.errors?
+      alert "There was an error!"
+    else
+      $("#content").text data.message
+  , 'json'
+  return
+
+===========================================================
+
+// 插入值里面仍然可以用双引号
+// \t == tab
+
+====================== heredoc =============================
+
+// 允许在 CoffeeScript 中轻松构建多行字符串，并保留该字符串中所有的空格和换行符
+
+someName = 'user[firstName]'
+someId = 'firstName'
+someValue = 'Bob Example'
+
+field = """
+        <ul>
+          <li>
+            <input type="text" name="#{someName}" id="#{someId}" value="#{escape someValue}">
+          </li>
+        </ul>
+        """
+
+============================================================
+
+单行注释                                                # 编译后被忽略
+多行注释                                                ###
+                                                        编译后保留
+                                                        ###
+判断是否存在不存在则赋值                                y ?= 3
+判断条件为假则赋值                                      z ||=10
+判断两者为真则赋值                                      a &&= b
+
+// ? 表示是否存在, 判断作用
+// CoffeeScript 不允许使用 === 和 !== 操作符，当用 == 和 != 可以代替
+
+判断对象是否存在                                        object?.func()      # undefined
+
+// if not is unless
+
+不全等                                                  isnt
+非 (后面最后加括号)                                     not
+
+================= switch/case 语句 ===================
+
+// source codes
+date = new Date()
+today = date.getDay()
+switch today                                # switch
+  when "Monday"                             # when : case
+    console.log "Go work!"
+  when "Saturday", "Sunday"                 # 逗号分隔
+    console.log "Realx!"
+  when "Tuesday" then console.log "Work!"
+  else                                      # else : default
+    console.log "Hmmm"
+
+======================================================
+
+================== 默认参数值 ========================
+
+default_tax_rate = 0.0625
+
+calculateTotal = (sub_total, rate = default_tax_rate) ->
+  sub_total += sub_total * rate
+
+# 如上, rate 就是默认参数值, 如果没有给 rate 传递参数, rate 就默认为 0.0625, 当然也可以传入参数将其改变
+# 函数作为默认参数
+
+defaultRate = -> 0.05
+calculateTotal = (sub_total, rate = defaultRate()) ->
+  sub_total += sub_total * rate
+
+# CoffeeScript 不强制要求 splat 操作符一定要放在参数列表最后
+
+joinArgs = (f,args...,l) ->
+  arr = []
+  if f?
+    arr.push f.toUpperCase()
+  # for arg in args ->
+  args.map (arg) ->
+    arr.push arg.toLowerCase()
+  if l?
+    arr.push l.toUpperCase()
+  arr.join ' | '
+
+======================================================
+
+检测数组是否包含                                    if "b" in arr
+
+========================= 交换两个变量的值 =====================
+
+x = "x"
+y = "y"
+
+console.log "x is #{x}"
+console.log "y is #{y}"
+
+[x, y] = [y, x]
+
+console.log "x is #{x}"
+console.log "y is #{y}"
+
+================================================================
+
+======================== 多重赋值 ==========================
+
+rack = ->
+  [200, {"Content-Type": "text/html"}, "Hello Rack!"]
+
+console.log rack()
+
+[status, headers, body] = rack()
+
+console.log "status is #{status}"
+console.log "headers is #{JSON.stringify(headers)}"
+console.log "body is #{body}"
+
+============================================================
+
+========================== 分割数组 同 slice ========================
+
+myArray = [1..10]                   # 注意这里两个点, 三个点的话就只到 9, 应该是一个 bug
+firstThree = myArray[0..3]          # slice(0, 3)
+anotherArray = myArray[4, 6]        # slice(4, 6)
+
+============================================================
+
+======================== 替换数组值 ==========================
+
+myArray = [1..10]
+myArray[4..7] = ['a', 'b', 'c', 'd']
+
+==============================================================
+
+====================== 注入数组值 ======================
+
+myArray = [1..10]
+console.log myArray
+
+myArray[4..-1]
+
+========================================================
+
+======================= 删除数组值 =====================
+
+myArray = [1..10]
+myArray.splice 4, 2
+console.log myArray         # 1,2,3,4,7,8,9,10
+
+========================================================
+
+===================== 获取数组的一部分 ==================
+
+myArray = [1..10]
+middle = myArray[4..7]
+console.log middle      # 5,6,7,8
+
+=========================================================
+
+====================== 一般对象，带函数 ======================
+
+obj = 
+  firstName: "Mark"
+  lastName: "Batee"
+  fullName: ->
+    "#{firstName} #{lastName}"
+
+myFunc = (option) ->
+  console.log options
+
+myFunc(foo: 'Foo', bar: 'Bar')
+
+==============================================================
+
+========================= 解构赋值 =======================
+
+# 将对象中特定一些元素直接赋值给变量，要求键要对应，否则 undefined
+
+book =
+  title: "Distributed Programming with Ruby"
+  author: "Mark Bates"
+  chapter_1:
+    name: "Distributed Ruby (DRb)"
+    pageCount: 33
+  chapter_2:
+    name: "Rinda"
+    pageCount: 40
+
+{author, chapter_1: {name, pageCount}} = book       # 键一一对应
+
+
+==========================================================
+
+数组迭代                                            for <some name here> in <array here>[ by <increasing value>]
+给 for 循环添加一个简单的条件                       when
+
+=========================== when ==========================
+
+a = [1..10]
+
+for num in a when num < 4
+  console.log num
+
+===========================================================
+
+迭代对象                                            for <key name here>, <value name here> of <object here>
+
+====================== 迭代对象 ===========================
+
+Person = 
+  firstName: "Mark"
+  lastName: "Bates"
+
+for key, value of Person
+  console.log "#{key}: #{value}"
+
+# 使用 when 关键字
+
+person = 
+  firstName: "Mark"
+  lastName: "Bates"
+
+for key, value of person when value.length < 5
+  console.log "#{key}: #{value}"
+
+===========================================================
+
+添加函数或特定值                                        Object.prototype.dob = new Date(1976, 7, 24)
+只迭代显性定义的键/值 (不迭代 prototype 定义的)         for own of
+
+========================== own ===============================
+
+Person = 
+  firstName: "Mark"
+  lastName: "Bates"
+
+Object.prototype.dob = new Date()
+
+for own key, value of Person
+  console.log "#{key} #{value}"     # "Mark: Bates"
+
+==============================================================
+
+while 循环                                              while (true)
+
+========================= while & callback ======================
+
+times = (number_of_times, callback) ->
+  index = 0
+  while index++ < number_of_times
+    callback index
+  return null
+
+times 5, (index) -> conosle.log index
+
+=================================================================
+
+和 while 相对的条件为 false 时执行                      unless (false)
+
+======================= unless ========================
+
+times = (number_of_times, callback) ->
+  index = 0
+  until index++ >= number_of_times
+    callback index
+  return null
+
+times 5, (index) -> conosle.log index
+
+=======================================================
+
+========================== comprehension 语法糖 ====================
+
+myLetters = ["a", "b", "c", "d"]
+# 允许通过语法糖在一行布置简单的代码
+console letter.toUpperCase() for letter in myLetters
+
+upLetters = for letter in myLetters         ## 允许多行获得结果
+  letter.toUpperCase()
+
+====================================================================
+
+## 循环一个数组一般是返回一个数组，所以不需要用上 push
+
+====================== do 包装函数 ======================
+
+for x in [1..5]
+  do (x) ->
+    setTimeout ->
+      console.log x
+    , 1
+
+# 如果不加上 do 那么就会丢失了 x 所在的作用域, 这是由回调函数导致的
+
+=========================================================
+
+判断数组是否包含元素                                    'ele' in arr
+判断对象是否包含键                                      'key' of object
+
+================= constructor 函数/类 ========================
+
+class Employee
+  constructor: (@name) ->                   ## 注意: 这个函数不是总函数，和下面缩进是一样的
+  dob: (year=1970, month=1, date=1) ->
+    new Date(year, month, date)
+  printInfo: ->
+    console.log "#{@name}"
+			
+emp1 = new Employee('James')
+console.log emp1.dob()
+emp1.printInfo()
+
+===========================================================
+
+======================= 类接受多个参数 =====================
+
+class Employee
+  constructor: (@attributes) ->
+  printInfo: ->
+    console.log "Name: #{@attributes.name}"
+    console.log "DOB: #{@attributes.dob}"
+    if @attributes.salary
+      console.log "Salary: #{@attributes.salary}"
+    else
+      console.log "Salary: Unkown"
+
+exp1 = new Employee
+  name: "Mark"
+  dob: new Date(1976,7,24)
+  salary: "$1.00"
+
+exp1.printInfo()
+
+============================================================
+
+========================== 类继承 =========================
+
+class Employee
+  constructor: (@attributes) ->
+  printInfo: ->
+    console.log "Name: #{@attributes.name}"
+    console.log "DOB: #{@attributes.dob}"
+    if @attributes.salary
+      console.log "Salary: #{@attributes.salary}"
+    else
+      console.log "Salary: Unkown"
+			
+class Manager extends Employee          # 继承来自 Employee 类的所有功能
+
+exp1 = new Manager
+  name: "Mark"
+  dob: new Date(1976,7,24)
+  salary: "$1.00"
+
+exp1.printInfo()
+
+===========================================================
+
+==================== 类继承调用 super 修改方法 ====================
+
+class Employee
+  constructor: (@attributes) ->
+  printInfo: ->
+    console.log "Name: #{@attributes.name}"
+    console.log "DOB: #{@attributes.dob}"
+    console.log "Salary: #{@attributes.salary}"
+  bonus: ->
+    0
+class Manager extends Employee
+  bonus: ->
+    @attributes.salary * .10
+  printInfo:  ->
+    super                   # 先执行父类的函数
+    console.log "Bonus: #{@bonus()}"
+
+employee = new Employee
+  name: "Mark"
+  dob: new Date(1976,7,24)
+  salary: 50000
+employee.printInfo()
+manager = new Manager
+  name: "Rechel"
+  dob: new Date(1979,3,28)
+  salary: 100000
+manager.printInfo()
+
+#####################
+
+class Animal
+  constructor: (@name) ->
+
+  move: (meters) ->
+    console.log @name + " moved #{meters}m."
+
+class Snake extends Animal
+  move: ->
+    console.log "Slithering..."     # 先执行上面的
+    super 5                         #  父类函数需要参数
+
+class Horse extends Animal
+  move: ->
+    console.log "Galloping..."
+    super 45
+
+sam = new Snake "Sammy the Python"
+tom = new Horse "Tommy the Palomino"
+
+sam.move()
+tom.move()
+
+===================================================================
+
+## 事实上, Math 并非类, 它只是一个用于定义命名空间的普通对象
+
+====================== 类级函数 ========================
+
+## 不需要实例化就可以调用方法, 类似 Math.round(), 最大的好处是提供了命名空间, 其他地方定义 round() 不会冲突
+
+class Employee
+  constructor: ->
+    Employee.hire(@)                # 将 hire 挂在 Employee 类上, 无需实例化直接调用
+  @hire: (employee) ->              # 在函数前使用 @ 等于告诉 CoffeeScript 此函数为类级函数
+    @allEmployees ||= []
+    @allEmployees.push employee
+  @total: ->
+    console.log "There are #{@allEmployees.length} employees"
+    @allEmployees.length
+
+new Employee() for i in [1..10]
+
+Employee.total()
+
+## 错误表现, 在类级函数使用 super
+
+class Employee
+  constructor: ->
+    Employee.hire(@)
+  @hire: (employee) ->
+    @allEmployees ||= []
+    @allEmployees.push employee
+  @total: ->
+    console.log "There are #{@allEmployees.length} employees"
+    @allEmployees.length
+
+class Manager extends Employee
+
+new Employee()
+new Employee()
+new Manager()
+Manager.total()
+
+# error: TypeError: Cannot read property 'length' of undefined
+# JavaScript 原生并不支持继承, CoffeeScript 模拟了类和继承。正因为如此, 子类 Manager 和 Employee 类完全是两个不同的对象, 所以在 Employee 上定义的属性, 在 Manager 类中根本不存在, Manager 类无法访问到。避免在子类中使用 super
+
+========================================================
+
+============================ 原型函数 ======================
+
+## JavaScript: obj.prototype.func = function(){}
+
+myArray = [1..10]
+
+try
+  console.log myArray.size()
+catch e
+  console.log e
+
+Array::size = -> @length        # 使用 :: 操作符添加原型函数到所有 Array 实例
+
+console.log myArray.size()
+
+myArray.push(11)
+console.log myArray.size()
+
+============================================================
+
+============================== 异步 ==============================
+
+# JavaScript 是一门异步的、事件驱动的编程语言。在非异步编程中, 每次执行函数时, 其余代码都会被暂停, 指导函数返回才会继续执行。在 JavaScript 中无须如此。哪怕调用的函数还没有返回, 依然可以继续执行后续代码。
+
+fire = (msg, wait) ->
+  setTimeout ->
+    console.log msg
+  ,wait
+
+fire("Hello", 3000)
+fire("World", 1000)
+
+## 先输出 "World", 因为触发第一个 fire() 时, 进程没有在等待, 马上执行后续代码
+
+==================================================================
+
+======================= => 绑定解决回调函数丢失上下文问题 =======================
+
+# __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
+
+class User
+  constructor: (@name) ->
+  sayHi: =>
+    console.log "Hello #{@name}"
+
+log = (callback) ->
+  console.log "about to execute callback..."
+  callback()
+  console.log "...execute callback"
+
+bob = new User('bob')
+mary = new User('mary')
+
+log(bob.sayHi)
+log(mary.sayHi)
+
+=================================================================================
+
+06-19-2014
+
+========================= 匿名自执行函数 closure =========================
+
+do ($=jQuery,window) ->
+  $ ->
+
+(function() {
+  (function($, window) {
+    return $(function() {});
+  })(jQuery, window);
+
+}).call(this);
+
+
+===========================================================================

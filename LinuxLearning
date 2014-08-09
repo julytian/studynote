@@ -1,0 +1,871 @@
+﻿Shell - bash (Bourne Again Shell)
+
+列出文件                    	$  -F		                	//F 可以区别文件夹
+删除文件	                    $ rm
+删除空文件夹	                $ rmdir
+删除非空文件夹              	$ rm -r		                 	// -f 不可恢复
+退出 root               		$ exit / Ctrl+d
+建立新文件              		$ touch/vi/vim/emacs/gedit .etc
+重命名	              	    	$ mv oldname newname        	//等同移动
+
+//mv -f	交互方式操作。如果 mv 操作要覆盖某已有的目标文件的覆盖，此时系统询问是否重写，要求用户回答 y 或 n，这样可以避免误覆盖文件。
+//mv -l 禁止交互操作。在 mv 操作要覆盖某已有的目标文件是不给任何指示，指定词选项后，i 选项将不再起作用。最好用 -f 。
+
+强制重启 Xorg              		ctrl+alt+backspace
+查看自己的进程	              	$ ps
+查看所有进程	              	$ ps -ax | more	            	//加上 more 一页页列出
+查看所有进程	              	$ ps -e
+
+//PID - 进程 ID (用于杀死一个进程)
+//TTY - 控制终端
+//STAT - 状态 R:还在运行 S:Suspend 暂时搁置 T:Time out 暂停(Ctrl+Z)
+//TIME - 使用 CPU 的时间
+//COMMAND - 运行的命令
+
+杀死进程	              	    $ kill process-id               	//先 ps 再查看 process-id
+查看源		                	/etc/apt/sources.list
+c/c++ 编译	                	$ apt-get gcc/gcc-c++
+升级内核	                 	$ update kernel(Fedora)/apt-get install kernel-image(Ubutu & Debian)
+修改权限              	    	$ chmod
+切换到帐号 Andy                 	$ su Andy
+使用较长格式列出信息         	$  -l(通过 ls --help)了解
+$ ls -d                                                            //列出目录而不是内容
+Ctrl+U	                    	删除整行
+Ctrl+C	                    	中断命令
+Ctrl+Z	              	    	暂停命令(键入 (foreground) 恢复命令)
+Ctrl+H	              	    	由退格键所产生的 ASCII 代码
+修复功能键                  	stty erase ^H/stty kill ^U/stty intr ^C/stty susp ^Z
+所有后缀                    	-a
+Tab		                        自动补全
+$ export VISUAL=vi	            设定 shell 使用 vi 的按键习惯(适用于 bash,ksh,zsh)
+$ setenv VISUAL vi          	同上(适用于 tcsh)
+通配符		                	可以使用 $,*,[13],[1-3] 寻找文件
+存储输出结果	               	/home/ > ~/sample 或者 >> ～/sample 直接添加到已存在的sample后面
+
+// /dev 目录是 UNIX 系统用以存放指向终端、磁带机和其他设备的特殊文件之处，但是 /dev/null 是独特的，这是一个把您送入的数据全部投入黑洞的地方。举例来说，下列的命令会存储标准错误输出，但是会遗弃标准输出：$gcc smaple.c 2> error-msg > /dev/null
+
+02-22-2014
+
+显示硬盘使用状况	        	$ du | sort -n              	//由小到大进行排列 -r 由大到小进行排列 | more 一页页列出
+
+//一个命令就是一个文件， 这个命令是位于 bin 目录下的一个 binary file, 因此除了键入 ls 之外，您也可以输入完整的路径名称(absolute pathname)。
+
+输出命令预设路径	        	$ echo $PATH
+命令放后台		              	$ gcc sample.c &            	//享受 Unix 多任务的好处
+后台回前台	              		$ fg %1 或者 $fg 21447      	//foreground %1 是分配给该任务的序列，21447 是 process ID
+手册查看	              		$ man 1 	                	//在第一章查看 ls
+显示相关手册	            	$ apropos edit	            	//显示所有与 edit 有关的参考手册
+设置 man path	            	$ export MANPATH=/usr/man:/usr/local/man
+修改编码	                	iconv
+信息查看	                	$ info 	                    	//具体看 info 操作方法
+修改文件拥有者	            	$ chown youngdze sampsoft
+修改所属群组	            	$ chgrp youngdze sampsoft
+添加去掉执行权限            	$ chmod +x sampsoft AND $ chmod -x sampsoft
+为指定对象添加执行权限      	$ chmod ugo+x sampsoft      	//u -> you, g -> grouop, o -> others
+绝对模式的权限	            	$ chmod 777 sampsoft
+显示隐藏文件	            	$  -a
+GNU 压缩(仅一个文件)        	$ gzip sample	            	//压缩成功后原文件删除 -l 查看详细
+GNU 解压	                	$ gunzip sample.gz          	//解压成功 gz 删除
+以原文件名解压	            	$ gunzip -N changed.gz
+
+02-23-2014
+
+当前目录	                	$HOME / ~
+命令路径	                	$PATH		                	// $ echo $PATH
+查看压缩文件	            	$ gunzip -c sample.gz
+通过 pipe 压缩	            	$  -laR $HOME | gzip > filelist.gz
+更好的压缩	                	$ bzip2 sample /  $bunzip2 sample.bz2
+打包 tar.bz2	            	$ tar jcvf sample /etc
+解压 tar.bz2		            $ tar jxvf sample.tar.bz2
+通过 gnome 截屏	            	$ gnome-screenshot          	//截取整个桌面
+		                    	$ gnome-screenshot -w       	//截取当前 shell 窗口 -B 去掉窗口名称状态
+		                    	$ gnome-screenshot -a       	//截取指定区域
+打包多个文件		            $ tar -cvf sample           	//c--create,v--verbose,f--filename,x--exact
+解包到指定文件夹            	$ tar xzf filename.tar.gz -C PathToDirectory
+查看打包文件	            	$ tar tvf sample.tar
+打包本文件夹文件             	$ tar cvf sample.tar *
+打包并压缩		                $ tar cvzf sample.tar.gz sample
+解压 tar.gz	                	$ tar xvzf sample.tar.gz
+
+//简单的 shell 脚本
+// tarc () { tar czvf $1.tar.gz $1 }
+// tarx () { tar xzvf $1 }
+// tart () { tar tzvf $1 }
+
+// .bashrc 在 $HOME/yourname 下
+
+02-24-2014
+
+hosts 文件		/etc/hosts
+
+//安装程序
+//1、查看 Makefile
+//2、编辑一些与程序相关的文件
+//3、执行配置用途的脚本文件
+//4、执行 make
+
+$whereis option kword                                       	//查看命令可执行文件，源文件，man page 的路径
+$whatis		                                                	//功能相当 man -f
+
+通配符		                                                	//包括 * ? [ ]
+查看磁盘使用		            $ df -HT
+加入指定源地址	            	$ sudo echo "package url" >> /etc/apt/sources.list
+在 vim 中清除空行           	:g/^$/d
+显示目前使用网络的程序      	$ ss -p
+查看所有 Mac 地址           	$ ip link | awk '/link/ {print $2}'
+利用 rpm 系统安装           	$ rpm -i sample.rpm / $ rpm --insatll sample.rpm
+查看用法	                	$ sample --usage
+安装套件	                	$ rpm -i sample.rpm
+更新某个套件	             	$ rpm -U sample.rpm
+去掉某个套件	            	$ rpm -e sample		            //不需要后缀
+查看套件版本信息            	$ rpm -q sample
+列出所有已安装的套件           	$ rpm -qa
+显示所指定套件要安装的文件	    $ rpm -qpl sample.rpm
+免检查依赖性	            	$ rpm -i -nodeps sample.rpm
+去掉 vim 高亮		            :nohl
+vim 向下查找	            	/keywords
+vim 向上查找	            	?keywords
+vim 重复命令	            	n
+查看内核版本	            	$ uname -a
+vim 输入		                :i / :a / :o	            	//insert,append,o
+vim 删除光标字符                x
+vim 恢复删除文字            	p(put)		                	//放在当前位置下一行，P 当前位置前面
+vim 删除单词	            	dw
+vim 替换	                	R
+vim 切换大小写	            	~
+vim 移动	                	w,b,0,$		                	//w,下个单词开头。b，目前所在单词开头。0，目前这行开头。$，行末。
+vim 快速移动	            	Ctrl+f,Ctrl+b，G            	//forward,backward，G，末端，10G，第十行，1G，第一行
+vim 引入其他文件	            :r sample.txt
+vim 执行 Shell 命令	            :! ls -F
+将命令放入缓冲区            	:r! ls -F
+vim 全局搜索	            	:[x,y]s/pattern/replacement/flags
+vim 剪切复制粘贴            	y,复制;d,剪切/删除;p,粘贴
+vim 剪切		                dd,剪切一行;d$,剪切当前行光标所在位置到行尾;d^,剪切当前行光标所在位置到行首;3dd,从当前行+下两行被剪切;:1,10 m 20, 剪切1-10行到20行
+vim 编辑新文件	            	:e sample
+
+软件卸载
+$ sudo apt-get purge softname		                        	//purge 参数为彻底删除文件
+$ sudo apt-get autoremove
+$ sudo apt-get clean
+$ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
+$ sudo apt-get remove --purge softname	                    	//也可以用来检查是否卸载成功
+$ sudo apt-get update
+
+软件安装目录	            	/usr/bin/
+使用 deb 包管理器安装       	$ dpkg -i package_name.deb
+deb 软件卸载	            	$ dpkg -r package_name
+使用 xz 压缩解压缩          	$ xz -z sample / $ xz -d sample
+
+02-25-2014
+
+Ubuntu 安装 vlc	            	$ sudo apt-get install vlc browser-plugin-vlc
+快速启动 terminal           	Ctrl+Alt+t
+GNOME 文件管理器            	$ sudo nautilus	            	//使 GNOME 获得 root 权限
+添加新仓库	                	$ sudo add-apt-repository "url option"
+去除旧仓库	                	$ sudo -r add-apt-repository "url"
+
+//GNOME terminal 偏向设置 --> Editor--profile perference
+//GNOME Status Bar Transparent --> Unity Tweak Tool
+
+查看日期	                	$ date +%Y/%m/%d/%H:%M
+查看日历	                	$ cal month year
+计算器		                	$ bc		                	//scale=number 小数位
+
+//man 查看指令后面数字的含义
+//1、使用者在shell環境中可以操作的指令或可執行檔
+//2、系統核心可呼叫的函數與工具等
+//3、一些常用的函數(function)與函式庫(library)，大部分為C的函式庫(libc)
+//4、裝置檔案的說明，通常在/dev下的檔案
+//5、設定檔或者是某些檔案的格式
+//6、遊戲(games)
+//7、慣例與協定等，例如Linux檔案系統、網路協定、ASCII code等等的說明
+//8、系統管理員可用的管理指令
+//9、跟kernel有關的文件
+
+man 查找	                	/keywords ?keywords	            //前者向下，后者向上，n 查找下一个
+在全部 page 查找	            $ man -k
+建立 whatis		                $ sudo makewhatis
+帮助文档	                	/usr/share/doc
+关机		                	$ shutdown
+定时关机	                	$ shutdown -h 13:30
+重启		                	$ reboot
+关机		                	$ poweroff / $ halt
+资料写入磁盘	            	$ sync
+切换执行等级	            	$ sudo init 0/3/5/6	//0:关机;3:纯文字;5:含有图形界面模式;6:重新开机
+
+//(重点分析)磁盘分区(partition)
+
+/* 
+Linux 系统密码破解
+
+1.在grub选项菜单按e进入编辑模式 
+2.(按e)编辑kernel那行 添加 /init 1 (或/single) 
+3.按B重启 
+4.进入后执行下列命令
+
+进入passwd文件                  # vi /etc/passwd
+
+将第一行的root:x:0....中的X删除，变成 root::0....然后保存退出!
+
+在进去系统此时root密码为空。
+
+修改密码                        ＃ passwd root
+*/
+
+02-26-2014
+
+进入 Virtual console        	[Ctrl]+[Alt]+[F1]~[F6]
+回去 X-Window	            	[Ctrl]+[Alt]+[F7]~[F8]
+
+/*
+Python 百度云安装
+
+首先下载 http://t.cn/8FRGwhN 或者 https://github.com/houtianze/bypy
+$ sudo apt-get install python-pip
+$ git clone git://github.com/kennethreitz/requests.git [direction]
+$ python bypy.py list 	//验证后继可使用
+*/
+
+//HASH是根据文件的内容的数据通过逻辑运算得到的数值, 不同的文件(即使是相同的文件名)得到的HASH值是不同的, 所以HASH值就成了每一个文件在EMULE里的身份证. 不同HASH值的文件在EMULE里被认为是不同的文件,相同的HASH值的文件的内容肯定是完全相同(即使文件名不同). HASH值还有文件校验的功能,相当于文件的校验码. 所以还可以用来检查文件下载是否正确(所以EMULE下载完毕时,都会在HASH文件一遍, 检查文件是否出错)
+
+02-27-2014
+    
+利用 rpm 查找	            	$ rpm -q emacs	            	//确认 emacs 的存在
+直接解压缩远程得tgz         	$ curl http://example.com/a.gz | tar xz
+
+//xz 最新压缩率之王
+
+创建 tar.xz		$ tar cvf sample.tar sample $ xz -z sample.tar
+解压 tar.xz		$ xz -d sample.tar.xz $ tar xvf sample.tar
+
+编译软件步骤，以安装 sed 为例：
+
+$ wget ftp://ftp.gnu.org/gnu/sed/sed-4.2.2.tar.gz	//下载包
+$ tar xvzf sed-4.2.2.tar.gz				//解压包
+$ cd sed-4.2.2.tar.gz					//进入文件夹
+$ ./configure && make					//运行 configure 和 make
+$ make check						//运行测试包确保没问题
+$ sudo make install						//安装
+
+使用 locate 查找
+
+$ sudo updatedb			                                	//需要先由 cronta b建立一个数据库
+$ locate keywords			                                //查找关键字 keywords
+
+设定登录密码			    	$ passwd option account
+显示那些人已经登录系统			$ who
+显示剩余的磁盘空间		    	$ df
+显示磁盘使用量			    	$ du
+显示环境变量			    	$ env
+显示有关用户的信息		    	$ finger
+
+02-28-2014
+
+查看系统位数			    	$ file /sbin/init
+查看 Ubuntu 版本		    	$ lsb_release -a
+获取日期支持人类语言			$ date -d '2 days ago'
+有进度条的 rsync		    	$ rsync -rv <src> <dst> --progress
+
+/etc/				        	//几乎系统的所有设定档案均在此，尤其passwd,shadow
+/etc/init.d			        	//系统开机的时候载入服务的scripts 的摆放地点
+/boot				        	//开机设定档，也是预设摆放核心vmlinuz 的地方
+/usr/bin /bin			    	//一般执行档摆放的地方
+/usr/sbin /sbin			    	//系统管理员常用指令集
+/dev				        	//摆放所有系统装置档案的目录
+/var/log			        	//摆放系统登录档案的地方
+
+需要和根目录(/)放同一 partition 的目录
+/etc				        	//设定档
+/bin				        	//一般身份可用执行档
+/dev				        	//装置档案
+/lib				        	//执行档的函式库或核心模组等
+/sbin				        	//系统管理员可用指令
+
+显示当前目录			    	$ pwd
+删除一个空目录			    	$ rmdir
+列出环境变量			    	$ echo $PATH
+安装 cairo dock			    	http://t.cn/SLLT8w
+
+输入重定向
+> file				        	//将输出定向至一个文件，覆盖之前的内容
+>> file				        	//将输出附加到一个文件，但保留它之前的内容，没有则创建
+| command			        	//将输出定向，作为一个系统命令的输入
+|& command			        	//将输出定向，作为协进程(coprocess)的输入。只适用于 gawk
+列出安装的 deb 包	    		$ sudo dpkg -l
+列出安装的 rpm 包		    	$ rpm -qa
+安装 QtCreator			    	$ sudo apt-get install qtcreator
+卸载 python-qt4			    	$ sudo apt-get remove --purge pyth
+
+03-01-2014
+
+ping 次数			        	$ ping -c 3 [url]
+查看块设备和文件系统信息		$ lsblk -f
+
+工作环境转向 Debian
+
+安装小企鹅输入法		    	$ sudo apt-get install fcitx	$ im-config
+磁盘分区			        	$ cfdisk
+获取所有 mac 地址		    	$ ip link show
+查看文件编码			    	$ file sample	$ enca sample
+转换文件编码			    	$ iconv -f from-encode -t to-encode file > newfile
+创建文件系统			    	$ mkfs.ext4 /dev/sda2
+创建 swap 分区			    	$ mkswap /dev/sda3
+启用 swap			        	$ swapon /dev/sda3
+磁盘分区			        	$ cfdisk /dev/sda
+挂载分区			        	$ mount /dev/sda1
+卸载分区			        	$ unmount /dev/sda1
+Chromium flash 插件		    	/usr/lib/chromium/	//flash 放这个文件夹下
+
+03-03-2014
+
+列出 Linux 版本信息		    	$ lsb_release -a	linux standart basic
+查看 Linux 版本信息		    	$ cat /etc/issue
+查询仓库相关软件列表			$ apt-cache search sampleAPT | less
+获得服务器 IP 地址		    	$ sudo ifconfig eth0 | grep inet | awk '{ print $2 }'
+获取 ip 信息			    	$ /sbin/ifconfig -a
+服务器文件路径			    	/var/www/
+列出所有进程包括系统进程		# ps -A/-e
+
+03-04-2014
+
+给用户增加 root 权限			/etc/sudoers
+localhosts 文件夹		    	/var/www/
+/var				        	// 某些大文件的溢出区
+安装 phpMyAdmin			    	// 把 phpMyAdmin 包解压到服务器文件夹
+制作 zip 包			        	$ zip -r sample.zip sample  /  $ zip -r sample sample
+解压 zip 包			        	$ unzip sample.zip
+复制文件夹			        	# cp -r /tmp/a /root/a
+
+MySQL 使用(http://bit.ly/1kuFrrG)
+
+进入 MySQL&选择数据库			$ mysql -D database-name -h hostname -u username -p
+修改密码			        	$ mysql -u username -p oldPassword newPassword
+创建数据库			        	> create database database-name option;
+显示存在的数据库		    	> show databases database-name;
+选择数据库				        > use database database-name;
+删除数据库			        	> drop database database-name;
+创建数据库表			    	> create table table-name;
+删除数据库表			    	> drop table table-name;
+
+03-05-2014
+
+添加环境变量
+
+第一种方法			        	# export PATH=/usr/local/webserver/mysql/bin:$PATH
+第二种方法
+# vim /etc/profile / # vim ~/.bashrc
+在最后添加
+export PATH="/usr/local/webserver/mysql/bin:$PATH"
+保存退出运行
+# source /etc/profile
+
+图像界面可以 sudo		    	$ xhost +
+列出字体			        	$ fc-list
+
+03-08-2014
+
+解决无法获得锁 /var/lib/apt/lists/lock	$ sudo rm /var/lib/apt/lists/lock
+同上				        	# apt-get clean # apt-get autoclean
+将镜像写入 U 盘			    	$ dd if=sample.iso of=/dev/sdX		//where /dev/sdX is the device name of your usb driver
+制作 .iso			        	$ dd if=/dev/cdrom of=cd.iso
+解压 rar 文件			    	$ rar x sample.rar	$ rar e sample.rar
+打包 rar 文件			    	$ rar a sample.rar /sample
+换行				        	$ echo
+获得随机密码(日期加密)			$ date|md5sum
+拼音输入法				        iBus/Fcitx+libpinyin
+给文本中超过90字符的行折行		$ fold -x -w 90 file.txt
+在 nautilus 打开 termnal		$ sudo apt-get install nautilus-open-terminal
+便于人类识别			    	$ ls -lh (1024) $ ls -si (1000)
+
+03-09-2014
+
+排序文件大小			    	$ ls -lhS
+ls 改单位大小			    	$ ls -l --block-size=K/M/G/T/P/E/Z/Y
+非常不错的离线 API 文档浏览器	Zeal
+安装 deb			        	$ sudo dpkg sample.deb
+搭建 vsftp				        $ sudo apt-get install vsftpd
+更新 UNIX 密码			    	$ sudo passwd
+改变文件所有者和所有组			$ chown -option username:groupname file
+查找命令			        	$ find -options pathname(s) condition(s)
+显示最近执行的历史命令			$ history | more #~/.bash_history
+执行 command(使用任何初始的自变量)	$ find . -type f -print | xargs chmod o-x
+				            	$ find -name "*.log" | xargs -i mv {} TestFold		//使用 -i 默认前面输出用 {} 代替,-p 询问是否执行 command
+
+杀死同名进程				    $ killall processes-name
+杀掉进程的子进程				$ pkill -P process-id
+
+03-10-2014
+
+查找 PHP			        	$ find . -print | grep '\wH\w'
+打印进程树			        	$ ps -ejH
+利用 grep 统计			    	$ grep -c '\wH\w'
+以标准模式输出			    	$ cat sample.txt
+从文件中找出 linux		    	$ grep 'linux' sample.txt sample2.txt
+创建一个新文件			    	$ cat > sample
+合并文件			        	$ cat file1 file2 > file
+给文件内容加上行号输入另一个文件	$ cat -n file1 file2
+强大的下载工具			    	$ sduo apt-get install aria2
+强大的下载工具UI		    	flareget
+获取域名 ip 地址		    	$ host example.com | head -1 | awk '{print $4}'
+跟踪 dns 解析			    	$ dig +trace google.com
+连接文件或标准输出并打印		$ cat -option filename
+
+03-12-2014
+
+解决 intltool too old			$ sudo apt-get install intltool
+不错的 rss阅读器 liferea		$ sudo add-apt-repository ppa:liferea/development && sudo apt-get update && sudo apt-get install liferea
+查看显卡			        	$ vim /etc/X11/xorg.conf
+查看显卡快捷			    	$ lspci | grep VGA
+查看 CPU			        	$ lscpu
+安装 Mercurial 实现 hg clone	$ sudo apt-get install mercurial
+找到今天创建的文件		    	$ find . -mtime 0 -type f
+获取 ip				        	$ ip route get 8.8.8.8 2>/dev/null|grep -Eo 'src [0-9.]+'|grep -Eo '[0-9.]+' 
+不错的词典			        	$ sudo apt-get install goldendict
+不错的颜色吸取工具		    	ColorZilla for Chrome and Firfox
+向用户请求输入，用户输入y/n后继续	$ read -p "Question that you want an answer to?" yn
+重启进程			        	$ kill -1 PID
+强行关闭进程			    	$ kill -9 PID
+
+03-14-2014
+
+自动关机			        	$ shutdown -h time  $ at  $ cron
+
+03-15-2014
+
+列出已安装的包(Ubuntu)			$ sudo dpkg -l
+
+03-16-2014
+
+安装 notify2		    		# apt-get install python3-notify2
+
+03-17-2014
+
+dpkg 卸载			        	# dpkg -r software-name
+添加 ppa 源			        	# add-apt-respository ppa:user/ppa-name
+删除 ppa 源			        	# add-apt-respository -r ppa:user/ppa-name
+查看局域网所有/某机器 MAC		$ arp -a (IP)
+查看本机网卡			    	$ ifconfig eth0	$ ifconfig -a
+重启网卡			        	# ifconfig eth0 up
+关闭网卡			        	# ifconfig eth0 down
+修改 MAC			        	# ifocnfig eth0 hw ether MAC	//MAC 12 位无冒号
+发送邮件			        	$ echo "Hello"|mail -s "Greeting" username@mail.com
+打印移动信息			    	$ mv -v	(verbose)
+动态显示系统进程信息			$ top				// http://bit.ly/OpdVhC
+移动提醒			        	$ mv -i
+使用更新选项移动	    		$ mv -u
+不要覆盖任何已存在的文件		$ mv -n
+覆盖时备份旧文件		    	$ mv -b
+无条件覆盖			        	$ mv -f
+限制程序运行时间		    	$ timeout 5s top
+定时关机		        		# shutdown -h 10:42 'Hey! Go away!'	// http://bit.ly/Opi8BT
+查看即时网速			    	$ sar -n DEV 1 100
+查看文件末尾内容		      	$ tail -n (+)5 log2014.log	// 倒数第五行开始
+显示 TCP 连接			    	$ ss -t -a
+显示 Sockets 摘要		    	$ ss -s
+列出所有打开的网络连接端口		$ ss -l
+查看进程使用的socket			$ ss -pl
+找出打开套接字/端口应用程序		$ ss -pl|grep 3306
+打印当前路径			    	$ pwd
+打补丁				        	$ patch
+查看 CPU 温度			    	$ sensors
+网速测试			        	$ speedtest-cli
+递归下载			        	$ wget -krp -np
+查看磁盘使用空间			    $ df
+
+3-20-2014
+
+格式化文本为表格		    	$ cat /etc/passwd | column -nts
+关机重启				        # shutdown -r now
+关机不重启			        	# shutdown -h now
+10分钟后关机/重启		    	# shutdown -h/r +10
+10点钟关机/重启			    	# shutdown -h/r 10:00
+取消 shutdown			    	# shutdown -c
+查看 CPU 型号			    	$ sed -n 's/^model name[ \t]*: *//p' /proc/cpuinfo
+文件名替换为下划线		    	$ ls -1 | while read file; do new_file=$(echo $file | sed s/\ /_/g); mv "$file" "$new_file"; done 
+列出安装的内核			    	$ aptitude search \~ilinux-image
+修改 $PATH			        	$ vim /etc/profile
+
+03-24-2014
+
+比较文件内容		    		$ diff -u file1 file2
+more 操作			        	e/f - forward, y/b - backward
+
+03-25-2014
+
+列出精确修改时间		    	$ ls --full-time
+查看公网 IP			        	$ curl ifconfig.me
+
+03-27-2014
+
+ssh 登陆			        	# ssh username@host
+修改密码			        	# passwd
+新建用户组			        	# addgroup group-name
+新建用户			        	# useradd -d /home/username -s /bin/bash -m username
+修改用户密码			    	# passwd username
+添加用户到组			    	# usermod -a -G group-name username
+为用户设定 sudo 权限			# visudo	// username ALL=(ALL)(NOPASSWD):ALLL / ALL = (ALL:ALL) ALL
+检查区域设置			    	$ locale
+设置字符			        	# locale-gen en_US en_US.UTF-8 en_CA.UTF-8
+更新软件			        	# apt-get upgrade
+svn 克隆			        	$ svn co svnurl  / $ svn checkout svnurl
+svn 添加文件到版本库			$ svn add file
+svn 提交到版本库		    	$ svn ci -m "commmit" filename	// ci == commit
+svn 加锁/解锁			    	$ svn lock/unlock -m "LockMessage" [--force] PATH
+svn 更新本地到版本		    	$ svn update -r version path	// update == up
+svn 查看状态			    	$ svn st/stat -v path		// st == status
+
+03-28-2014
+
+防止后台程序挂掉		    	$ nohup command
+
+03-30-2014
+
+hosts 文件			        	/etc/hosts
+修改防火墙设置			    	/etc/default/ufw
+测试 ipv6			        	$ ping6 ipv6 scau.edu.cn
+磁盘操作			           	$ fdisk
+加载 ipv6			        	# modprobe ipv6
+查看端口			        	$ lsmod -a
+
+03-31-2014
+
+计算字符数			        	$ echo -n "foo" | wc -c
+
+04-07-2014
+
+递归修改权限			    	$ chmod -R 555
+查看包版本			        	# apt-cache show pkgname | grep -i "version"
+svn 强制加入			    	$ svn add /path/* --force
+
+04-11-2014
+
+大小写转换			        	$ tr a-zA-Z A-Za-z < input.txt
+vim 显示行号			    	:set number
+vim 显示行例号			    	:set ruler
+vim 取消行号			    	:set nonu
+vim 进入可视模式		    	v
+vim 复制整行			    	yy/Y
+vim 复制当前及以下行			nyy/nY
+vim 剪切当前光标所在行			dd
+vim 剪切当前及以下行			ndd
+vim 在光标下面粘贴		    	p
+vim 在光标上面粘贴		    	P
+vim 打开文件			    	:e filePath
+vim 打开文件夹			    	:cd path
+vim 新建文件			    	:new filename
+vim 打开多个文件		    	vi filename1 filename2
+vim 窗格打开多个文件			:split/vsplit filename
+vim 打开新文件			    	:tabnew filename
+vim 编辑前个档案		    	ctrl+6/:e#fileNO
+vim 列出已打开文件		    	:ls
+vim 切换下个文件		    	:bn
+vim 切换上个文件		    	:bp
+vim 窗格切换			    	Ctrl+w+ArrowKey
+vim 窗格切换			    	Ctrl+w+h/j/k/l
+vim 切换到下个窗格		    	Ctrl+ww
+vim 修改文件名称		    	:f newFileName
+vim 保存退出			    	shift+z+z
+vim 切换文件			    	:b filename
+vim 文件序号切换		    	:b fileNo
+vim 配色文件夹                  ~/.vim/colors/
+vim 切换配色方案                :colorscheme evening
+vim 切换背景颜色                :set background=dark
+vim 所有用户配置                /etc/vim/vimrc                  // 硬链接 /usr/share/vim/vimrc
+查看 vim 配置文件夹             :echo $VIMRUNTIME
+vim 查看配色                    :colorscheme
+vim 切换主题                    :colo theme_name
+vim 查看所有主题                :ColorSchemeExplorer            // 来自 csExplorer
+vim 移动到开头                  :1/gg
+vim 移动行尾2                   :$
+vim 移动行首                    0/^
+vim 帮助文档                    :help index.txt
+vim 翻页                        Ctrl+d/u
+vim 在行首插入                  I
+vim 在行尾插入                  A
+vim 在上行插入                  O
+vim 自动补全                    Ctrl+N(C-N)/(C-P)
+
+04-12-2014
+
+端口映射内网公网 IP             DDNS
+
+04-13-2014
+
+移动到其他工作区                Ctrl+Shift+Alt+Arrow Key
+
+04-18-2014
+
+杀死类进程                      $ killall ibus-daemon
+Ubuntu 安装 fcitx
+
+# apt-get purge ibus ibus-gtk ibus-gtk3 ibus-pinyin* ibus-sunpinyin ibus-table python-ibus
+# rm -rf ~/.config/ibus
+# sudo add-apt-repository ppa:fcitx-team-nightly
+# apt-get update
+# apt-get install fcitx
+# apt-get install fcitx-table-all/wubi/wbpy
+# apt-get install fcitx-sogoupinyin/sunpinyin
+# im-switch -s fcitx -z default
+
+04-19-2014
+
+不错的 terminal 翻译软件        https://github.com/youngdze/BashCiba.git
+解决 Apache 403 Forbidden       # chmod -R 755 director/
+
+04-20-2014
+
+apache 的两个配置文件           /etc/apache2/httpd.conf,/etc/apache2/apache2.conf
+
+04-22-2014
+
+vim 设置字体                    .vimrc => set guifont=Monaco
+
+04-24-2014
+
+svn 删除                        $ svn rm filename && svn commit -m ""
+vim 全局替换                    :[addr]s/源字符串/目的字符串/[option]               // http://bit.ly/1fa0u1y  :%s/  */ /g
+
+04-26-2014
+
+安装 qt 文件                    # qmake && make && make install
+
+04-27-2014
+
+locate a command                $ which [command name]
+安装 python 程序                # python setup.py install
+下载到指定目录(only for curl)   $ curl ftp://url.zip > /tmp/(rhino.zip)         // 你甚至可以重命名
+
+============ 使用淘宝 ruby 源 =============
+$ gem sources --remove https://rubygems.org/
+$ gem sources -a https://ruby.taobao.org/
+$ gem sources -l
+*** CURRENT SOURCES ***
+
+https://ruby.taobao.org
+# 请确保只有 ruby.taobao.org
+$ gem install rails
+===========================================
+
+查看 gem install 细节           # gem install rails -V
+
+04-28-2014
+
+查看域名 DNS                    # dig/host example.com
+查看邮件记录                    # dig/host -t mx example.com
+配置 hosts                      # vi /etc/hosts
+配置 DNS (nameserver)           # vi /etc/resolv.conf
+查看 DNS                        $ nslookup www.google.com
+Ubuntu 图标所在位置             /usr/share/icons/Humanity/apps/32
+开机启动目录                    ~/.config/autostart/
+
+// 35535(10) == 1111111111111111(2), A=65, a=97
+
+04-29-2014
+
+路由跟踪                        $ traceroute www.google.com
+
+04-30-2014
+
+// 2^16 = 65536, 2^32 = 4294967296, 2^8 = 256
+
+05-01-2014
+
+拯救 Linux                      Recovery Mode
+
+05-02-2014
+
+清理所有 .svn                           $ rm -rf `find ./ -iname *.svn*
+查找大文件                              $ ls -s | sort -nr | more 
+列出所有在 git 仓库存在过的文件         $ git log --all --pretty=format:" " --name-only | sort -u
+
+05-04-2014
+
+移除 PPA                                # apt-get install ppa-purge && # ppa-purge ppa:andrewsomething/typecatcher
+不错的字体下载工具                      typecatcher
+Linux 末日                              $ date -d @$(echo $((2 ** 31 - 1)))     // 2038年 01月 19日 星期二 11:14:07 HKT
+计算子目录数量                          $ ls -d */* | wc -l
+
+05-06-2014
+
+修改 Redshift 数值                      $ gtk-redshift -t 6500:5500 (DAY:NIGHT)
+
+05-13-2014
+
+获得计算机纪元                          $ date +%s
+
+05-14-2014
+
+====================== A 记录 ========================
+
+A (Address) 记录是用来指定主机名（或域名）对应的IP地址记录。用户可以将该域名下的网站服务器指向到自己的网页服务器(web server)上。同时也可以设置域名的子域名。
+通俗来说A记录就是服务器的IP，域名绑定A记录就是告诉DNS，当输入域名的时候给你引导向设置在DNS的A记录所对应的服务器。
+
+如何增加A记录
+又称IP指向，用户可以在此设置二级域名并指向到自己的WEB服务器的IP地址上，从而实现通过域名找到服务器找到相应网页的功能。
+
+======================================================
+
+05-16-2014
+
+找回 Ubuntu System Setting              # apt-get install ubuntu-desktop
+不错的日历程式                          # apt-get install evolution
+锁定 root                               # passwd -l root  / # usermod -p '!' root
+查看全部 Shell 工具                     $ ls /bin/*sh
+改变 Shell 工具                         $ chsh -s /bin/zsh
+查看当前 Shell                          $ ps  /  $ echo $SHELL
+免问 yes                                # apt-get install -y vim
+查看所有 shell                          $ cat /etc/passwd
+zsh 不错主题                            cypher jispwoso eastwood mh tjkirch_mod dst(favourite) essembeh(like bash) frontcube(git friendly)
+
+==================== password wrong after suspend ========================
+
+http://askubuntu.com/questions/128785/lock-screen-password-incorrect
+
+自从有一次进入 advanced model 后, Ubuntu 就给出 wrong password when login after suspend, 解决方法如下:
+
+$ sudo chown root:shadow /etc/shadow
+$ sudo chmod u=r,g=r /etc/shadow
+
+===========================================================================
+
+===================== cannot shutdown from panel ==========================
+
+http://askubuntu.com/questions/451070/cant-shutdown-and-logout-from-top-panel-in-ubuntu-14-04-lts
+
+The bug is from Cairo-dock and you can fix it by removing Cairo-dock from 
+startup applications.
+
+===========================================================================
+
+05-18-2014
+
+重启 Apache2                            $ sudo service apache2 restart
+apache2 配置表                          info.php
+
+05-19-2014
+
+查找可用包                              $ apt-cache search fcitx
+查看包细节                              $ apt-cache showpkg fcitx
+查看包依赖                              $ apt-cache depends fcitx
+
+05-21-2014
+
+traceroute 和 ping 结合体               $ mtr -r -c 3 8.8.8.8
+netstat
+从主机到客户机经过的路由                $ traceroute 192.168.1.100
+
+05-22-2014
+
+查看发行版                              $ cat /etc/*-release
+adb 使用                                $ adb kill-server
+                                        $ sudo adb start-server
+                                        $ adb devices
+列出 usb 设备连接信息                   $ lsusb
+
+05-23-2014
+
+不错的 FTP 守护程序                     vsftpd
+配置 vsftpd                             /etc/vsftpd.conf        // https://security.appspot.com/vsftpd/vsftpd_conf.html
+重启 vsftpd                             $ sudo service vsftpd restart
+
+============================ sudo ======================
+
+-V                  显示版本编号 
+-h                  会显示版本编号及指令的使用方式说明 
+-l                  显示出自己（执行 sudo 的使用者）的权限 
+
+ -v                 因为 sudo 在第一次执行时或是在 N 分钟内没有执行（N 预设为五）会问密码, 
+                    这个参数是重新做一次确认，如果超过 N 分钟，也会问密码 
+
+-k                  将会强迫使用者在下一次执行 sudo 时问密码（不论有没有超过 N 分钟） 
+-b                  将要执行的指令放在背景执行 
+-p                  prompt 可以更改问密码的提示语，其中 %u 会代换为使用者的帐号名称， %h 会显示主机名称 
+
+-u                  username/#uid 不加此参数，代表要以 root 的身份执行指令，而加了此参数，
+                    可以以 username 的身份执行指令（#uid 为该 username 的使用者号码） 
+
+-s                  执行环境变数中的 SHELL 所指定的 shell ，或是 /etc/passwd 里所指定的 shell 
+
+-H                  将环境变数中的 HOME （家目录）指定为要变更身份的使用者家目录
+                    （如不加 -u 参数就是系统管理者 root ）
+
+========================================================
+
+05-25-2014
+
+统计 demo 目录下 .js 文件数量               $ find demo/ -name "*.js" |wc -l/c/w
+
+05-26-2014
+
+替换指定文件所有注释用 vim                  $ vim suite.js -c '%s!/\*\_.\{-}\*/!!g'
+
+06-12-2014
+
+如存在询问是否覆盖                          $ mv -i
+删除前逐一询问                              $ rm -i *.log
+安装 bower                                  $ sudo npm install -g bower
+
+06-24-2014
+
+U 盘刻录                                    $ sudo dd if=deepin_12.12.1_zh-hans_final_amd64.iso  of=/dev/sdX  bs=1M
+
+06-25-2014
+
+============================= 安装 zsh =========================
+
+## refer to: https://gist.github.com/tsabat/1498393
+## zsh theme: https://github.com/robbyrussell/oh-my-zsh/wiki/themes
+
+$ apt-get install zsh
+$ apt-get install git-core
+$ wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | zsh
+$ chsh -s `which zsh`
+$ sudo shutdown -r 0
+
+================================================================
+
+注销                                            $ gnome-session-quit
+wine 卸载                                       $ wine uninstall
+
+06-27-2014
+
+=============================== Curl =============================
+
+查看网页源码                                    $ curl http://linuxidc.com
+保存网页                                        $ curl http://linuxidc.com > page.html
+保存网页                                        $ curl -o page.html http://www.linuxidc.com
+指定 http 访问使用的 proxy 服务器及端口         $ curl -x 123.45.67.89:1080 -o page.html http://www.linuxidc.com
+同时保存 cookie 信息                            $ curl -x 123.15.67.89:1080 -o page.html -D cookie0001.txt http://www.linuxidc.com
+追加 cookie                                     $ curl -x 123.45.67.89:1080 -o page.html -D cookie0002.txt -b cookie0001.txt http://www.linuxidc.com
+指定浏览器信息                                  $ curl -A "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)" -x 123.45.67.89:1080 -o page.html -D cookie0001.txt http://www.linuxidc.com
+按照在服务器的名字下载存到本地                  $ curl -O http://cgi2.tky.2web.ne.jp/~zzh/screen1.jpg
+批量下载                                        $ curl -O http://cgi2.tky.2web.ne.jp/~zzh/screen[1-10].jpg
+批量下载                                        $ curl -O http://cgi2.tky.2web.ne.jp/~zzh/screen[001-201].jpg
+突然断了的下载续传                              $ curl -c -O http://cgi2.tky.2web.ne.jp/~zzh/screen1.jpg
+
+分块下载
+$ curl -r 0-10240 -o "zhao.part1" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.MP3 &\
+$ curl -r 10241-20480 -o "zhao.part2" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.MP3 &\
+$ curl -r 20481-40960 -o "zhao.part3" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.MP3 &\
+$ curl -r 40961- -o "zhao.part4" http:/cgi2.tky.3web.ne.jp/~zzh/zhao1.MP3 &\
+$ cat zhao.part* > zhao.mp3                     // 合并文件
+
+ftp 协议下载                                    $ curl -u name:password ftp://ip:port/path/file
+ftp 协议下载                                    $ curl ftp://name:passwd@ip:port/path/file
+向 ftp 上传文件                                 $ curl -T localfile -u name:passwd ftp://upload_site:port/path/
+向 http 上传文件                                $ curl -T localfile http://cgi2.tky.3web.ne.jp/~zzh/abc.cgi
+GET 模式提交表单                                $ curl http://www.linuxidc.com/login.cgi?user=nickwolfe&password=12345
+POST 模式提交表单                               $ curl -d "user=nickwolfe&password=12345" http://www.linuxidc.com/login.cgi         // 相当于登陆申请
+POST 模式文件上传                               $ curl -F upload=@localfile -F nick=go http://cgi2.tky.3web.ne.jp/~zzh/up_file.cgi
+curl 使用本地证书                               $ curl -E localcert.pem https://remote_server
+curl 通过 dict 协议查字典                       $ curl dict://dict.org/d:computer
+
+==================================================================
+
+curl 到指定文件夹                               $ curl -dir mydir url.com/file.zip
+覆盖解压到指定文件夹                            $ unzip -uo ghost.zip -d ghost
+wget 到指定文件夹                               $ wget -O /path/to/file.zip url.com/file.zip
+tar 到指定文件夹                                $ tar -xvf sample.tar -C /path/to/dir/
+软连接 (symbolic link)                          $ ln -s exec /path/to/link
+
+

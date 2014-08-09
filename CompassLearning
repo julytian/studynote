@@ -1,0 +1,152 @@
+Compass Learning
+
+06-11-2014
+
+安装                                    $ sudo gem intsall compass
+创建项目                                $ compass create myproject
+初始化已存在的项目                      $ compass init rails path/to/project [--using blueprint]
+在项目根目录编译                        $ compass compile --output-style compressed
+监视 scss 随时编译                      $ compass watch [path/to/project]
+验证生成的 css                          $ compass validate [path/to/project]
+查看 compass 版本                       $ compass version
+查看样式表状态                          $ compass stats
+强制编译未变动的文件                    $ compass compile --force
+
+==================== config.rb =========================
+
+output_style = :expanded        保留原格式
+output_style = :compressed      生产阶段
+output_style = :nested          嵌套缩进代码
+output_style = :compact         简洁格式
+
+// 指定 environment 的值只能判断 (:production / :development)
+
+environment = :development
+output_style = (environment = :production) ? :compressed : :expanded  // (a>b)a:b
+
+========================================================
+
+compass 内置模块                        reset & css3 & layout & typography & utilities
+重置浏览器样式                          @import "compass/reset";
+加载 css3 模块                          @import "compass/css3";
+
+========================== css3 module =======================
+
+@import "compass/css3"; mixin(宏)
+
+--------------------------------------------------
+圆角 border-radius
+
+.rounded {
+  @include border-radius(5px);
+  @include border-corner-radius(top, left, 5px);
+}
+
+.rounded {
+  -moz-border-radius: 5px;
+　-webkit-border-radius: 5px;
+　-o-border-radius: 5px;
+　-ms-border-radius: 5px;
+　-khtml-border-radius: 5px;
+　border-radius: 5px;
+}
+------------------------------------------------
+------------------------------------------------
+透明 opacity
+
+#opacity {
+  @include opacity(0.5);
+}
+
+#opacity {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+  opacity: 0.5;
+}
+---------------------------------------------------
+---------------------------------------------------
+行内区块 inline-block
+
+#inline block {
+  @include inline-block;
+}
+------------------------------
+#inline-block {
+　display: -moz-inline-stack;
+　display: inline-block;
+　vertical-align: middle;
+　*vertical-align: auto;
+　zoom: 1;
+　*display: inline;
+}
+---------------------------------------------------
+---------------------------------------------------
+layout module 提供布局功能
+
+指定 footer 永远在底部
+
+#footer {
+  @include sticky-footer(54px);     // 指定 footer 的高度
+}
+
+指定子元素占满父元素空间
+
+#stretch-full {
+  @include stretch;
+}
+---------------------------------------------------
+---------------------------------------------------
+typography 提供版式功能
+
+指定链接颜色 link-colors($normal, $hover, $active, $visited, $focus)
+
+a {
+  @include-colors(#00c, #0cc, #c0c, #ccc, #cc0);
+}
+--------------------------------------------------
+--------------------------------------------------
+utilities 提供某些不属于其他模块的功能
+
+清除浮动
+
+.clearfix {
+  @include clearfix;
+}
+
+表格
+
+table {
+  @include table-scaffolding;
+}
+
+==============================================================
+
+Helper 函数 (直接调用, 无需 @include)           image-width(), image-height(), inline-image();
+
+06-14-2014
+
+使用 CSS3 filter                                @import compass/css3/filter
+                                                .filtered
+                                                  +filter(grayscale(50%))
+                                                  +filter(blur(2px))
+使用 CSS3 rotate                                @import compass/css3/transform
+                                                .rotate
+                                                  +transform(rotate(20deg))
+
+06-20-2014
+
+颜色渐变                                        @include background-image(linear-gradient(left top, white, #dddddd));       // @include "compass/css3"
+盒子阴影                                        @include box-shadow(black 0 0 1px);
+
+06-21-2014
+
+CSS3 过渡                                       @include transition-property(width);
+                                                @include transition-duration(2s);
+                                                @include transition-timing-function(ease-in);
+
+06-22-2014
+
+CSS3 Column                                     @include column-count(2);
+                                                @include column-gap(2em);
+                                                @include column-rule(1px, solid, red);
+
+

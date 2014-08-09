@@ -1,0 +1,21 @@
+LNMP Learning
+
+06-25-2014
+
+nginx error log 位置                        $ /var/log/nginx/error.log
+追踪一个文件的改变显示出来                  $ tail -f /var/log/nginx/error.log
+重启 php proccessor                         $ sudo service php5-fpm restart
+重启 nginx                                  $ sudo service nginx restart
+
+========================= error 问题解决示例 ====================
+
+2014/06/25 20:28:36 [crit] 1052#0: *253 connect() to unix:/var/run/php5-fpm.sock failed (13: Permission denied) while connecting to upstream, client: 127.0.0.1, server: server_domain_name_or_ip, request: "GET /info.php HTTP/1.1", upstream: "fastcgi://unix:/var/run/php5-fpm.sock:", host: "localhost"
+
+Solution:
+
+$ sudo chmod 666 /var/run/php5-fpm.sock
+
+=================================================================
+
+nginx _SERVER["SCRIPT_FILENAME"]                /usr/share/nginx/html/info.php
+

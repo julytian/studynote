@@ -1,0 +1,180 @@
+MySQL Learning
+
+导入 sql 表			            > SOURCE /home/username/sample.sql
+显示表结构		                > DESCRIBE/DESC/EXPLAIN sampleTable;
+使用数据库		            	> USE databaseName;
+删除数据库			            > DROP databaseName;
+创建表	            			> CREATE TABLE sampleTable(id integer primary key auto_increment,name varchar(255));
+重命名表		            	> RENAME TABLE oldName TO newName;
+删除表				            > DROP TABLE sampleTable;
+给表增加列		            	> ALTER TABLE sampleTable ADD COLUMN phone integer (AFTER/BEFORE name);
+修改表的列		            	> ALTER TABEL sampleTale CHANGE/ALTER COLUMN phone phoneNumber varchar(255)/integer;
+删除表的列			            > ALTER TABLE sampleTable DROP COLUMN address;
+插入表的列的值			        > INSERT INTO sampleTable (name,city) VALUES ("Thomas","Bristol");		# 一一对应
+插入表的行的更多值		        > INSERT INTO sampleTabel COLUMN (name) VALUES ("Simon"),("Jackie"),("Thomas");
+查询并打印全表		        	> SELECT * FROM sampleTable;
+查询指定的列		        	> SELECT id,naem FROM sampleTable;
+查询指定列并去除重复	    	> SELECT DISTINCT city FROM sampleTable;
+利用 where 有条件打印 (OR)	    > SElECT * FROM sampleTable WHERE name = "Matt" OR city = "NYC";
+利用 where 有条件打印 (AND)	    > SElECT * FROM sampleTable WHERE id <= 2 AND city = "Birmingham";
+排列查询的数据		        	> SELECT * FROM sampleTable ORDER BY id DESC,regdate ASC;	# 当然可以多个排列
+统计行的数据		        	> SELECT COUNT(*/name) FROM sampleTable;
+模糊查询		            	> SELECT * FROM sampleTable WHERE city LIKE "_L% / [abc]% [!abc]_";		# %匹配任意多个字符, _匹配单个字符
+查询指定多个列	        		> SELECT * FROM sampleTable WHERE city/id IN ("London","Leeds","Paris")/(1,4,3);
+查询区间内的列		        	> SELECT * FROM sampleTable WHERE id (NOT) BETWEEN 1 AND 3;
+更新行的值		            	> UPDATE sampleTable SET name = "Rod" (,city = "Manchester) WHERE id = 3;
+删除指定数据		        	> DELETE FROM sampleTable WHERE id =5;
+引用两个表通过相同点	    	> SELECT Persons.LastName,Persons.FirstName,Order.OrderNo From Persons,Orders WHERE Person,Id_P = Orders.Id_P;
+引用两个表(交集)	        	> SELECT Persons.LastName,Persons.Firstname,Order.OrderNo From Persons INNER JOIN Orders ON Persons.Id_P = Order.Id_P ORDER BY Persons_LastName;
+引用两个表(左表交集）	    	> SELECT Persons.LastName,Person.FirstName,Orders.OrderNo From Persons LEFT JOIN Orders ON Person.Id_P = Order.Id_p ORDER BY Person.LastName;
+引用两个表(右表交集）	    	> SELECT Persons.LastName,Person.FirstName,Orders.OrderNo From Persons RIGHT JOIN Orders ON Person.Id_P = Order.Id_p ORDER BY Person.LastName;
+引用两个表通过相同点(并集） 	> SELECT Persons.LastName,Person.FirstName,Orders.OrderNo From Persons FULL JOIN Orders ON Person.Id_P = Order.Id_p ORDER BY Person.LastName;
+统计并打印两个表间的数据    	> SELECT name,COUNT(product) FROM customers INNER JOIN orders ON customers.id = order.customersID WHERE customers.id = 2;
+分组			            	> SELECT name,COUNT(product) FROM customers INNER JOIN orders ON customers.id = orders.customerID GROUP BY customers.name;
+查询打印出一个新列	        	> SELECT name,COUNT(product) AS Total_orders FROM customers INNER JOIN orders ON customers.id = orders.customerID GROUP BY customers.name;
+给 AS 条件 通过 HAVING	    	> SELECT name,COUNT(product) AS Total_orders FROM customers INNER JOIN orders ON customers.id = orders.customerID GROUP BY customers.name HAVING COUNT(product) >=2;
+建立/删除索引			        > CREATE/DROP INDEX idx_city ON customers(city);
+显示 MySQL 用户		        	> SELECT user FROM mysql.user;
+有条件创建新用户	        	> GRANT SELECT ON shop.* TO 'newUser'@'localhost' IDENTIFIED BY 'pass';
+复制表				            > CREATE TABLE (IF NOT EXISTS) newTable SELECT * FROM oldTable;
+复制表结构		            	> CREATE TABLE (IF NOT EXISTS) newTable LIKE oldTable;
+复制表			            	> SELECT */column_name(s) INTO newTable FROM oldTable;
+限制查询		            	> SELECT * FROM sampleTable WHERE id = 1 LIMIT 2,4;		# 由 0 开始，与 id 不同
+求最大值函数		        	> SELECT MAX(id) FROM TABLE sampleTable LIMIT 0,30;
+求最小值		            	> SELECT MIN(age) FROM TABLE sampleTable LIMIT 0,30;
+求平均值		            	> SELECT AVG(age) FROM TABLE sampleTable;
+求累加值		            	> SELECT SUM(age) FROM TABLE sampleTable;
+
+05-17-2014
+
+创建表语法                      > CREATE TABLE table_name
+                                  {
+                                   column_name1 data_type(size),
+                                   column_name2 data_type(size),
+                                   column_name3 data_type(size),
+                                   ....
+                                  };
+
+============ Example =============
+
+CREATE TABLE Persons
+(
+PersonID int,
+LastName varchar(255),
+FirstName varchar(255),
+Address varchar(255),
+City varchar(255)
+);
+
+==================================
+
+获得 mysql 版本                     > select version();
+自动补齐表名列名                    > vi /etc/mysql/my.cnf
+                                      [mysql]
+                                      auto-rehash       // add in auto-hash
+插入数据语法 (first form)           > INSERT INTO table_naem
+                                      VALUES (value1, value2, value3, ...);
+插入数据语法 (second form)          > INSERT INTO table_name (column1, column2, column3, ...)
+                                      VALUES (value1, value2, value3, ...);
+备份/导出数据库结构和数据           > mysqldump -u [username] -p[password] [databasename] > [filename.sql]
+导出表结构和数据                    > mysqldump -u [username] -p[password] [databasename] [tablename] > [filename.sql]
+导出数据库结构                      > mysqldump -u [username] -p[password] -d [databasename] > [filename.sql]
+导出表结构                          > mysqldump -u [username] -p[password] -d [databasename] [tablename] > [filename.sql]
+导入 sql 文件                       > CREATE DATABASE db;
+                                    > USE db;
+                                    > SOURCE /path/to/db.sql;
+查看数据库细节                      > show create database foo;
+查看表细节                          > show create table foo.bar
+修改表为 utf-8                      > alter table tablename character set utf8;
+设置 utf-8                          > set names utf8
+创建 ID 序列                        > ALTER TABLE `tada_prod`.`action_6_weekly`
+                                      ADD COLUMN `id` INT NULL AUTO_INCREMENT UNIQUE FIRST;
+修改 auto_increment 值              > alter table users AUTO_INCREMENT=10000;
+
+## The DELETE statement is used to delete rows in a table.
+
+TOP 子句                            > SELECT column_name(s) FROM table_name LIMIT number;
+
+// The BETWEEN operator selects values within a range. The values can be numbers, text, or dates.Place after WHERE
+
+// NOT 否决 WHERE 条件
+
+BETWEEN 使用日期                    > SELECT * FROM Orders WHERE OrderDate BETWEEN #07/04/1996# AND #07/09/1996#;
+
+// An SQL JOIN clause is used to combine rows from two or more tables, based on a common field between them.
+
+// INNER JOIN 关键字在表中存在至少一个匹配时返回行。
+
+// The UNION operator is used to combine the result-set of two or more SELECT statements.
+
+=============== UNION ================
+
+// The following SQL statement selects all the different cities (only distinct values) from the "Customers" and the "Suppliers" tables:
+
+SELECT City FROM Customers
+UNION
+SELECT City FROM Suppliers
+ORDER BY City;
+
+// The following SQL statement uses UNION ALL to select all (duplicate values also) cities from the "Customers" and "Suppliers" tables:
+
+SELECT City FROM Customers
+UNION ALL
+SELECT City FROM Suppliers
+ORDER BY City;
+
+// The following SQL statement uses UNION ALL to select all (duplicate values also) German cities from the "Customers" and "Suppliers" tables:
+
+SELECT City, Country FROM Customers
+WHERE Country='Germany'
+UNION ALL
+SELECT City, Country FROM Suppliers
+WHERE Country='Germany'
+ORDER BY City;
+
+======================================
+
+// The SELECT INTO statement selects data from one table and inserts it into a new table.
+
+INTO                                        > SELECT * INTO newtable [IN externaldb] FROM table1;
+设置 UNIQUE                                 > CREATE TABLE Persons
+                                              (
+                                               P_Id int NOT NULL,
+                                               LastName varchar(255) NOT NULL,
+                                               FirstName varchar(255),
+                                               Address varchar(255),
+                                               City varchar(255),
+                                               UNIQUE (P_Id)
+                                               )
+删除 UNIQUE                                 > ALTER TABLE Persons DROP INDEX uc_PersonID
+建立主键                                    > create table tablename ( P_id int not null primary key auto_increment);
+ALTER 添加主键                              > alter table tablename add primary key (P_id);
+删除主键                                    > alter table tablename drop primary key;
+                                            > create table tablename ( P_id int not null auto_increment, PRIMARY KEY(P_id))
+设置默认值                                  > alter table tablename P_name varchar(255) not null default 'James';
+建立子索引 (FOREIGN KEY)                    > CREATE TABLE Orders
+FOREIGN KEY (P_id) REFERENCES PERSON(P_id)    (
+                                               O_Id int NOT NULL,
+                                               OrderNo int NOT NULL,
+                                               P_Id int,
+                                               PRIMARY KEY (O_Id),
+                                               FOREIGN KEY (P_Id) REFERENCES Persons(P_Id)
+                                              )
+alter 建立外键                              > alter table tablename add foreign key (P_Id) references Persons(P_Id);
+删除外键                                    >
+创建表时添加数据检查                        > create table tablename
+                                              (
+                                              per_age int not null,
+                                              check (per_age > 0)
+                                              );
+添加数据检查2                               > create table tablename
+                                              (
+                                              per_age int not null check (per_age > 0)
+                                              )
+利用 alter 添加数据检查                     > alter table tablename add check (per_age >0 and city = 'Sandnes');
+移除数据检查                                > alter table tablename drop check chk_Person  (未证实)
+
+// key is an index !
+
+允许根据两个参数进行排列                    > select column_name(s) from table_name order by column1, column2 asc;
+

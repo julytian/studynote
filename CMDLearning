@@ -1,0 +1,19 @@
+CMD Learning
+
+01/01/1970
+
+删除文件			        > del filename
+重命名文件(夹)			    > ren oldName newName
+新建文件夹			        > mkdir
+删除文件夹		        	> rmdir/rd
+递归删除子文件夹	    	> rd /s directory
+不确认删除			        > rd /p /s directory
+显示隐藏文件			    > dir /a
+
+06/13/2014
+
+切换到 D 盘                 > D:
+
+06/17/2014
+
+在当前目录打开 cmd          shift + 鼠标右键

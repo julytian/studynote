@@ -1,0 +1,142 @@
+﻿AJAX Learning
+
+05-19-2014
+
+创建 XMLHttpRequest                         variable = new XMLHttpRequest();
+相对 IE5/IE6 创建 XMLHttpRequest            variable = new ActiveXObject("Microsoft.XMLHTTP");
+
+================= 解决所有浏览器 XMLHttpRequest 问题 ===============
+
+var xmlhttp;
+if (window.XMLHttpRequest) {
+  // code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+}
+else {
+  // code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+=====================================================================
+
+规定请求的类型,URL 以及是否异步处理         xmlhttp.opn("GET/POST", "demo_get.php/ajax_info.txt" ,true);
+将请求发送到服务器                          xmlhttp.send([string]);     // string 只用于 POST 请求
+
+======================== GET 请求 ==========================
+
+xmlhttp.open("GET", "demo_get.asp", true);
+xmlhttp.send();
+
+xmlhttp.open("GET", "demo_get.asp?t=" + Math.random(), true);
+xmlhttp.send();
+
+xmlhttp.open("GET", "demo_get2.asp?fname=Henry&lname=Ford", true);
+xmlhttp.send();
+
+============================================================
+
+05-20-2014
+
+如果请求已经被发送, 则立刻中止请求          abort();
+返回所有响应头信息(响应头名和值)            DOMString getAllResponseHeaders();
+返回指定的响应头的值                        DOMString? getResponseHeader(DOMString header);
+给指定的 HTTP 请求头赋值                    void setRequesHeader(
+                                                DOMString header,       // 请求头名称
+                                                DOMString value;        // 请求头赋的值
+                                            );
+接上面                                      setRequestHeader(header, value);
+
+===================== POST 请求 =====================
+
+xmlhttp.open("POST", demo_post.asp", true);
+xmlhttp.send);
+
+xmlhttp.open("POST","ajax_test.asp",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("fname=Henry&lname=Ford");
+
+=====================================================
+
+获取字符串形式的响应数据                    xmlhttp.responseText;
+获取 XML 形式的响应数据                     xmlhttp.responseXML;
+
+======================= responseXML ======================
+
+var xmlhttp;
+
+if (window.XMLHttpRequest) {
+  xmlhttp=new XMLHttpRequest();
+} else {
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+}
+
+xmlhttp.onreadystatechange = function() {
+  if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+    var xmlDoc=xmlhttp.responseXML;
+    var txt="";
+    var x = xmlDoc.getElementsByTagName("title");
+
+    for (var i=0;i<x.length;i++) {
+      var txt=txt + x[i].childNodes[0].nodeValue + "<br />";
+    }
+
+    document.getElementById("myDiv").innerHTML=txt;
+  }
+}
+
+xmlhttp.open("GET","/example/xmle/books.xml",true);
+xmlhttp.send();
+
+==========================================================
+
+存储函数(名)当 readyState 改变时调用            xmlhttp.onreadystatechange = functionName();
+存 XMLHttpRequest 状态                          xmlhttp.readyState
+
+======================== xmlhttp.readyState ======================
+
+0: 请求未初始化
+1: 服务器连接已建立
+2: 请求已接收
+3: 请求处理中
+4: 请求已完成，且响应已就绪
+
+===================================================================
+
+readyState 的状态                               xmlhttp.status
+
+=================== xmlhttp.status ================
+
+200: "OK"
+404: 未找到页面
+
+====================================================
+
+==================== onreadystatechange Callback ===================
+
+// callback 函数是一种以参数形式传给另一个函数的函数
+// http://www.w3school.com.cn/ajax/ajax_xmlhttprequest_onreadystatechange.asp
+var xmlhttp;
+function loadXMLDoc(url,cfunc) {
+  
+  if (window.XMLHttpRequest) {
+    xmlhttp=new XMLHttpRequest();
+  } else {
+    xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+
+  xmlhttp.onreadystatechange=cfunc;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+}
+
+function myFunction() {
+  loadXMLDoc("/ajax/test1.txt",function() {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) {
+      document.getElementById("myDiv").innerHTML=xmlhttp.responseText;
+    }
+  });
+}
+
+======================================================================
+
+

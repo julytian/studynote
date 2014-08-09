@@ -1,0 +1,382 @@
+﻿CSS3 Learning
+
+04-20-2014
+
+当单词长于 div 的 weight 时单词的变化                   word-wrap:normal|break-word|initial|inherit;
+线性变化(水平或纵向)                                    linear-gradient
+径向变化(由内而外)                                      radial-gradient
+
+========== linear-gradient ===============
+
+-moz-linear-gradient( [<option> || <angle>,]? <stop>,<stop> [,<stop>]*);
+-moz-linear-gradient(top/left/left top,#ccc,#000);                    // top => start poit, '#ccc' & '#000' => color-stops, left top => 左上角作为起点
+------------------------------------------------------------
+Example:
+
+<style>
+    .example{width:150px;height:80px;}
+    .exaple01{background:-moz-linear-gradient(top,#ccc,#000);
+</style>
+<div class="example ecample1"></div>
+--------------------------------------------------------------
+
+-webkit-linear-gradient( [<option> || <angle>,]? <stop>,<stop>[, <stop>]*)
+
+filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#1471da, endColorstr=#1C85FB);
+/*IE<9>*/
+-ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#1471da, endColorstr=#1C85FB)";
+/*IE8+*/
+---------------------------------------------------------------
+With Even Stops:
+
+background: linear-gradient(left,#ace,#f96,#ace,#f96,#ace);
+
+------------------------------
+With Specified Arbitary Stops:
+
+background: linear-gradient(left,#ace,#f96,5%,#ace,#f96,95%,#ace);
+
+----------
+With Angle
+
+background: linear-gradient(left 30deg,#ace,#f96);
+
+-------
+background: -webkit/moz/o-linear-gradient(left top,#ace,#f96);
+
+
+---------------------------------------------------------------
+
+==========================================
+
+白色                                    rgba(255,255,255 [,0])          // red, green, blue
+黑色                                    rgba(0,0,0 [,255])
+红色                                    rgb(255,255,0)
+绿色                                    rgb(0,255,0)
+蓝色                                    rgb(0,0,255)
+青色                                    rgb(0,255,255)
+绿色                                    rgb(255,0,255)
+文字阴影                                text-shadow: [X-Offset Y-Offset Blur Color],[X-Offset Y-Offset Blur Color];
+
+文字大小写变化                          text-transform: uppercase/capitalize/lowercase/none/inherit;
+// capitalize => 首字母大写
+
+背景/文字透明                           background/color: transparent;
+字体平滑                                -webkit-font-smoothing:none|subpixiel-antialiased|antialiased
+
+=========== -webkit-font-smoothing ======
+
+none: 取消平滑，显示锯齿锋利边缘，用于小像素的文本。
+subpixel-antialiased：浏览器的默认平滑字体。
+antialiased：最佳平滑效果。
+
+=========================================
+
+============ text-shadow =================
+----------------
+0. Basical Style
+
+.demo {background:#666; width:440px; padding: 30px;
+        font: bold 55px/100% "微软雅黑","Lucida Grande",Helvetica,Arial,Sans;
+        color:#fff; text-transform: uppercase;}
+
+---------------------------------------------------
+1. Glow and Extra Glow effect.(That is NEON effect)
+
+.demo1{text-shadow:0 0 20px red;}
+.demo2{text-shadow:0 0 5px rgb(255,255,255), 0 0 15px rgb(255,255,255), 0 0 40px rgb(255,0,222), 0 0 70px rgb(255,0,222);}
+
+---------------------
+2. Apple Style Effect
+
+.demo3{color: rgb(0,0,0);text-shadow:0 1px 1px rgb(255,255,255);}
+
+--------------------------
+3. Photoshop Emboss Effect
+
+.demo4{color:rgb(204,204,204); text-shadow:-1px -1px 0 rgb(255,255,255),1px 1px 0 rgb(51,51,51),1px 1px 0 rgb(68,68,68)};
+
+----------------------
+4. Blurytext Effect
+
+.demo5{color:transform; text-shadow: 0 0 5px rgb(249,96,0)};
+.demo6{color:transform; text-shadow: 0 0 6px rgb(249,96,0), -1px -1px rgb(255,255,255), 1px -1px rgb(68,68,68);}
+
+--------------------------
+5.Inset text effect
+
+.demo7{color:rgb(86,111,137); background:rgb(197,222,248); text-shadow:1px 1px 0 rgb(228,241,255);}
+
+---------------
+more: http://bit.ly/1lnR9Bt
+==========================================
+
+磨砂颜色                                    rgb(228,228,228) / #EDEDED
+
+04-22-2014
+
+径向渐变									radial-gradient
+
+============= radial-gradient http://bit.ly/1kTzUJH============
+
+-moz-radial-gradient([<bg-position> || <angle>,]? [<shape> || <size>,]? <color-stop>, <color-stop>[, <color-stop>]*);
+ -webkit-radial-gradient([<bg-position> || <angle>,]? [<shape> || <size>,]? <color-stop>, <color-stop>[, <color-stop>]*);
+
+----------
+Example:
+
+background: -moz-radial-gradient(bottom left,ellipse/circle,#ace,#f96,#1E90FF);
+
+------------------------------------------------------------
+<position>
+<percentage>：
+用百分比指定径向渐变圆心的横坐标值。可以为负值。
+<length>：
+用长度值指定径向渐变圆心的横坐标值。可以为负值。
+left：
+设置左边为径向渐变圆心的横坐标值。
+center：
+设置中间为径向渐变圆心的横坐标值。
+right：
+设置右边为径向渐变圆心的横坐标值。
+<percentage>：
+用百分比指定径向渐变圆心的纵坐标值。可以为负值。
+<length>：
+用长度值指定径向渐变圆心的纵坐标值。可以为负值。
+top：
+设置顶部为径向渐变圆心的纵坐标值。
+center：
+设置中间为径向渐变圆心的纵坐标值。
+bottom：
+设置底部为径向渐变圆心的纵坐标值。
+<color-stop>：
+指定渐变的起止颜色。
+<shape>
+circle：
+指定圆形的径向渐变
+ellipse：
+指定椭圆形的径向渐变。写本文档时Chrome,Safari尚不支持该参数值
+<size>
+closest-side：
+指定径向渐变的半径长度为从圆心到离圆心最近的边
+closest-corner：
+指定径向渐变的半径长度为从圆心到离圆心最近的角
+farthest-side：
+指定径向渐变的半径长度为从圆心到离圆心最远的边
+farthest-corner：
+指定径向渐变的半径长度为从圆心到离圆心最远的角
+contain：
+包含，指定径向渐变的半径长度为从圆心到离圆心最近的点。类同于closest-side
+cover：
+覆盖，指定径向渐变的半径长度为从圆心到离圆心最远的点。类同于farthest-corner
+<shape-size>
+写本文档时Firefox尚不支持<shape-size>
+<percentage>：
+用百分比指定径向渐变的横向或纵向直径长度，并根据横向和纵向的直径来确定是圆或椭圆。不允许负值。
+<length>：
+用长度值指定径向渐变的横向或纵向直径长度，并根据横向和纵向的直径来确定是圆或椭圆。不允许负值。
+<color-stop>
+<color>：
+指定颜色。请参阅颜色值
+<length>：
+用长度值指定起止色位置。不允许负值
+<percentage>：
+用百分比指定起止色位置。
+
+===============================================================
+
+不?允许对文字进行操作(复制等)					user-select: none/auto/text/element/all/-moz-none;
+
+04-23-2014
+
+制定网页中特定字符使用字体                      @font-face
+
+======= @font-face==========
+
+// 默认使用 Monaco 字体
+@font-face {
+  font-family: myfont;
+  src: url(Monaco);
+}
+// 在指定 Unicode 编码范围内使用 Yahei 字体。
+// U+4E00-9FA5: 中文
+// U+2E80-A4CF, U+F900-FAFF, U+FE30-FE4F: 扩展集、部首、象形字、注间字母
+@font-face {
+  font-family: myfont:
+  src: url(Yahei);
+  unicode-range: U+4E00-9FA5, U+2E80-A4CF, U+F900-FAFF, U+FE30-FE4F;
+}
+p {
+  font-family: myfont;
+}
+============================
+
+// CMYK => C: Cyan, M: Magenta, Y: Yellow, K: black
+
+04-25-2014
+
+CSS 属性分组顺序处理                        Positioning -> Box model -> Typographic -> Visual -> Misc
+
+04-26-2014
+
+CSS3 画圆
+
+#circle {
+  width: 200px;
+  height: 200px;
+  -webkit-border-radius: 100px;
+     -moz-border-radius: 100px;
+      -ms-border-radius: 100px;
+       -o-border-radius: 100px;
+          border-radius: 100px;
+  background: #f00; 
+}
+
+contentediable 属性应用
+
+<style>
+  [contenteditable]:hover,
+  [contenteditable]:focus {
+    outline: 2px dotted red;
+  }
+</style>
+<body>
+  <p conteneditable="true">Your content</p>
+</body>
+
+05-01-2014
+
+伪元素种类                                      :first-letter :first-line :before :after
+
+05-04-2014
+
+transition 的 timing-function                   transition-timing-function: ease|linear|ease-in|ease-out|ease-in-out|cubic-bezier(n,n,n,n)|initial|inherit;
+CSS 动画                                        transition: property duration timing-function delay|initial|inherit;
+CSS 动画持续时间                                transition-delay: time|initial|inherit;
+
+05-10-2014
+
+=========================== border-radius 画圆 ==========================
+
+<style>
+  
+  .circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #222;
+    color: #ccc;
+    text-align: center;
+    line-height: 300px;
+    word-break: break-all;
+  }
+
+</style>
+
+<div class="circle">Hello world<div>
+
+=========================================================================
+
+06-07-2014
+
+box-shadow 语法                                 box-shadow: h-shadow v-shadow blur spread color inset;
+
+06-09-2014
+
+CSS3 否定选择器                                 nav ul li:not(.inernal) a {}
+
+// CSS3 选择器从 1 开始, 这东西名字叫做伪类, CSS2 中的叫做伪元素
+
+父元素的特定元素的第 N 个子元素的每个元素       p:nth-of-type(odd/even/an+b) {}
+父元素的第 N 个子元素不论类型                   p:nth-child(2) {}
+
+// CSS3 中用新的写法来区别 CSS2 中的伪元素
+
+选择第一个字母                                  p::first-letter
+选择第一行                                      p::first-line
+规定元素应该被分隔的列数                        div {
+                                                  -moz-column-count:3;
+                                                  -webkit-column-count:3;
+                                                  column-count:3;
+                                                }
+规定元素应横跨多少列                            h2 {
+                                                  -webkit-column-span:all;
+                                                  column-span:all;
+                                                }
+规定列之间的宽度/样式/颜色                      div {
+                                                  -moz-column-rule:3px outset #ff0000;
+                                                  -webkit-column-rule:3px outset #ff0000;
+                                                  column-rule:3px outset #ff0000;
+                                                }
+规定列之间规则的颜色                            column-rule-color: #ff0000;
+规定列之间规则的样式                            column-rule-style: outset/dotted/none/hidden/dashed/solid/double/groove/ridge/inset;
+规定列之间规则的宽度                            column-rule-width: 3px;
+规定列之间的宽度                                column-width: 30px;
+规定宽度和列数                                  column: 100px 3;
+
+// 网页标题 font-weight 有时需要改一下，因为浏览器的问题，还有 @font-face 默认 font-weight 大小
+// 色相环是将不同色相的颜色依序排列成环状以方便使用
+
+// HSL 模式基于一个 360 ° 的色相环,第一个数字代表色相, 60 ° 时为黄色, 120 ° 时为绿色, 180°时为青色, 240°时为蓝色, 300° 时为红色。气候的两个值分别表示饱和度和亮度, 值为百分比, 勇于改变基础的色相。如果想要更加饱满的颜色, 则第二个值使用一个高一点的百分比即可。最后一个值控制亮度, 可在 0% 的全黑到 100% 的全白之间变化。http://www.cadeacolor.com/en/issue/gallery/20091031104817.jpg
+
+解决浏览器支持问题                              text-shadow: 4px 4px 0px #404442;
+                                                text-shadow: 4px 4px 0px hsla(140, 3%, 26% .4);
+
+06-10-2014
+
+取消文字阴影                                    text-shadow: none;
+多重文字阴影                                    text-shadow: 0px 1px #ffffff, 4px 4px 0px #dad7d7;
+盒阴影内阴影 & 多重阴影                         box-shadow: inset 0 0 40px #000000, inset 0 0 70px hsla(0, 97%, 53%, 1);
+线性渐变                                        background: linear-gradient(90deg/top top right, #ffffff -50%, #e4e4e4 50%, #ffffff 100%);
+径向渐变                                        background: radial-gradient(center/25px 25px, ellipse/circle cover(farthest-corner)/closest-side/closest-corner/farthest-corner/contain(closest-side), #ffffff 72%, #dddddd 100%);
+
+// ellipse cover 指的是平铺辐射
+
+06-14-2014
+
+================= CSS3 filter ================
+
+// http://www.cnblogs.com/duanhuajian/archive/2012/09/20/2694552.html
+
+// 无效果
+-webkit-filter: none;
+
+// 模糊
+-webkit-filter: blur(3px);
+
+// 灰度
+-webkit-filter: grayscale(0.5/1);
+
+// 亮度
+-webkit-filter: brightness(0.5);
+
+// 对比度
+-webkit-filter: contrast(2.6);
+
+// 饱和度
+-webkit-filter: saturate(7.9);
+
+// 色相旋转
+-webkit-filter: hue-rotate(260deg);
+
+// 反色
+-webkit-filter: invert(0.9);
+
+//阴影
+-webkit-filter: drop-shadow(10px 10px 10px #000);
+
+=========================================================
+
+06-19-2014
+
+防止已定义好的 width 被 padding/margin 被改变               box-sizing: border-box;
+
+=========================== css3 box-sizing ==================
+
+content-box         在宽度和高度之外绘制元素的内边距和边框
+border-box          为元素设定的宽度和高度决定了元素的边框盒, 就是说, 为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制, 通过从已设定的宽度和高度分别减去边框和内边距才能得到内容的宽度和高度
+
+==============================================================
+
+定义一个元素的外观                                          appearance: button/nomal/icon/window/menu/field;
+

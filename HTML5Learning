@@ -1,0 +1,195 @@
+HTML5 Learning
+
+04-23-2014
+
+// 新标签，基本为块状元素
+
+网站导航块                                      <nav></nav>
+网站页脚                                        <footer></footer>
+定义声频                                        <audio src=""></audio>
+// <object type="application/ogg" data="someaudio.wav"><param name="src" value="someaudio.wav"></object>
+
+定义视频                                        <video></video>
+定义来自外部的内容                              <article></article>
+定义 article 以外但与之有关的内容               <aside></aside>
+定义图片,图表或其他图像                         <canvas></canvas>
+// <object data="inc/hdr.svg" type="image/svg+xml" width="200" height="200"></object>
+
+定义命令按钮(单选按钮/复选框/按钮)              <command></command>
+定义可选数据列表，配合option                    <datalist></datalist>
+定义元素细节,配合 <legend>                      <details></details>
+定义嵌入的内容(插件)                            <embed></embed>
+用作文中插图的图像                              <figure></figure>
+定义 figure 元素的标题                          <figcaption></figcaption>
+定义 section 或 document 的页眉                 <header></header>
+对网页或 section 标题进行组合                   <hgroup></hgroup>
+定义生成密钥                                    <keygen></keygen>
+视觉上向用户呈现需要突出的文字                  <mark></mark>       // <span></span>
+定义度量衡                                      <meter></meter>
+定义不同类型输出                                <output></output>
+定义运行中的进程 (进度条)                       <progress value="11" max="100"></progress>
+定义不支持 ruby 的浏览器显示的内容              <ruby><rt><rp></rp></rt></ruby>
+定义文档中的节                                  <section></section>
+定义媒介资源                                    <source></source>
+定义时间或日期                                  <time></time>
+允许设置文本脱离副元素文本方向设置              <bdi></bdi>
+包含 details 元素的标题，是其子元素             <summary></summary>
+
+======== <details><summary>=========
+
+<details><summary>HTML5</summary>Some texts goes here.</details>
+
+====================================
+
+按钮<button>新属性                              autofocus,disabled,form,formaction,formenctype,formmethod,formnovalidate,formtarget,name,type,value
+定义对话窗口                                    <dialog></dialog>
+
+04-24-2014
+
+定义用在媒体播放器中的文本轨道                  <track></track>
+定义视频                                        <wbr></wbr>
+
+06-05-2014
+
+==================== 关于 viewport ===============
+
+<meta name="viewport"
+      content="
+            height = [pixel_value | device-height],
+            width = [pixel_value | device-width],
+            initial-scale = float_value,
+            minimum-scale = float_value,
+            maximum-scale = float_value,
+            user-scalable = [yes | no],
+            target-denisydpi = [dpi_value | device-dpi | high-dpi | medium-dpi | low-dpi]
+      "
+/>
+
+========== width ==============
+
+控制 viewport 的大小, 可以指定一个值或特殊的值, 如 device-width 为设备的宽度 (单位为缩放为 100% 时的 CSS 的像素).
+
+===============================
+
+======== height ==========
+
+和 width 相对应, 指定高度.
+
+==========================
+
+========== target-densitydpi =============
+
+一个屏幕像素密度是由屏幕分辨率决定的, 通常定义为每英寸点的数量 (dpi). Android 支持三种屏幕像素密度: 低像素密度, 中像素密度, 高像素密度. 一个低像素密度的屏幕每英寸上的像素点更少, 而一个高像素密度的屏幕每英寸上的像素点更多. Android Browser 和 WebView 默认为中像素密度.
+
+下面是 target-densitydpi 属性的 取值范围
+
+device-dpi –使用设备原本的 dpi 作为目标 dp。 不会发生默认缩放。
+high-dpi – 使用hdpi 作为目标 dpi。 中等像素密度和低像素密度设备相应缩小。
+medium-dpi – 使用mdpi作为目标 dpi。 高像素密度设备相应放大， 像素密度设备相应缩小。 这是默认的target density.
+low-dpi -使用mdpi作为目标 dpi。中等像素密度和高像素密度设备相应放大。
+<value> – 指定一个具体的dpi 值作为target dpi. 这个值的范围必须在70–400之间。
+
+ <!-- html document -->
+ <meta name="viewport" content="target-densitydpi=device-dpi" />
+ <meta name="viewport" content="target-densitydpi=high-dpi" />
+ <meta name="viewport" content="target-densitydpi=medium-dpi" />
+<meta name="viewport" content="target-densitydpi=low-dpi" />
+<meta name="viewport" content="target-densitydpi=200" />
+
+为了防止Android Browser和WebView 根据不同屏幕的像素密度对你的页面进行缩放，你可以将viewport的target-densitydpi 设置为 device-dpi。当你这么做了，页面将不会缩放。相反，页面会根据当前屏幕的像素密度进行展示。在这种情形下，你还需要将viewport的width定义为与设备的width匹配，这样你的页面就可以和屏幕相适应。
+
+=========================================
+
+============ initial-scale =============
+
+初始缩放。即页面初始缩放程度。这是一个浮点值，是页面大小的一个乘数。例如，如果你设置初始缩放为“1.0”，那么，web页面在展现的时候就会以target density分辨率的1:1来展现。如果你设置为“2.0”，那么这个页面就会放大为2倍。
+
+=========================================
+
+========== maximum-scale ==============
+
+最大缩放。即允许的最大缩放程度。这也是一个浮点值，用以指出页面大小与屏幕大小相比的最大乘数。例如，如果你将这个值设置为“2.0”，那么这个页面与target size相比，最多能放大2倍。
+
+=======================================
+
+========== user-scalable ==============
+
+用户调整缩放。即用户是否能改变页面缩放程度。如果设置为yes则是允许用户对其进行改变，反之为no。默认值是yes。如果你将其设置为no，那么minimum-scale 和 maximum-scale都将被忽略，因为根本不可能缩放。
+
+所有的缩放值都必须在0.01–10的范围之内。
+
+例：
+
+(设置屏幕宽度为设备宽度，禁止用户手动调整缩放)
+
+ <meta name="viewport" content="width=device-width,user-scalable=no" />
+
+(设置屏幕密度为高频，中频，低频自动缩放，禁止用户手动调整缩放)
+
+<meta name="viewport" content="width=device-width,target-densitydpi=high-dpi,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+==================================================
+
+=====================================================
+
+播放音频                                        <audio controls>
+                                                  <source src="horse.ogg" type="audio/ogg">
+                                                  <source src="horse.mp3" type="audio/mpeg">
+                                                  Your browser does not support the audio element.
+                                                </audio>
+播放视频                                        <video controls poster="*.png">
+                                                  <source src="*.mp4" type="video/mp4"></source>
+                                                  <source src="*.webm" type="video/webm"></source>
+                                                </video>
+================== 媒体查询 CSS3 media queries =============
+
+<!-- CSS media query on a link element -->
+<link rel="stylesheet" media="(max-width: 800px)" href="example.css" />
+
+<!-- CSS media query within a style sheet -->
+<style>
+@media (max-width: 600px) {
+  .facet_sidebar {
+    display: none;
+  }
+}
+</style>
+
+// 使用逻辑操作符 (logical operator)
+
+@media (min-width: 700px) and (orientation: landscape) {...}
+
+// only dispay in question was of the media type TV
+
+@media tv(/screen) and (min-width: 700px) and (orientation: landscape) {...}
+
+// comma means or 手持设备 heandled
+
+@media (min-width: 700px), handled and (oriented: landscape)
+
+// All attributes
+
+media_query_list: <media_query> [, <media_query> ]*
+media_query: [[only | not]? <media_type> [ and <expression> ]*]
+  | <expression> [ and <expression> ]*
+expression: ( <media_feature> [: <value>]? )
+media_type: all | aural | braille | handheld | print |
+  projection | screen | tty | tv | embossed
+media_feature: width | min-width | max-width
+  | height | min-height | max-height
+  | device-width | min-device-width | max-device-width
+  | device-height | min-device-height | max-device-height
+  | aspect-ratio | min-aspect-ratio | max-aspect-ratio
+  | device-aspect-ratio | min-device-aspect-ratio | max-device-aspect-ratio
+  | color | min-color | max-color
+  | color-index | min-color-index | max-color-index
+  | monochrome | min-monochrome | max-monochrome
+  | resolution | min-resolution | max-resolution
+  | scan | grid
+
+============================================================
+
+06-08-2014
+
+时间标签                            <time datetime="2014-06-08 14:00">June 8th</time>
+

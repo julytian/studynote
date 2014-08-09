@@ -1,0 +1,16 @@
+XML Learning 2.0
+
+05-23-2014
+
+在 DTD 中 XML 通过元素声明来进行声明                <!ELEMENT elementName elementType/elementContent>
+空元素(无闭合)声明                                  <!ELEMENT br EMPTY>         // EMPTY 是关键词
+属性声明                                            <!ATTLIST elementName attributeName attributeType defaultValue>
+
+==================== !ATTLIST ==================
+
+<!ATTLIST payment type CDATA "check">
+<payment type="check" />
+
+================================================
+
+

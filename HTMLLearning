@@ -1,0 +1,628 @@
+HTML Learning
+
+04-09-2014
+
+改变透明度		        	{opacity:1~0;}
+匀速改变某个属性	    	
+
+div {width:100px,transition:width 2s;transition-timing-function:linear;}
+div:hover {width:300px;}
+
+选择带有某属性的		    a[target]{}		        <a target="_blank"></a>
+选择某属性特有的	    	a[target=_blank]	    <a target="_blank"></a>
+选择属性特有包含某单词的	[alt~=flower]{} 		<img alt="beautiful flower" />
+选择属性开头的元素	    	[lang|=en]{}	        <p lang="en-us"></p>
+选择父元素的所有子元素		div>p
+选择跟在某元素的某所有元素	div+p
+选择未被访问的链接	    	:link
+选择已被访问的链接		    :visited
+选择活动链接			    :active
+选择鼠标指针在上面		    :hover
+选择获得焦点的input	    	input:focus
+选择每个p首字母		    	p:first-letter
+选择首行			        p:first-line
+引用标签			        <blockquote></blockquote>	        		// 添加了换行和外边距
+改变光标		        	{cursor:pointer/default/auto/crosshair/move/e-resize/ne-resize/text/wait/help}
+
+04-10-2014
+
+改变透明度		        	{filter:alpha(opacity=50);opacity:0.6}		// filter for IE8 and earlier
+在前面插入内容  			:before{content:"Hello";color:#000;}
+在之后插入内容	    		:after{content:"Hello";color:#000;}
+lang属性带有某字符	    	:lang(langauge)
+前面有p的每个ul		    	p~ul
+src开头为https的a	    	a[src^="https"]
+src结尾为https的a	    	a[src$="https"]
+src包含https		    	a[src*="https"]
+选择第几个	        		p:nth-child(3)
+选择倒数第二个	    		p:nth-last-child(2)
+选择倒数第一个		    	p:last-child
+选择没有子元素的		    p:empty
+选择启用的input			    input:enabled
+选择禁用的input			    input:disabled
+禁用 input			        input{disabled="disabled"}
+选择被用户选取的元素部分	::selection
+选择被选中的input		    input:checked
+选择非p				        :not(p)
+选择根元素	        		:root
+关于文档细节(HTML5)	    	<details open="open"><summary></summary><p></p></details>
+文件上传			        <input type="file" name="pic" accept="image/gif" />
+重置 input			        <input type='reset' />
+
+04-11-2014
+
+绝对定位相对第一个父元素    {position:absolute;left:100px;top:150px;}
+绝对定位相对窗口            {position:fixed;left:10px;top:10px;}
+相对定位相对自己            {position:relative;left:10px;top:10px;}
+定位默认值                  {position:static}
+继承父元素 position         {position:inherit;}
+position 优先级             {z-index:1/0/-1}                        // 默认 0,1 为更高优先级,-1 为更低优先级
+旋转 div                    div{transform:rotate(7deg);-webkit-transform:rotate(7deg)}
+应用 2D 或 3D 转换          {transform:none|transform-functions;}   // http://bit.ly/1n1lXeY
+向 div 添加 shadow          {box-shadow:h-shadow v-shadow blur spread inset/outset;}    // http://bit.ly/1n1m7mK
+
+h-shadow	                必需。水平阴影的位置。允许负值。
+v-shadow                	必需。垂直阴影的位置。允许负值。
+blur    	                可选。模糊距离。
+spread	                    可选。阴影的尺寸。
+color	                    可选。阴影的颜色。请参阅 CSS 颜色值。
+inset	                    可选。将外部阴影 (outset) 改为内部阴影。
+
+添加边框图片                {border-image:url(path) slice width outset repeat}  // http://bit.ly/1n1ne62
+
+04-12-2014
+
+需要填(HTML5)               <input required />
+加载自动焦点(HTML5)         <input autofocus />
+淡字                        <input placeholder="text" />
+display 继承                display:inherit;
+
+04-13-2014
+
+空格                        &nbsp;                              // None-Breaking Space
+
+04-15-2014
+
+邮件链接					<a href="mailto:username@mail.com">Email</a>
+
+04-16-2014
+
+下拉列表选择				<select><option value selected></option></select>
+框架                        <frameset rows="29,*" frameborder="0" border="0" framespacing="0" cols="*"><frame scrolling="NO" noresize src="url" /></frameset>
+滚动策略                    iframeObject.scrolling=auto|yes|no
+CSS3 可以调整 div           div{resize:both/none/horizontal/vertical;overflow:auto}
+overflow 属性               div{width:150px;height:150px;overflow:scroll/visible/hidden/auto/inhert;}
+div 作为并排的方框          div{box-sizing:border-box;-kernel-box-sizing:border-box;}
+CSS3 轮廓(不占空间)         div{border:2px,solid,black;outline:2px solid red;outline-offset:15px;}
+CSS3 使 div 像              div{appearance:normal/icon/window/button/menu/field;}
+浏览器不支持 frameset       <noframes></noframes>
+内框架                      <iframe width="100%" height="100" src="url" />
+
+04-17-2014
+
+网页定向跳转                <meta http-equiv="refresh" content="0;url=http://www.baidu.com/">
+
+// document.write 和 document.writeln 区别
+// 几乎一样功能，只是后者在文本结束有一个换行符，不过通常表现为一个空格，有块状元素就一模一样了
+
+background 属性
+
+background-color,
+background-position,
+background-size,
+background-repeat,
+background-origin,
+background-clip,
+background-attachment,
+backrounnd-imgage,
+
+断点测 js,学习 chrome 开发者工具
+
+规定要使用的背景颜色            background-color: #ccc;
+规定背景图像的位置              background-position: 50px 10px;
+规定背景图片的尺寸              background-size: 1920px 1080px;
+规定如何重复背景图像            background-repeat: repeat/repeat-x/repeat-y/no-repeat/inhert;
+规定背景图片定位区域            background-origin: padding-box/border-box/content-box;
+规定背景的绘制区域              background-clip: padding-box/border-box/content-box;
+规定背景图像固定或滚动          background-attackment: scroll/fixed/inherit;
+规定背景图片                    background-image: url('bgimage.gif');
+综合 background                 background: #ff0000 url('bgimage.gif') no-repeat fixed center;
+
+04-18-2014
+
+设置元素垂直对齐的方式          vertical-align:baseline/sub/super/top/text-top/middle/bottom/text-bottom/length/%/inherit
+
+04-21-2014
+
+规定单元格中内容的垂直排列方式	<td valign="top/middle/bottom/baseline">
+规定单元格的短描述				<td abbr="value">
+
+04-23-2014
+
+规定字体、尺寸、颜色            <font face='Monaco' size='3' color='#f00'>Text</font>
+冬青黑体                        Hiragino Sans GB
+下划线                          <u>underline</u>
+删除线                          <del>deleteline</del>
+边框样式                        none,hdden,dotted,dashed,solid,double,groove,ridge,insert,outset,inherit
+新窗口打开                      <base target="_blank" />
+
+04-24-2013
+
+ol 从零开始                     <ol start='0'>
+ol 样式修改                     <ol type='A/a/I/i'>
+序列样式修改                    <ul/ol type='disc/circle/square/decimal/decimal-leading-zero/lower-roman/upper-roman-lower-alpha/upper-alpha/lower-greek/lower-lartin/upper-latin/hebrew/armenian/georgian/cjk-ideographic/hiragana/katakana/hiragana-iroha/katakana-iroha'>
+
+JavaScript 实现竖向排列
+
+<style>.changeToBlock{dispaly:block;}</style>
+<script>
+  var h1 = document.getElementsByTagName('h1')[0];
+  h1.innerHTML='<span>'+h1.innerHTML.split('').join('</span><span>')+'</span>';
+  for(var i=0;i<h1.length;i++){
+    h1[i].className=h1[i]+'changeToBlock';
+  }
+</script>
+
+list-style-image 属性修改       ul {list-style-image:url('/i/arrow.gif');list-style-type:square;}
+序列点在文本以内                ul {list-style-positoin:inside;}
+序列点在文本以外(默认)          ul {list-style-position:outside;}
+继承父元素的设置                ul {list-style-position:inherit;}
+target 属性                     <a target='_blank/_self/_parent/_top'></a>
+
+04-25-2014
+
+禁止元素换行                    p{white-wrap:nowrap;}
+处理元素内的空白                white-wrap:nowrap/normal/pre/pre-wrap/pre-line/inherit;
+
+/*
+normal	默认。空白会被浏览器忽略。
+pre	空白会被浏览器保留。其行为方式类似 HTML 中的 <pre> 标签。
+nowrap	文本不会换行，文本会在在同一行上继续，直到遇到 <br> 标签为止。
+pre-wrap	保留空白符序列，但是正常地进行换行。就像 <pre>
+pre-line	合并空白符序列，但是保留换行符。
+inherit	规定应该从父元素继承 white-space 属性的值。
+*/
+
+设置或检索对象的缩放比例        zoom                                             // for ie6 only
+通过 line-height 调整 border    p {border-left:1px solid #000;margin-left:-1px 10px 0px;line-height:10px;font-size:20px;}
+属性(attribute)出现顺           class, id/name, data-*, src/for/type/href, title/alt, aria-*/role
+
+// Boolean 属性放在最后面，在 HTML 中不需要取值，存在即是 true，不存在即是 false
+
+============== 利用 CSS 进行 hover 可见 ===============
+<style>
+  div { display: none; }
+  a:hover + div { display: block; }
+</style>
+
+<a>Hover me to show div</div>
+<div>Reveal!</div>
+========================================================
+
+// JavaScript 所有变量都是对象，除了两个例外 null 和 undefined
+
+05-01-2014
+
+处理文字对齐反向 (由左到右|由右到左|自动)            <element dir="ltr | rtl | auto">
+
+05-10-2014
+
+强制不换行                                          div { white-space: nowrap; }
+自动换行                                            div { word-wrap: break-word; word-break: normal; }
+强制英文单词换行                                    div { word-break: break-all; }
+拆开单词字母换行                                    p.test { word-break: break-all/normal/keep-all/initial/inherit; }
+自定义单词间距                                      p { word-spacing: 30px/normal/initial/inherit; }
+自定义单词永远不换行 (也不会 hidden, 添加滚动条)    p { white-space: nowrap/normal/pre/pre-line/initial/inherit; }
+
+============= 图片居中 =============
+
+<style>
+
+  .circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background-color: #222;
+    color: #ccc;
+    text-align: center;
+    display: table-cell;
+    font-size: 50px;
+    vertical-align: middle;
+  }
+
+</style>
+
+<div class="circle">Hello world</div>
+
+====================================
+
+05-14-2014
+
+HTML4 声明                                          <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+05-16-2014
+
+添加页面图标                                        <link rel="(shortcut )icon" href="favicon.ico" />
+
+05-18-2014
+
+mailto 富应用                                       <a href="mailto:example@phplamp.com?cc=example2@phplamp.com&bcc=example3@phplamp.com&subject=phplamp博客站&body=欢迎您来到phplamp博客站-http://www.phplamp.org">example@phplamp.com</a>
+radio/checkbox 点击文本选择                         <label><input type="radio/checkbox"></label>
+copyright 符号                                      &copy;
+
+05-19-2014
+
+规定发送数据到服务器前如何对表单数据编码            <form enctype="value">
+
+=========== enctype ===============
+
+application/x-www-form-urlencoded	        在发送前编码所有字符（默认）
+multipart/form-data	                        不对字符编码。
+                                            在使用包含文件上传控件的表单时，必须使用该值。
+text/plain	                                空格转换为 "+" 加号，但不对特殊字符编码。
+
+===================================
+
+input 隐藏域不希望被看到的                          <input type="hidden" value="hidden area">
+
+05-21-2014
+
+设置表格边框是否合一                                table { border-collapse: collapse/separate/inherit; }
+设置表格相邻单元格边框距离                          border-spacing: length height / inherit;
+设置表格标题位置                                    caption-side: bottom/top/inhert;
+隐藏空单元格上的边框和背景                          empty-cells: hide/show/inhert;
+设置表格布局算法                                    table-layout: fixed/automatic/inherit;
+
+05-25-2014
+
+设置 TAB 键在控件中的移动顺序即焦点顺序             <a tabindex="-1/1/2">       // -1 表示排在 TAB 之外, 不受其影响
+
+================== outline & border =================
+
+在浏览器里，当鼠标点击或使用Tab键让一个链接或者一个radio获得焦点的时候，该元素将会被一个轮廓虚线框围绕。这个轮廓虚线框就是 outline 。
+
+outline 能告诉用户那一个可以激发事件的html元素获取了焦点，对钟爱键盘操作的用户尤其有意义。一个清晰悦目的outline设计能提高使用表单的用户体验。另一方面，outline 也有些讨厌的地方，比如使用CSS设计的Tab(标签页)时，选择一个Tab之后，Tab上的轮廓虚线会一直显示，有些影响美观。
+
+order 可应用于几乎所有有形的html元素，而 outline 是针对链接、表单控件和ImageMap等元素设计。从而另一个区别也可以推理出，那就是： outline 的效果将随元素的 focus 而自动出现，相应的由 blur 而自动消失。这些都是浏览器的默认行为，无需JavaScript配合CSS来控制。
+
+outline 不会象border那样影响元素的尺寸或者位置。
+
+=====================================================
+
+====================== 单词大写 =======================
+
+p.uppercase {text-transform: uppercase}     
+p.lowercase {text-transform: lowercase}    
+p.capitalize {text-transform: capitalize }
+
+=======================================================
+
+05-29-2014
+
+去除 Chrome 最小 12px 字体设置                          html,body{ -webkit-text-size-adjust:none; } 
+
+05-31-2014
+
+// 默认情况下, class 的优先级小于 id
+
+=============== ie 使用 !important 可提升优先级, 可理解为强制重定义 =============
+
+<style>
+  #Box div { color: red; }
+  .important_false { color: blue; }
+  .important_true { color: blue !important;}
+</style>
+
+<div id="Box">
+  <div class="important_false">这一行末使用 important</div>
+  <div class="important_true">第一行使用 important</div>
+</div>
+
+=================================================================================
+
+06-02-2014
+
+添加 mobile meta                                     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
+06-02-2014
+
+句子缩进                                            text-indent: 14px;
+
+06-04-2014
+
+不错的关于属性支持                                  http://caniuse.com/
+
+06-06-2014
+
+设置背景图片尺寸                                    background-size: length | percentage | cover | contain
+
+=========== background-size =============
+
+length	
+
+设置背景图像的高度和宽度。
+第一个值设置宽度，第二个值设置高度。
+如果只设置一个值，则第二个值会被设置为 "auto"。
+测试
+
+--------------
+percentage	
+
+以父元素的百分比来设置背景图像的宽度和高度。
+第一个值设置宽度，第二个值设置高度。
+如果只设置一个值，则第二个值会被设置为 "auto"。
+测试
+
+--------------
+cover	
+
+把背景图像扩展至足够大，以使背景图像完全覆盖背景区域。
+背景图像的某些部分也许无法显示在背景定位区域中。
+测试
+contain	把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域。
+
+=========================================
+
+没有定位元素出现在正常的流中                        position: static
+针对 type=email 的 input                            input[type="email"] {}
+
+06-07-2014
+
+// <title> 应该放在 <meta> 下面
+
+=============== font =================
+
+font:normal 12px/200% '微软雅黑';
+
+第一个属性是字体样式、比如正常normal、粗体bold
+第二个是字号和行高的缩写
+第三个是字体，多个字体逗号隔开
+
+======================================
+
+06-09-2014
+
+media queries 指定样式                              <link rel="stylesheet" type="text/css" media="screen and (max-width: 479px)" href="/css/csstest1.css" />
+允许全屏模式浏览 (iphone 私有)                      <meta name="apple-mobile-web-app-capable" content="yes">
+指定 safari 顶端状态条样式 (iphone 私有)            <meta name="apple-mobile-web-status-bar-style" content="black">
+禁止将页面数字识别为电话号码 (iphone 私有)          <meta name="telephone=no" content="format-detection">
+
+06-10-2014
+
+不允许换行 (CSS3)                                   text-wrap: none;
+
+06-13-2014
+
+clearfix 三件套                                     overflow:hidden; *zoom:1;
+
+==================== CSS 三角形 (triangle) =====================
+
+// 箭头向右
+
+.triangle {
+  width: 0; 
+  height: 0; 
+  border-style: solid;
+  border-color: transparent black transparent transparent;
+  border-width: 10px 10px 10px 0;   // 上右下左
+}
+
+================================================================
+
+06-14-2014
+
+CSS 上标                                            verticle-align:super;
+CSS 下标                                            verticle-align:sub;
+html 上标                                           <sup>
+html 下标                                           <sub>
+
+06-19-2014
+
+// em 表示相对于一个 prevent 元素的字体大小
+// rem: font size of the root element  相对于根元素的字体大小, 与父元素无关
+// 桌面浏览器字体 100% 是 16px, 移动端不定
+
+06-21-2014
+
+透明背景                                            background-color: transparent;
+多个图片做背景                                      backgound-image: url(top.png), url(middle.png), url(bottom.png);
+背景图片重复方式                                    background-repeat: no-repeat/space/round/repeat/repeat-x/repeat-y;
+
+// space    表示图片平铺, 边缘图片完全展示, 造成的图片间隔用空白填充
+// round    表示图片平铺, 会对图片进行缩放, 自动缩放以达到图像负面宽高的倍数
+
+背景滚动模式                                        background-attachment: fixed/local/scroll;
+
+// fixed    背景相对浏览器固定, 不滚动
+// local    随内容滚动, 不随浏览器条滚动
+// scroll   不随内容滚动, 随浏览器条滚动
+
+背景定位                                            background-origin: border-box/padding-box/content-box;
+
+// border-box   定位相对边框区域, 即从 border 区域就开始显示背景
+// padding-box  定位相对于衬距区域, 即从 padding 区域就开始显示背景。这是初始值
+// content-box  定位相对于内容区域, 即从 content 区域就开始显示背景
+
+背景裁剪                                            background-clip: border-box/padding-box/content-box;
+
+// border-box   在边框外边缘以内区域呈现, 这不会发生裁剪, 因为是最大的呈现区域。这是初始值
+// padding-box  在衬距外边元以内区域呈现, 即 border 区域内的背景将会被裁剪
+// content-box  在内容外边缘以内区域呈现, 即 border 区域和 padding 区域内的背景将会被裁剪
+
+===================== 背景图片初始位置 background-position =================
+
+// 百分比
+background-position: 100% 100%;                         右下角
+background-position: 0 0;                               左上角
+
+// 长度值 默认值为 center
+background-position: top left;                          左上角
+background-position: top/top center/center top;         50% 0
+background-position: right top;                         右上角
+background-position: left/left center/center left;      0 50%
+background-position: center/center center;              50% 50%
+background-position: right/right center/center right;   100% 50%
+background-position: bottom left;                       0 100%
+
+// 偏移量
+
+background-position: left 10px top;                     向左偏移 10px
+background-position: left 10px top 10px;                向左向下偏移 10px
+
+// 快捷方式
+
+background: background-image background-color background-position background-size background-repeat background-clip background-origin background-attachment;
+background: url('logo.png') red 50% 50% /10em repeat-x fixed border-box;
+
+============================================================================
+
+// blockquote 第一段会自动缩进, 不需要 text-indent
+
+06-26-2014
+
+// id 必须是唯一的
+
+清除浮动                                                .clearfix:after {
+                                                          content: '';
+                                                          display: block;
+                                                          clear: both;
+                                                          line-height: 1;
+                                                        }
+
+06-27-2014
+
+input 自动焦点                                          <input autofocus>
+
+============================== 一个不错的结构 ===============================
+
+html/
+├── head/
+│   ├── meta
+│   ├── title
+│   └── link
+├── body/
+│   ├── site
+│   └── panel
+│   ├── header
+│   └── main
+└── footer/
+    ├── info
+    ├── section
+├── section
+│   ├── site
+│   └── panel
+│   ├── header
+│   └── main
+
+=============================================================================
+
+06-29-2014
+
+完美垂直居中                                        http://jsfiddle.net/youngdze/ef3EU/
+                                                    http://stackoverflow.com/a/7310398/3021990
+
+=========================== 垂直居中 ============================
+
+html:
+<div class=frame>
+    <span class="helper"></span><img src="http://jsfiddle.net/img/logo.png" height=250 />
+</div>
+<div class=frame>
+    <span class="helper"></span><img src="http://jsfiddle.net/img/logo.png" height=25 />
+</div>
+<div class=frame>
+    <span class="helper"></span><img src="http://jsfiddle.net/img/logo.png" height=23 />
+</div>
+<div class=frame>
+    <span class="helper"></span><img src="http://jsfiddle.net/img/logo.png" height=21 />
+</div>
+<div class=frame>
+    <span class="helper"></span><img src="http://jsfiddle.net/img/logo.png" height=19 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=17 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=15 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=13 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=11 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=9 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=7 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=5 />
+</div>
+<div class=frame>
+    <span class="helper"></span>
+    <img src="http://jsfiddle.net/img/logo.png" height=3 />
+</div>
+
+css:
+.frame {
+    height: 25px;      /* equals max image height */
+    width: 160px;
+    border: 1px solid red;
+    white-space: nowrap;
+    
+    text-align: center; margin: 1em 0;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+img {
+    background: #3A6F9A;
+    vertical-align: middle;
+    max-height: 25px;
+    max-width: 160px;
+}
+
+=================================================================
+
+=========================== 清除浮动 ============================
+
+css:
+.clearfix:after {
+   content: " "; /* Older browser do not support empty content */
+   visibility: hidden;
+   display: block;
+   height: 0;
+   clear: both;
+}
+
+/* don't support IE<8 */
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+html:
+<div style="float: left;">Sidebar</div>
+<div style="clear: both;"></div> <!-- Clear the float -->
+
+-->>
+
+<div style="float: left;" class="clearfix">Sidebar</div>
+<!-- No Clearing div! -->
+
+=================================================================
+
